@@ -1,4 +1,4 @@
-# PS3100XXL v0.1.1
+# PS3100XXL v0.1.2
 
 **A Korg PS-3100-style semi-modular polyphonic synthesizer for MPC OS on the Akai Force, with the whole panel on one
 zoomable page and a patch bay you patch by touch.**
@@ -10,7 +10,7 @@ the patch panel. The sound engine is its own, written from the PS-3100's publish
 FB-3100 manual's description of it; no code from either.
 
 > [!NOTE]
-> **Status: 0.1.1, first build, not yet run on a Force.** It passes its own engine tests and the mpc-vst-plugins host
+> **Status: 0.1.2, first build, not yet run on a Force.** It passes its own engine tests and the mpc-vst-plugins host
 > test on x86 under ASan and UBSan. Everything below about the device is what to check, not what has been seen.
 
 ![Overview](docs/img/overview.png)
