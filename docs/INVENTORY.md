@@ -59,13 +59,13 @@ Left out, and why: the external audio input (an MPC instrument plugin receives n
 
 | Control | Key | Range | FB-3100 |
 |---|---|---|---|
+| Final | `final_vol` | 0 .. 10 | 0 |
 | Amp Mod | `amp_mod` | 0 .. 10 | 39 |
 | AM by MG 1 | `am_mg1` | Off / On | 40 |
 | Ensemble | `ensemble` | Off / On | 41 |
 | VCA 1 by GEG | `vca1_geg` | Off / On | 42 |
 | VCA 2 by VP 1 | `vca2_vp1` | Off / On | 44 |
 | Kbd Balance | `kbd_balance` | -5 .. 5 | 4 |
-| Final | `final_vol` | 0 .. 10 | 0 |
 | Final Pan | `final_pan` | -5 .. 5 | 2 |
 | Direct | `direct_vol` | 0 .. 10 | 1 |
 | Direct Pan | `direct_pan` | -5 .. 5 | 3 |

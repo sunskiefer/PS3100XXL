@@ -3,6 +3,7 @@
   {
    "name": "Init",
    "values": {
+    "final_vol": 7,
     "sg_wave": "Sawtooth",
     "sg_pwm_int": 5,
     "sg_fine": 0,
@@ -40,7 +41,6 @@
     "vca1_geg": "Off",
     "vca2_vp1": "Off",
     "kbd_balance": 0,
-    "final_vol": 7,
     "final_pan": 0,
     "direct_vol": 0,
     "direct_pan": 0,
@@ -96,6 +96,7 @@
   {
    "name": "PS Strings",
    "values": {
+    "final_vol": 7,
     "sg_wave": "Sawtooth",
     "sg_pwm_int": 5,
     "sg_fine": 0,
@@ -133,7 +134,6 @@
     "vca1_geg": "Off",
     "vca2_vp1": "Off",
     "kbd_balance": 0,
-    "final_vol": 7,
     "final_pan": 0,
     "direct_vol": 0,
     "direct_pan": 0,
@@ -189,6 +189,7 @@
   {
    "name": "Brass Section",
    "values": {
+    "final_vol": 7,
     "sg_wave": "Sawtooth",
     "sg_pwm_int": 5,
     "sg_fine": 0,
@@ -226,7 +227,6 @@
     "vca1_geg": "Off",
     "vca2_vp1": "Off",
     "kbd_balance": 0,
-    "final_vol": 7,
     "final_pan": 0,
     "direct_vol": 0,
     "direct_pan": 0,
@@ -282,6 +282,7 @@
   {
    "name": "Divide-Down Organ",
    "values": {
+    "final_vol": 6.5,
     "sg_wave": "Square",
     "sg_pwm_int": 5,
     "sg_fine": 0,
@@ -319,7 +320,6 @@
     "vca1_geg": "Off",
     "vca2_vp1": "Off",
     "kbd_balance": 0,
-    "final_vol": 6.5,
     "final_pan": 0,
     "direct_vol": 0,
     "direct_pan": 0,
@@ -375,6 +375,7 @@
   {
    "name": "Resonator Choir",
    "values": {
+    "final_vol": 7.5,
     "sg_wave": "PWM",
     "sg_pwm_int": 5,
     "sg_fine": 0,
@@ -412,7 +413,6 @@
     "vca1_geg": "Off",
     "vca2_vp1": "Off",
     "kbd_balance": 0,
-    "final_vol": 7.5,
     "final_pan": 0,
     "direct_vol": 0,
     "direct_pan": 0,
@@ -468,6 +468,7 @@
   {
    "name": "PWM Pad",
    "values": {
+    "final_vol": 7,
     "sg_wave": "PWM",
     "sg_pwm_int": 7.5,
     "sg_fine": 0,
@@ -505,7 +506,6 @@
     "vca1_geg": "Off",
     "vca2_vp1": "Off",
     "kbd_balance": 0,
-    "final_vol": 7,
     "final_pan": 0,
     "direct_vol": 0,
     "direct_pan": 0,
@@ -561,6 +561,7 @@
   {
    "name": "Pluck",
    "values": {
+    "final_vol": 7.5,
     "sg_wave": "Pulse",
     "sg_pwm_int": 5,
     "sg_fine": 0,
@@ -598,7 +599,6 @@
     "vca1_geg": "Off",
     "vca2_vp1": "Off",
     "kbd_balance": 0,
-    "final_vol": 7.5,
     "final_pan": 0,
     "direct_vol": 0,
     "direct_pan": 0,
@@ -654,6 +654,7 @@
   {
    "name": "Clavi",
    "values": {
+    "final_vol": 7.5,
     "sg_wave": "Rectangle",
     "sg_pwm_int": 5,
     "sg_fine": 0,
@@ -691,7 +692,6 @@
     "vca1_geg": "Off",
     "vca2_vp1": "Off",
     "kbd_balance": 0,
-    "final_vol": 7.5,
     "final_pan": 0,
     "direct_vol": 0,
     "direct_pan": 0,
@@ -747,6 +747,7 @@
   {
    "name": "Vibrato Lead",
    "values": {
+    "final_vol": 7,
     "sg_wave": "Sawtooth",
     "sg_pwm_int": 5,
     "sg_fine": 0,
@@ -784,7 +785,6 @@
     "vca1_geg": "Off",
     "vca2_vp1": "Off",
     "kbd_balance": 0,
-    "final_vol": 7,
     "final_pan": 0,
     "direct_vol": 0,
     "direct_pan": 0,
@@ -840,6 +840,7 @@
   {
    "name": "Ring Bells",
    "values": {
+    "final_vol": 7,
     "sg_wave": "Triangle",
     "sg_pwm_int": 5,
     "sg_fine": 0,
@@ -877,7 +878,6 @@
     "vca1_geg": "Off",
     "vca2_vp1": "Off",
     "kbd_balance": 0,
-    "final_vol": 7,
     "final_pan": 0,
     "direct_vol": 0,
     "direct_pan": 0,
@@ -933,6 +933,7 @@
   {
    "name": "S/H Bubbles",
    "values": {
+    "final_vol": 7,
     "sg_wave": "Sawtooth",
     "sg_pwm_int": 5,
     "sg_fine": 0,
@@ -970,7 +971,6 @@
     "vca1_geg": "Off",
     "vca2_vp1": "Off",
     "kbd_balance": 0,
-    "final_vol": 7,
     "final_pan": 0,
     "direct_vol": 0,
     "direct_pan": 0,
@@ -1026,6 +1026,7 @@
   {
    "name": "GEG Sweep",
    "values": {
+    "final_vol": 7,
     "sg_wave": "Sawtooth",
     "sg_pwm_int": 5,
     "sg_fine": 0,
@@ -1063,7 +1064,6 @@
     "vca1_geg": "Off",
     "vca2_vp1": "Off",
     "kbd_balance": 0,
-    "final_vol": 7,
     "final_pan": 0,
     "direct_vol": 0,
     "direct_pan": 0,
@@ -1119,6 +1119,7 @@
   {
    "name": "Tremolo Piano",
    "values": {
+    "final_vol": 7.5,
     "sg_wave": "Triangle",
     "sg_pwm_int": 5,
     "sg_fine": 0,
@@ -1156,7 +1157,6 @@
     "vca1_geg": "Off",
     "vca2_vp1": "Off",
     "kbd_balance": 0,
-    "final_vol": 7.5,
     "final_pan": 0,
     "direct_vol": 0,
     "direct_pan": 0,
@@ -1212,6 +1212,7 @@
   {
    "name": "Werckmeister Harpsichord",
    "values": {
+    "final_vol": 7,
     "sg_wave": "Rectangle",
     "sg_pwm_int": 5,
     "sg_fine": 0,
@@ -1249,7 +1250,6 @@
     "vca1_geg": "Off",
     "vca2_vp1": "Off",
     "kbd_balance": 0,
-    "final_vol": 7,
     "final_pan": 0,
     "direct_vol": 0,
     "direct_pan": 0,
@@ -1305,6 +1305,7 @@
   {
    "name": "Direct + Resonators",
    "values": {
+    "final_vol": 6,
     "sg_wave": "PWM",
     "sg_pwm_int": 4,
     "sg_fine": 0,
@@ -1342,7 +1343,6 @@
     "vca1_geg": "Off",
     "vca2_vp1": "Off",
     "kbd_balance": 0,
-    "final_vol": 6,
     "final_pan": 3,
     "direct_vol": 5,
     "direct_pan": -3,
@@ -1398,6 +1398,7 @@
   {
    "name": "Hold Drone",
    "values": {
+    "final_vol": 6.5,
     "sg_wave": "Sawtooth",
     "sg_pwm_int": 5,
     "sg_fine": 0,
@@ -1435,7 +1436,6 @@
     "vca1_geg": "Off",
     "vca2_vp1": "Off",
     "kbd_balance": 0,
-    "final_vol": 6.5,
     "final_pan": 0,
     "direct_vol": 0,
     "direct_pan": 0,

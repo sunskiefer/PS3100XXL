@@ -79,6 +79,9 @@ def B(key, name, view, cx, cy, fb=None):
 R1, R2, R3 = 215, 420, 560   # content rows on a zoomed page (below the 70 px header)
 
 CONTROLS = [
+    # parameter 0 first: MPC's host toggles parameter 0 on insert and on every STOP, and the wrapper holds its writes
+    # (mpc-vst-plugins NOTES 2026-10-10), so it is a plain level knob here, as on the FB-3100 (ID 0), never a selector
+    K("final_vol", "Final", 0, 10, 7, "tm", 720, 200, r=BIG, fb=0),
     # ---- SIGNAL GENERATORS [6-14]
     E("sg_wave", "Waveform", ["Triangle", "Sawtooth", "Square", "Rectangle", "Pulse", "PWM"], 1, "sg", 250, 190,
       fb=6, sw=150, sh=60, rows=2),
@@ -122,7 +125,6 @@ CONTROLS = [
     T("vca1_geg", "VCA 1 by GEG", 0, "tm", 330, 440, fb=42),
     T("vca2_vp1", "VCA 2 by VP 1", 0, "tm", 520, 440, fb=44),
     K("kbd_balance", "Kbd Balance", -5, 5, 0, "tm", 520, 200, fb=4),
-    K("final_vol", "Final", 0, 10, 7, "tm", 720, 200, r=BIG, fb=0),
     K("final_pan", "Final Pan", -5, 5, 0, "tm", 920, 200, fb=2),
     K("direct_vol", "Direct", 0, 10, 0, "tm", 720, 440, r=BIG, fb=1),
     K("direct_pan", "Direct Pan", -5, 5, 0, "tm", 920, 440, fb=3),

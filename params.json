@@ -2,6 +2,14 @@
  "name": "PS3100XXL",
  "params": [
   {
+   "key": "final_vol",
+   "name": "Final",
+   "min": 0.0,
+   "max": 10.0,
+   "default": 7.0,
+   "dynamic_display": true
+  },
+  {
    "key": "sg_wave",
    "name": "Waveform",
    "options": [
@@ -320,14 +328,6 @@
    "min": -5.0,
    "max": 5.0,
    "default": 0.0,
-   "dynamic_display": true
-  },
-  {
-   "key": "final_vol",
-   "name": "Final",
-   "min": 0.0,
-   "max": 10.0,
-   "default": 7.0,
    "dynamic_display": true
   },
   {
@@ -909,7 +909,8 @@
    "max": 1.0,
    "default": 0.0,
    "momentary": true,
-   "type": "trigger"
+   "type": "trigger",
+   "refresh_display": true
   },
   {
    "key": "nav_prev",
@@ -918,7 +919,8 @@
    "max": 1.0,
    "default": 0.0,
    "momentary": true,
-   "type": "trigger"
+   "type": "trigger",
+   "refresh_display": true
   },
   {
    "key": "nav_next",
@@ -927,7 +929,8 @@
    "max": 1.0,
    "default": 0.0,
    "momentary": true,
-   "type": "trigger"
+   "type": "trigger",
+   "refresh_display": true
   },
   {
    "key": "go_sg",
@@ -936,7 +939,8 @@
    "max": 1.0,
    "default": 0.0,
    "momentary": true,
-   "type": "trigger"
+   "type": "trigger",
+   "refresh_display": true
   },
   {
    "key": "go_lp",
@@ -945,7 +949,8 @@
    "max": 1.0,
    "default": 0.0,
    "momentary": true,
-   "type": "trigger"
+   "type": "trigger",
+   "refresh_display": true
   },
   {
    "key": "go_em",
@@ -954,7 +959,8 @@
    "max": 1.0,
    "default": 0.0,
    "momentary": true,
-   "type": "trigger"
+   "type": "trigger",
+   "refresh_display": true
   },
   {
    "key": "go_res",
@@ -963,7 +969,8 @@
    "max": 1.0,
    "default": 0.0,
    "momentary": true,
-   "type": "trigger"
+   "type": "trigger",
+   "refresh_display": true
   },
   {
    "key": "go_tm",
@@ -972,7 +979,8 @@
    "max": 1.0,
    "default": 0.0,
    "momentary": true,
-   "type": "trigger"
+   "type": "trigger",
+   "refresh_display": true
   },
   {
    "key": "go_mod",
@@ -981,7 +989,8 @@
    "max": 1.0,
    "default": 0.0,
    "momentary": true,
-   "type": "trigger"
+   "type": "trigger",
+   "refresh_display": true
   },
   {
    "key": "go_geg",
@@ -990,7 +999,8 @@
    "max": 1.0,
    "default": 0.0,
    "momentary": true,
-   "type": "trigger"
+   "type": "trigger",
+   "refresh_display": true
   },
   {
    "key": "go_tun",
@@ -999,7 +1009,8 @@
    "max": 1.0,
    "default": 0.0,
    "momentary": true,
-   "type": "trigger"
+   "type": "trigger",
+   "refresh_display": true
   },
   {
    "key": "go_patch",
@@ -1008,7 +1019,8 @@
    "max": 1.0,
    "default": 0.0,
    "momentary": true,
-   "type": "trigger"
+   "type": "trigger",
+   "refresh_display": true
   },
   {
    "key": "go_setup",
@@ -1017,7 +1029,8 @@
    "max": 1.0,
    "default": 0.0,
    "momentary": true,
-   "type": "trigger"
+   "type": "trigger",
+   "refresh_display": true
   },
   {
    "key": "tap_geg",
@@ -3116,13 +3129,13 @@
   {
    "label": "TOTAL MODIFIERS",
    "keys": [
+    "final_vol",
     "amp_mod",
     "am_mg1",
     "ensemble",
     "vca1_geg",
     "vca2_vp1",
     "kbd_balance",
-    "final_vol",
     "final_pan",
     "direct_vol",
     "direct_pan"

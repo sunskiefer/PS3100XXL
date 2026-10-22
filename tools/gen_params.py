@@ -106,8 +106,9 @@ def cable_opts(out_type):
 def build_params():
     P = [param_of(c) for c in spec.CONTROLS]
     P.append({"key": "view", "name": "View", "options": ["Overview"] + [v[2].title() for v in spec.VIEWS[1:]], "default": 0})
-    P += [trigger(k, lbl) for k, lbl, _, _ in spec.NAV]
-    P += [trigger("go_" + v[0], "Go " + v[2].title()) for v in spec.VIEWS[1:]]
+    # the section switches: the 16 Q-Links' names follow the section, so these ask MPC to redraw (mpc-vst-plugins #486)
+    P += [dict(trigger(k, lbl), refresh_display=True) for k, lbl, _, _ in spec.NAV]
+    P += [dict(trigger("go_" + v[0], "Go " + v[2].title()), refresh_display=True) for v in spec.VIEWS[1:]]
     P += [trigger("tap_" + j[0], "Jack " + j[1]) for j in spec.OUTS + spec.INS]
     P += [{"key": "cab_" + o[0], "name": "Cable " + o[1], "options": cable_opts(o[2]), "default": 0, "poll": False}
           for o in spec.OUTS]
