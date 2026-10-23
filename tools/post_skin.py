@@ -759,6 +759,11 @@ def main():
                     pieces += 1
                     cable_insts.append(image_instance("Cable", name, px, py, piece.size[0], piece.size[1], handle))
     ring_image().save(os.path.join(folder, "ps_held.png"))
+    for j in spec.INS:   # an input tapped first waits for its output
+        x, y = pos[j[0]]
+        key, opt, nopt = spec.held_in_param(j)
+        cable_insts.append(image_instance("Held", "ps_held.png", x - 33, y - 33, 66, 66,
+                                          ["IndexedEnabling/%d/%d/Parameter %d" % (opt, nopt, skin.index[key])]))
     for o in spec.OUTS:
         x, y = pos[o[0]]
         key, opt, nopt = spec.held_param(o)

@@ -291,6 +291,13 @@ def cable_param(prefix, out, j):
     return "%s_%s_%d" % (prefix, out[0], g), 1 + t % JACK_GROUP, n + 1
 
 
+def held_in_param(j):
+    """(key, option, count) of the ring on input j while it waits for an output (input tapped first, 0.1.4)."""
+    ii = INS.index(j)
+    g = ii // JACK_GROUP
+    return "hi_%d" % g, 1 + ii % JACK_GROUP, len(groups(INS)[g]) + 1
+
+
 def held_param(out):
     oi = OUTS.index(out)
     g = oi // JACK_GROUP

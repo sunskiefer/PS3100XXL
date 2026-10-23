@@ -30,6 +30,8 @@ Found on the Force with 0.1.3: still no ring or cable in the patch bay; every po
 - Pop-up arrows: built like the on/off switches (Mouse Down > Q-Link; the Button flips once). 0.1.3's had a Toggle
   Switch action as well, so a tap flipped the list open and shut. `check_skin.py` fails on an arrow with Toggle Switch.
 - The engine closes a list on a pick only when the value really changes (a re-sent value keeps it open).
+- Patching in either order (input first, then output), with a ring on a waiting input (`hi_<group>`); a wrong kind
+  keeps the first jack waiting.
 - `test/ui_test.c`: ring on an output tap, the cable on the patch page and on the overview, unplugging, the 11-position
   limit, a re-sent value.
 

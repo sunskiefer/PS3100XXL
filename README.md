@@ -13,7 +13,7 @@ FB-3100 manual's description of it; no code from either.
 > **Status: 0.1.4.** On the Force, 0.1.2 and 0.1.3 drew no ring and no cable in the patch bay, and 0.1.3's pop-up
 > lists closed as soon as they opened. 0.1.4 switches every cable and ring picture with small parameters (at most 10
 > positions, the size that is seen working on the Force; before it was one 37-position switch per output) and builds
-> the list arrows like the panel's on/off switches (0.1.3's flipped twice per tap). It passes its engine tests, the
+> the list arrows like the panel's on/off switches (0.1.3's flipped twice per tap). Patching now works in either order. It passes its engine tests, the
 > mpc-vst-plugins host test and its own UI test through the wrapper on x86 under ASan and UBSan; not yet re-checked on
 > the Force.
 
@@ -25,9 +25,12 @@ FB-3100 manual's description of it; no code from either.
   bay shows its live cables. **Tap a tile to zoom into that section.**
 - **Zoomed in:** the section fills the screen with large controls. **OVERVIEW** goes back; **<** and **>** step to the
   neighbouring section.
-- **Patch bay:** tap an output (it gets an orange ring), then tap an input: a cable is drawn between them. One output
-  feeds one input, as on the PS-3100. **Tap a patched output to unplug it.** The line at the top says what you tapped
-  and where it goes. A trigger output only goes into a trigger input (orange labels).
+- **Patch bay:** tap an output and then an input, or an input and then an output: the first one gets an orange ring,
+  the second draws the cable between them. A cable always joins one output to one input; tapping two outputs (or two
+  inputs) in a row just moves the ring. One cable per output and per input, as on the PS-3100: a new cable into an input
+  replaces the old one. **Tap a patched output to unplug it.** A trigger output only goes into a trigger input (orange
+  labels); a wrong pair is refused and the first jack keeps waiting. The line at the top says what you tapped and where
+  it goes.
 - **Pop-up lists** (CLK RATE, MG SYNC, S/H HOST SYNC, TEMPERAMENT): tap the **arrow box** on the right of the field to
   open or close the list, then tap an option. Tap the value itself to put it on the data wheel and a Q-Link. A list
   closes when you pick, open another list, or change page.

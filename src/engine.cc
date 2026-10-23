@@ -120,6 +120,7 @@ struct Voice {
 struct Synth {
   float pv[P_COUNT];                // parameter values (native units; options = index)
   int view = 0, held = -1;
+  int held_in = -1;                 // an input tapped first, waiting for its output (patching works in either order)
   int dest[N_OUTS];                 // output -> input it is patched to, -1 = none
   int src[N_INS];                   // input -> output feeding it, -1 = none (derived from dest)
   unsigned rev = 1;                 // display_rev
@@ -640,32 +641,46 @@ struct Synth {
       else snprintf(info, sizeof info, "%s: %s", OUT_LABEL[jack], OUT_INFO[jack]);
     } else {
       int j = jack - N_OUTS;
-      if (src[j] >= 0) snprintf(info, sizeof info, "%s <- %s   (%s)", IN_LABEL[j], OUT_LABEL[src[j]], IN_INFO[j]);
+      if (held_in == j) snprintf(info, sizeof info, "%s: now tap an output  (%s)", IN_LABEL[j], IN_INFO[j]);
+      else if (src[j] >= 0) snprintf(info, sizeof info, "%s <- %s   (%s)", IN_LABEL[j], OUT_LABEL[src[j]], IN_INFO[j]);
       else snprintf(info, sizeof info, "%s: %s", IN_LABEL[j], IN_INFO[j]);
     }
   }
 
+  // Patching in either order: tap an output then an input, or an input then an output. A cable always joins one output
+  // to one input of the same kind (voltage or trigger); two outputs or two inputs in a row just move the selection.
+  bool connect(int o, int j) {
+    if (OUT_TRIG[o] != IN_TRIG[j]) {
+      snprintf(info, sizeof info, "%s is a %s output; %s takes %s", OUT_LABEL[o], OUT_TRIG[o] ? "trigger" : "voltage",
+               IN_LABEL[j], IN_TRIG[j] ? "triggers" : "voltages");
+      return false;
+    }
+    for (int k = 0; k < N_OUTS; k++) if (dest[k] == j) dest[k] = -1;   // one cable per input
+    dest[o] = j;                                                       // one cable per output
+    recompute_src();
+    return true;
+  }
+
   void tap_out(int o) {
+    if (held_in >= 0) {                               // an input is waiting: join them (a wrong kind keeps it waiting)
+      if (connect(o, held_in)) { held_in = -1; held = -1; describe_jack(o); }
+      bump();
+      return;
+    }
     if (held == o) held = -1;                         // tapped again: let go
-    else if (dest[o] >= 0) { dest[o] = -1; held = -1; recompute_src(); }   // patched: unplug
-    else held = o;
+    else if (held < 0 && dest[o] >= 0) { dest[o] = -1; recompute_src(); }   // patched, nothing waiting: unplug
+    else held = o;                                    // wait for an input (or move the selection to this output)
     describe_jack(o);
     bump();
   }
 
   void tap_in(int j) {
-    if (held >= 0) {
-      if (OUT_TRIG[held] != IN_TRIG[j]) {
-        snprintf(info, sizeof info, "%s is a %s output; %s takes %s", OUT_LABEL[held], OUT_TRIG[held] ? "trigger" : "voltage",
-                 IN_LABEL[j], IN_TRIG[j] ? "triggers" : "voltages");
-        bump();
-        return;
-      }
-      for (int o = 0; o < N_OUTS; o++) if (dest[o] == j) dest[o] = -1;   // one cable per input
-      dest[held] = j;
-      held = -1;
-      recompute_src();
+    if (held >= 0) {                                  // an output is waiting: join them (a wrong kind keeps it waiting)
+      if (connect(held, j)) { held = -1; held_in = -1; describe_jack(N_OUTS + j); }
+      bump();
+      return;
     }
+    held_in = held_in == j ? -1 : j;                  // wait for an output (tapped again: let go)
     describe_jack(N_OUTS + j);
     bump();
   }
@@ -683,6 +698,10 @@ struct Synth {
     if (VIS_KIND[k] == 2) {                        // ring: the output waiting for its input, on the patch page
       if (view != V_PATCH || held < 0 || held / JACK_GROUP != VIS_GROUP[k]) return 0;
       return 1 + held % JACK_GROUP;
+    }
+    if (VIS_KIND[k] == 3) {                        // ring: the input waiting for its output
+      if (view != V_PATCH || held_in < 0 || held_in / JACK_GROUP != VIS_GROUP[k]) return 0;
+      return 1 + held_in % JACK_GROUP;
     }
     if (view != (VIS_KIND[k] == 0 ? V_PATCH : V_OVERVIEW)) return 0;
     int o = VIS_OUT[k], d = dest[o];
@@ -785,6 +804,7 @@ void load_state(Synth *s, const char *st) {
     q = e;
   }
   s->held = -1;
+  s->held_in = -1;
   s->recompute_src();
   s->apply_tuning();
   s->update_hold();

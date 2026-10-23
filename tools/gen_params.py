@@ -135,6 +135,8 @@ def build_params():
                           "options": ["-"] + [i[1] for i in ins], "default": 0, "poll": False})
     for g, outs in enumerate(spec.groups(spec.OUTS)):
         P.append({"key": "hd_%d" % g, "name": "Held %d" % (g + 1), "options": ["-"] + [o[1] for o in outs], "default": 0})
+    for g, ins in enumerate(spec.groups(spec.INS)):   # an input tapped first waits for its output (either order)
+        P.append({"key": "hi_%d" % g, "name": "Held In %d" % (g + 1), "options": ["-"] + [i[1] for i in ins], "default": 0})
     keys = [p["key"] for p in P]
     assert len(keys) == len(set(keys)), "duplicate keys"
     return P
@@ -206,7 +208,7 @@ def write_header(P):
         str([x for x in spec.INS if x[2] == j[2]].index(j)) for j in spec.INS))
     # the cable / ring picture switches (0.1.4): for each, which kind (0 patch cable, 1 overview cable, 2 ring),
     # which output (or group of outputs for a ring) and which group of inputs
-    vis = [p for p in P if re.match(r"(cp|co)_.*_\d+$|hd_\d+$", p["key"])]
+    vis = [p for p in P if re.match(r"(cp|co)_.*_\d+$|hd_\d+$|hi_\d+$", p["key"])]
     first = P.index(vis[0])
     assert [p["key"] for p in P[first:first + len(vis)]] == [p["key"] for p in vis], "picture switches contiguous"
     okeys = [o[0] for o in spec.OUTS]
@@ -215,6 +217,8 @@ def write_header(P):
         k = p["key"]
         if k.startswith("hd_"):
             kinds.append(2); outs.append(-1); grps.append(int(k[3:]))
+        elif k.startswith("hi_"):
+            kinds.append(3); outs.append(-1); grps.append(int(k[3:]))
         else:
             m = re.match(r"(cp|co)_(.+)_(\d+)$", k)
             kinds.append(0 if m.group(1) == "cp" else 1); outs.append(okeys.index(m.group(2))); grps.append(int(m.group(3)))

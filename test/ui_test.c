@@ -72,8 +72,28 @@ int main(){ AEffect*a=VSTPluginMain(host); a->d(a,12,0,1,0,0); run(a,50);
   a->setP(a,fp("go_patch"),1); run(a,50);
   a->setP(a,fp("tap_geg"),1); run(a,50);
   CK(g(a,"cp_geg_0")<0.01f,"tapping the patched GEG unplugs it");
+  /* either order: input first, then output (LP FRQ is CV input 2 -> cp_mg1_0 option 3), with the input's ring meanwhile */
+  a->setP(a,fp("tap_lp_frq"),1); run(a,50);
+  CK(fabsf(g(a,"hi_0")*9-3)<0.01f,"tapping LP FRQ first shows its ring (hi_0 at 3 of 10)");
+  a->setP(a,fp("tap_mg1"),1); run(a,50);
+  CK(fabsf(g(a,"cp_mg1_0")*9-3)<0.01f && g(a,"hi_0")<0.01f,"then MG 1: cable MG 1 -> LP FRQ, ring off");
+  /* two of the same kind just move the selection: input, input, then output joins the last input */
+  a->setP(a,fp("tap_sg_pwm"),1); run(a,50); a->setP(a,fp("tap_vca1"),1); run(a,50); a->setP(a,fp("tap_mg2"),1); run(a,50);
+  CK(fabsf(g(a,"cp_mg2_0")*9-6)<0.01f,"input, input, output: the cable goes to the last input (VCA 1)");
+  /* output, output, then input: from the last output */
+  a->setP(a,fp("tap_vp1"),1); run(a,50); a->setP(a,fp("tap_vp2"),1); run(a,50); a->setP(a,fp("tap_res_frq"),1); run(a,50);
+  CK(fabsf(g(a,"cp_vp2_0")*9-5)<0.01f && g(a,"cp_vp1_0")<0.01f,"output, output, input: the cable comes from the last output (VP 2)");
+  /* a trigger output never goes into a voltage input, in either order */
+  a->setP(a,fp("tap_sng"),1); run(a,50); a->setP(a,fp("tap_sh_in"),1); run(a,50);
+  CK(g(a,"cp_sng_0")<0.01f,"a trigger output never goes into a voltage input");
+  a->setP(a,fp("tap_em_rel"),1); run(a,50);
+  CK(fabsf(g(a,"cp_sng_0")*2-1)<0.01f,"SNG keeps waiting after the wrong input; EM REL then takes it");
+  a->setP(a,fp("tap_sh_in"),1); run(a,50); a->setP(a,fp("tap_mlt"),1); run(a,50);
+  CK(g(a,"cp_mlt_0")<0.01f && g(a,"hi_1")>0.01f,"input first: a trigger output is refused and S/H IN keeps waiting");
+  a->setP(a,fp("tap_sh_in"),1); run(a,50);
+  CK(g(a,"hi_1")<0.01f,"tapping the waiting input again lets it go");
   /* every picture switch has at most 11 positions (the most seen working on a Force) */
-  int big=0; for(int i=0;i<NPARAMS;i++){ const char*k=PARAMS[i].key; if((!strncmp(k,"cp_",3)||!strncmp(k,"co_",3)||!strncmp(k,"hd_",3)) && PARAMS[i].nopts>11) big++; }
+  int big=0; for(int i=0;i<NPARAMS;i++){ const char*k=PARAMS[i].key; if((!strncmp(k,"cp_",3)||!strncmp(k,"co_",3)||!strncmp(k,"hd_",3)||!strncmp(k,"hi_",3)) && PARAMS[i].nopts>11) big++; }
   CK(big==0,"no cable or ring switch over 11 positions");
   /* a list stays open when MPC re-sends the value it already has (a focus, a redraw) */
   a->setP(a,fp("go_setup"),1); run(a,50);

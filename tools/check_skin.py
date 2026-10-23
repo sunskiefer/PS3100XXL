@@ -109,6 +109,10 @@ def main():
         key, opt, nopt = spec.held_param(o)
         if "IndexedEnabling/%d/%d/Parameter %d" % (opt, nopt, skin.index[key]) not in handles:
             problems.append("output %s: no ring" % o[0])
+    for j in spec.INS:
+        key, opt, nopt = spec.held_in_param(j)
+        if "IndexedEnabling/%d/%d/Parameter %d" % (opt, nopt, skin.index[key]) not in handles:
+            problems.append("input %s: no ring" % j[0])
     for name in sorted(images):
         if not os.path.exists(os.path.join(folder, name)):
             problems.append("image %s is missing" % name)

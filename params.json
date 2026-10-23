@@ -5345,6 +5345,50 @@
     "TRG 2"
    ],
    "default": 0
+  },
+  {
+   "key": "hi_0",
+   "name": "Held In 1",
+   "options": [
+    "-",
+    "SG FRQ",
+    "SG PWM",
+    "LP FRQ",
+    "EM ATK",
+    "RES FRQ",
+    "VCA 1",
+    "VCA 2",
+    "MG AMT",
+    "MG1 FRQ"
+   ],
+   "default": 0
+  },
+  {
+   "key": "hi_1",
+   "name": "Held In 2",
+   "options": [
+    "-",
+    "S/H IN",
+    "VP1 IN",
+    "VP2 IN",
+    "ADD 1",
+    "ADD 2",
+    "ADD 3",
+    "ADD 4",
+    "J1 IN",
+    "J2 IN"
+   ],
+   "default": 0
+  },
+  {
+   "key": "hi_2",
+   "name": "Held In 3",
+   "options": [
+    "-",
+    "EM REL",
+    "GEG TRG"
+   ],
+   "default": 0
   }
  ],
  "sections": [
