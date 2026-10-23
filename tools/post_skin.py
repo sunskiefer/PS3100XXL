@@ -661,10 +661,15 @@ def main():
                     lambda inst: (mt["cx"] - 105, mt["cy"] - 26, 210, 52))
     blank(4, 4).save(os.path.join(folder, "ps_blank.png"))
     jack_press().save(os.path.join(folder, "ps_jack_press.png"))
+    rest = Image.new("RGBA", (90, 88), (0, 0, 0, 0))
+    ImageDraw.Draw(rest).rounded_rectangle([1, 1, 88, 86], radius=10, outline=(120, 120, 120, 150), width=1)
+    rest.save(os.path.join(folder, "ps_jack_rest.png"))
     for j in spec.OUTS + spec.INS:
         x, y = spec.JACKS[j[0]]
-        restyle_trigger("shTrig_tap_%s_" % j[0], 68, 68, "ps_blank.png", "ps_jack_press.png",
-                        lambda inst, x=x, y=y: (x - 34, y - 34, 68, 68))
+        # 0.1.5 test: a larger touch zone (the jack columns are 98 apart, the rows 95) with a faint visible frame as its
+        # resting picture, like the page tiles' size, instead of a small zone drawn as nothing
+        restyle_trigger("shTrig_tap_%s_" % j[0], 90, 88, "ps_jack_rest.png", "ps_jack_press.png",
+                        lambda inst, x=x, y=y: (x - 45, y - 44, 90, 88))
     for v in spec.VIEWS[1:]:
         tx, ty, tw, th = spec.TILES[v[0]]
         tile_highlight(tw, th).save(os.path.join(folder, "ps_tile_on_%s.png" % v[0]))
