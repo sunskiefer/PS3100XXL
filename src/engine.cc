@@ -126,6 +126,7 @@ struct Synth {
   int last_jack = -1;               // patch_info: the jack tapped last (outputs, then inputs)
   char info[128];
   bool hold_active = false;
+  bool pop_open[N_POPS] = {};       // pop_<key>: which pop-up list is open (at most one; closed on a pick or a page change)
 
   // patch bay values, this sample
   float out_v[N_OUTS];
@@ -614,6 +615,19 @@ struct Synth {
   void set_view(int v) {
     if (v < 0 || v >= N_VIEWS || v == view) return;
     view = v;
+    close_pops();   // a list left open would stay on screen over the next page and take its touches
+    bump();
+  }
+
+  bool close_pops() {
+    bool any = false;
+    for (int i = 0; i < N_POPS; i++) if (pop_open[i]) { pop_open[i] = false; any = true; }
+    return any;
+  }
+
+  void set_pop(int i, bool open) {
+    if (open) close_pops();   // one list at a time
+    pop_open[i] = open;
     bump();
   }
 
@@ -776,6 +790,8 @@ void set_control(Synth *s, int p, float v) {
   }
   if (p == P_EM_HOLD || p == P_PS_HOLD_MODE || p == P_EM_ATTACK) s->update_hold();
   if (p == P_MANUAL_TRG1 && v > 0.5f) { s->trg_pending[0] = true; s->pv[p] = 0; }
+  for (int i = 0; i < N_POPS; i++)          // a pick from a pop-up list closes it
+    if (POP_ENUM[i] == p && s->pop_open[i]) { s->pop_open[i] = false; s->bump(); }
 }
 
 // ---- mpc_engine glue ------------------------------------------------------------------------------------------------
@@ -809,6 +825,8 @@ void set_param(void *inst, const char *key, const char *val) {
     return;
   }
   if (p == P_VIEW) { s->set_view((int)lroundf(v)); return; }
+  if (p == P_IN_SEC) return;                // follows the view
+  if (p > P_IN_SEC && p <= P_IN_SEC + N_POPS) { s->set_pop(p - P_IN_SEC - 1, v > 0.5f); return; }
   if (v < 0.5f && p != P_VIEW) {
     if (p >= P_QL1 && p <= P_QL16) {} else return;   // triggers fire on 1 only
   }
@@ -871,6 +889,8 @@ int get_param(void *inst, const char *key, char *buf, int n) {
     return snprintf(buf, n, "%g", s->pv[p]);
   }
   if (p == P_VIEW) return snprintf(buf, n, "%d", s->view);
+  if (p == P_IN_SEC) return snprintf(buf, n, "%d", s->view > 0 ? 1 : 0);
+  if (p > P_IN_SEC && p <= P_IN_SEC + N_POPS) return snprintf(buf, n, "%d", s->pop_open[p - P_IN_SEC - 1] ? 1 : 0);
   if (p >= P_CAB_GEG && p < P_CAB_GEG + N_OUTS) return snprintf(buf, n, "%d", s->cable_value(p - P_CAB_GEG));
   if (p == P_HELD) return snprintf(buf, n, "%d", s->view == V_PATCH && s->held >= 0 ? s->held + 1 : 0);
   if (p == P_GEG_LED) return snprintf(buf, n, "%d", s->geg_led && s->view == V_GEG ? 1 : 0);

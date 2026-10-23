@@ -1,4 +1,4 @@
-# PS3100XXL v0.1.2
+# PS3100XXL v0.1.3
 
 **A Korg PS-3100-style semi-modular polyphonic synthesizer for MPC OS on the Akai Force, with the whole panel on one
 zoomable page and a patch bay you patch by touch.**
@@ -10,8 +10,10 @@ the patch panel. The sound engine is its own, written from the PS-3100's publish
 FB-3100 manual's description of it; no code from either.
 
 > [!NOTE]
-> **Status: 0.1.2, first build, not yet run on a Force.** It passes its own engine tests and the mpc-vst-plugins host
-> test on x86 under ASan and UBSan. Everything below about the device is what to check, not what has been seen.
+> **Status: 0.1.3.** 0.1.2 was tried on a Force: pop-up lists unreadable, the data wheel not reaching pop-up values,
+> page arrows glitching, and patch bay taps doing nothing. 0.1.3 fixes the causes found offline (below); it passes its
+> engine tests, the mpc-vst-plugins host test and its own UI test through the wrapper, on x86 under ASan and UBSan, and
+> is not yet re-checked on the Force.
 
 ![Overview](docs/img/overview.png)
 
@@ -24,6 +26,9 @@ FB-3100 manual's description of it; no code from either.
 - **Patch bay:** tap an output (it gets an orange ring), then tap an input: a cable is drawn between them. One output
   feeds one input, as on the PS-3100. **Tap a patched output to unplug it.** The line at the top says what you tapped
   and where it goes. A trigger output only goes into a trigger input (orange labels).
+- **Pop-up lists** (CLK RATE, MG SYNC, S/H HOST SYNC, TEMPERAMENT): tap the **arrow box** on the right of the field to
+  open or close the list, then tap an option. Tap the value itself to put it on the data wheel and a Q-Link. A list
+  closes when you pick, open another list, or change page.
 - **Q-Links:** the 16 Q-Links follow the section on screen (on the overview: the main sound controls).
 - **Presets:** 16 factory sounds in MPC's PRESET menu. A preset changes the controls and keeps your patch.
 

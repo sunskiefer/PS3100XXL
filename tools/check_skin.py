@@ -61,9 +61,27 @@ def main():
     for v in spec.VIEWS[1:]:
         if not on_view("go_" + v[0], "overview"):
             problems.append("no overview tile for %s" % v[0])
-        for k, _, _, _ in spec.NAV:
-            if not on_view(k, v[0]):
-                problems.append("%s missing on the %s page" % (k, v[0]))
+    # navigation: one instance per button, shown on every section page (in_sec), never one copy per page: a press that
+    # changes the page must not swap the button under the finger for another page's copy
+    sec = "IndexedEnabling/1/2/Parameter %d" % skin.index["in_sec"]
+    for k, _, _, _ in spec.NAV:
+        insts = by_param.get(k, [])
+        if len(insts) != 1 or sec not in insts[0][1]:
+            problems.append("%s: %d instance(s), want one shown on every section page" % (k, len(insts)))
+    # pop-up lists: opened by the engine's pop_<key> (closed on a page change), the field a Q-Link focus on the value
+    for c in spec.CONTROLS:
+        if c["kind"] != "enum" or c["widget"] != "popup":
+            continue
+        pidx = skin.index["pop_" + c["key"]]
+        if by_param.get(c["key"] + "__open"):
+            problems.append("pop-up %s still bound to the wrapper's %s__open" % (c["key"], c["key"]))
+        if not by_param.get("pop_" + c["key"]):
+            problems.append("pop-up %s has no arrow on pop_%s" % (c["key"], c["key"]))
+        opened = "IndexedEnabling/1/2/Parameter %d" % pidx
+        parts = [hs for (_, hs) in by_param.get(c["key"], []) if opened in hs]
+        if len(parts) != len(c["options"]):
+            problems.append("pop-up %s: %d options shown by pop_%s, want %d" % (c["key"], len(parts), c["key"],
+                                                                                 len(c["options"])))
     for i in range(nv):
         if "ps_view_%d.png" % i not in images:
             problems.append("no panel picture for view %d" % i)

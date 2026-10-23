@@ -117,6 +117,15 @@ def build_params():
     P.append({"key": "patch_info", "name": "Patch Info", "min": 0.0, "max": 0.0, "default": 0.0, "display": "string"})
     P += [{"key": "ql%d" % (i + 1), "name": "Q-Link %d" % (i + 1), "min": 0.0, "max": 1.0, "default": 0.0,
            "dynamic_name": True, "dynamic_display": True} for i in range(16)]
+    # 0.1.3, appended so every shipped index stays put (params.lock):
+    # in_sec: 1 on any section page, 0 on the overview -- the header buttons show on it, one instance each, so a press
+    # never swaps the button under the finger for another page's copy (the page-arrow glitch of 0.1.2);
+    # pop_<key>: a pop-up list's open flag, owned by the engine (the framework's own "<key>__open" is wrapper-only and
+    # stays open across a page change, invisibly covering the next page and taking its touches). The engine closes it on
+    # a pick and on every page change.
+    P.append({"key": "in_sec", "name": "In Section", "options": ["Overview", "Section"], "default": 0})
+    P += [{"key": "pop_" + c["key"], "name": c["name"] + " List", "options": ["Closed", "Open"], "default": 0}
+          for c in spec.CONTROLS if c["kind"] == "enum" and c["widget"] == "popup"]
     keys = [p["key"] for p in P]
     assert len(keys) == len(set(keys)), "duplicate keys"
     return P
@@ -186,6 +195,10 @@ def write_header(P):
     # overview's small copy)
     L.append("static const unsigned char IN_TYPED[N_INS] = {%s};" % ", ".join(
         str([x for x in spec.INS if x[2] == j[2]].index(j)) for j in spec.INS))
+    pops = [c["key"] for c in spec.CONTROLS if c["kind"] == "enum" and c["widget"] == "popup"]
+    L.append("// pop-up lists: the enum each pop_<key> opens")
+    L.append("#define N_POPS %d" % len(pops))
+    L.append("static const short POP_ENUM[N_POPS] = {%s};" % ", ".join(cid(k) for k in pops))
     L.append("#define N_CV_INS %d" % len(spec.CV_INS))
     L.append("#define N_TRIG_INS %d" % len(spec.TRIG_INS))
     L.append("")
@@ -265,9 +278,8 @@ def write_layout():
          THEME,
          "qlinks_track = " + ",".join("ql%d" % (i + 1) for i in range(16)),
          "", "[tab PS3100XXL]"]
-    for k, lbl, x, y in spec.NAV:
-        for v in spec.VIEWS[1:]:
-            L.append('button cx=%d cy=%d label="%s" key=%s when=view:%d' % (x, y + Y0, lbl, k, spec.VIEW_KEYS.index(v[0])))
+    for k, lbl, x, y in spec.NAV:   # one instance each, shown on every section page (in_sec), never swapped mid-press
+        L.append('button cx=%d cy=%d label="%s" key=%s when=in_sec:1' % (x, y + Y0, lbl, k))
     for v in spec.VIEWS[1:]:
         x, y, w, h = spec.TILES[v[0]]
         L.append('button cx=%d cy=%d label="" key=go_%s when=view:0' % (x + w // 2, y + h // 2 + Y0, v[0]))

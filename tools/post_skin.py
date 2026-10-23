@@ -218,6 +218,126 @@ def led_image(on, r=11):
     return im.resize((2 * r, 2 * r), Image.LANCZOS)
 
 
+# ------------------------------------------------------------------------------------------------ pop-up lists
+POP_ARROW_W = 70     # the arrow box on a pop-up field's right end: tap it to open / close the list
+POP_TEXT = 24        # option text in an open list (the framework bakes it in its small pixel font)
+
+
+def pop_arrow_image(open_, w, h):
+    S = 4
+    im = Image.new("RGBA", (w * S, h * S), (0, 0, 0, 0))
+    d = ImageDraw.Draw(im)
+    d.rounded_rectangle([0, 0, w * S - 1, h * S - 1], radius=6 * S, fill=ORANGE + (255,) if open_ else (18, 18, 18, 255),
+                        outline=(110, 110, 110, 255), width=2 * S)
+    d.rectangle([0, 2 * S, 6 * S, h * S - 2 * S], fill=ORANGE + (255,) if open_ else (18, 18, 18, 255))
+    d.line([0, 4 * S, 0, h * S - 4 * S], fill=(110, 110, 110, 255), width=2 * S)
+    cx, cy, a = w * S / 2.0, h * S / 2.0, 11 * S
+    ink = (17, 17, 17, 255) if open_ else ORANGE + (255,)
+    if open_:   # pointing up: tap again to close
+        d.polygon([(cx - a, cy + a * 0.55), (cx + a, cy + a * 0.55), (cx, cy - a * 0.65)], fill=ink)
+    else:
+        d.polygon([(cx - a, cy - a * 0.55), (cx + a, cy - a * 0.55), (cx, cy + a * 0.65)], fill=ink)
+    return im.resize((w, h), Image.LANCZOS)
+
+
+def pop_option_image(label, on, w, h):
+    S = 2
+    im = Image.new("RGBA", (w * S, h * S), ORANGE + (255,) if on else (16, 16, 16, 255))
+    d = ImageDraw.Draw(im)
+    size = POP_TEXT
+    while size > 14 and d.textlength(label, font=font(size * S)) > (w - 16) * S:
+        size -= 1
+    d.text((w * S / 2.0, h * S / 2.0), label, font=font(size * S), fill=(17, 17, 17) if on else INK, anchor="mm")
+    if not on:
+        d.line([8 * S, h * S - 1, w * S - 8 * S, h * S - 1], fill=(48, 48, 48), width=S)
+    return im.resize((w, h), Image.LANCZOS)
+
+
+def fix_popups(skin, folder):
+    """The framework's pop-up fields, rebuilt (0.1.3):
+      - the list's open flag is the engine's pop_<key> (closed on a pick and on every page change), not the wrapper's
+        <key>__open, which stayed open across pages and covered the next page's controls, taking their touches;
+      - the field itself is a Q-Link focus on the value, as a knob is, so the data wheel and a Q-Link step it; the arrow
+        box on its right end opens and closes the list (a Toggle Switch on pop_<key>, the trigger buttons' action);
+      - the list's options are redrawn in the panel's font at a readable size."""
+    comps = skin.page["componentsData"]
+    trig = next(v for k, v in skin.defs.items() if k.startswith("shTrig_nav_zoom"))
+    pops = [c for c in spec.CONTROLS if c["kind"] == "enum" and c["widget"] == "popup"]
+    remap = {"Parameter %d" % skin.index[c["key"] + "__open"]: "Parameter %d" % skin.index["pop_" + c["key"]] for c in pops}
+    remap_ie = {}
+    for old, new in remap.items():
+        remap_ie["IndexedEnabling/1/2/" + old] = "IndexedEnabling/1/2/" + new
+    made = set()
+    out = []
+    for inst in comps:
+        t = inst["componentData"]["type"]
+        hs = inst["bounds"].get("additionalInvalidatingHandles", [])
+        inst["bounds"]["additionalInvalidatingHandles"] = [remap_ie.get(h, h) for h in hs]
+        for m in inst["handle remapping"]["map"]:
+            if m["key"] == "Data" and m["value"] in remap and not t.startswith("shPopField"):
+                m["value"] = remap[m["value"]]
+        out.append(inst)
+        if not t.startswith("shPopField"):
+            continue
+        mp = {m["key"]: m["value"] for m in inst["handle remapping"]["map"]}
+        pop = remap[mp["Data"]]
+        x, y, w, h = bounds(inst["bounds"]["bounds"])
+        fkey = "psPopField_%dx%d" % (w, h)
+        if fkey not in skin.defs:
+            d = json.loads(json.dumps(skin.defs[t]))
+            d["actions"] = [a for a in skin.defs[t]["actions"] if a["onAction"] == "Mouse Down"]
+            d["actions"][0]["handler"] = "Q-Link"
+            for sub in d["componentsData"]:
+                if sub["componentData"]["type"] == "Label":
+                    sub["bounds"]["bounds"] = bstr(8, 0, w - POP_ARROW_W - 12, h)
+            skin.defs_list.append({"key": fkey, "value": d})
+            skin.defs[fkey] = d
+        inst["componentData"]["type"] = fkey
+        inst["handle remapping"]["map"] = [{"key": "Data", "value": mp["Text"]}, {"key": "Text", "value": mp["Text"]}]
+        akey = "psPopArrow_%dx%d" % (POP_ARROW_W, h)
+        if akey not in skin.defs:
+            d = json.loads(json.dumps(trig))
+            for sub in d["componentsData"]:
+                sub["bounds"]["bounds"] = bstr(0, 0, POP_ARROW_W, h)
+                if sub["componentData"]["type"] == "Button":
+                    sub["componentData"]["data"]["offImage"] = "ps_pop_arrow_%d_off.png" % h
+                    sub["componentData"]["data"]["onImage"] = "ps_pop_arrow_%d_on.png" % h
+            pop_arrow_image(False, POP_ARROW_W, h).save(os.path.join(folder, "ps_pop_arrow_%d_off.png" % h))
+            pop_arrow_image(True, POP_ARROW_W, h).save(os.path.join(folder, "ps_pop_arrow_%d_on.png" % h))
+            skin.defs_list.append({"key": akey, "value": d})
+            skin.defs[akey] = d
+        arrow = json.loads(json.dumps(inst))
+        arrow["componentData"]["type"] = akey
+        arrow["componentData"]["name"] = inst["componentData"]["name"] + " list"
+        arrow["handle remapping"]["map"] = [{"key": "Data", "value": pop}]
+        arrow["bounds"]["bounds"] = bstr(x + w - POP_ARROW_W, y, POP_ARROW_W, h)
+        arrow["bounds"]["acceptsHWFocus"] = "No"
+        out.append(arrow)
+        made.add(fkey)
+    comps[:] = out
+    # option images: shared by identical options, so redraw each image once from the first option that uses it
+    done = set()
+    for key, d in skin.defs.items():
+        m = re.match(r"shPopOpt_\d+_(.+)_(\d+)$", key)
+        if not m:
+            continue
+        label = skin.params[m.group(1)]["options"][int(m.group(2))]
+        for sub in d["componentsData"]:
+            if sub["componentData"]["type"] != "Button":
+                continue
+            _, _, w, h = bounds(sub["bounds"]["bounds"])
+            data = sub["componentData"]["data"]
+            for name, on in ((data["onImage"], True), (data["offImage"], False)):
+                if name not in done:
+                    done.add(name)
+                    pop_option_image(label, on, w, h).save(os.path.join(folder, name))
+    # nothing may still point at a wrapper-side <key>__open
+    left = [i for i in comps if any(m["value"] in remap for m in i["handle remapping"]["map"]) or
+            any(h.split("/")[-1] in remap for h in i["bounds"].get("additionalInvalidatingHandles", []))]
+    assert not left, "pop-up parts still on <key>__open: %r" % [i["componentData"]["name"] for i in left]
+    return len(made)
+
+
 # ------------------------------------------------------------------------------------------------ panels
 def text(d, xy, s, size, fill=INK, anchor="mm"):
     d.text((xy[0] * SS, xy[1] * SS), s, font=font(size * SS), fill=fill, anchor=anchor)
@@ -546,6 +666,8 @@ def main():
         restyle_trigger("shTrig_go_%s_" % v[0], tw, th, "ps_blank.png", "ps_tile_on_%s.png" % v[0],
                         lambda inst, tx=tx, ty=ty, tw=tw, th=th: (tx, ty, tw, th))
 
+    fix_popups(skin, folder)
+
     # 3) view panels (drawn after the controls are final, so the overview can compose them)
     injected = []
     for i, v in enumerate(spec.VIEWS):
@@ -648,7 +770,7 @@ def main():
         os.makedirs(preview, exist_ok=True)
         demo = {"geg": "sg_frq", "mg1": "lp_frq", "vp1": "vca2", "trg1": "geg_trg", "mw": "mg_amt", "add": "j1_in"}
         for i, v in enumerate(spec.VIEWS):
-            st = {"view": i}
+            st = {"view": i, "in_sec": 1 if i else 0}
             for oi, o in enumerate(spec.OUTS):
                 if o[0] in demo:
                     ins = [j for j in spec.INS if j[2] == o[2]]

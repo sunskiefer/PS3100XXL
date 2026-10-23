@@ -3072,6 +3072,69 @@
    "default": 0.0,
    "dynamic_name": true,
    "dynamic_display": true
+  },
+  {
+   "key": "in_sec",
+   "name": "In Section",
+   "options": [
+    "Overview",
+    "Section"
+   ],
+   "default": 0
+  },
+  {
+   "key": "pop_mg1_sync",
+   "name": "MG 1 Sync List",
+   "options": [
+    "Closed",
+    "Open"
+   ],
+   "default": 0
+  },
+  {
+   "key": "pop_mg2_sync",
+   "name": "MG 2 Sync List",
+   "options": [
+    "Closed",
+    "Open"
+   ],
+   "default": 0
+  },
+  {
+   "key": "pop_sh_host",
+   "name": "S/H Host Sync List",
+   "options": [
+    "Closed",
+    "Open"
+   ],
+   "default": 0
+  },
+  {
+   "key": "pop_temperament",
+   "name": "Temperament List",
+   "options": [
+    "Closed",
+    "Open"
+   ],
+   "default": 0
+  },
+  {
+   "key": "pop_clk1_rate",
+   "name": "CLK 1 Rate List",
+   "options": [
+    "Closed",
+    "Open"
+   ],
+   "default": 0
+  },
+  {
+   "key": "pop_clk2_rate",
+   "name": "CLK 2 Rate List",
+   "options": [
+    "Closed",
+    "Open"
+   ],
+   "default": 0
   }
  ],
  "sections": [
