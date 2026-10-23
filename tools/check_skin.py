@@ -5,7 +5,7 @@
 
 - every control is on its section's page (a component bound to its parameter, shown only on that view);
 - every jack has its touch area on the patch page, at its place;
-- every jack is one tile in the patch grid (no overlaps); every patch step has its picture and buttons;
+- every jack is one touch zone on its socket (no overlaps); every patch step has its picture and buttons;
 - every section has its overview tile and its panel picture; navigation is on every zoomed page;
 - every image the skin names exists.
 Exit status 1 with a list of what is missing.
@@ -57,14 +57,14 @@ def main():
             problems.append("jack %s: %d tile(s), want one shown on the patch steps (pk_t)" % (j[1], len(insts)))
         else:
             if tuple(P.bounds(insts[0][0]["bounds"]["bounds"])) != spec.pick_box(j[0]):
-                problems.append("jack %s: its tile is not at its place in the grid" % j[1])
+                problems.append("jack %s: its touch zone is not on its socket" % j[1])
             if skin.defs[insts[0][0]["componentData"]["type"]]["actions"][0]["handler"] != "Toggle Switch":
                 problems.append("jack %s: not a trigger button like the page tiles" % j[1])
     # no tile overlaps another, and all stay inside the page below the header
     boxes = [spec.pick_box(k) for k in spec.PICK_ORDER]
     for a in range(len(boxes)):
         ax, ay, aw, ah = boxes[a]
-        if ay < 72 or ay + ah > spec.PICK_Y0 + 7 * (spec.PICK_H + spec.PICK_GAP) or ax + aw > P.W:
+        if ay < 72 or ay + ah > P.H or ax < 0 or ax + aw > P.W:
             problems.append("tile %s is off the page" % spec.PICK_ORDER[a])
         for b in range(a + 1, len(boxes)):
             bx, by, bw, bh = boxes[b]

@@ -436,27 +436,33 @@ def pick_panel(k):
             text(d, (x, y + 84), lab, 26, DIM)
         text(d, (W // 2, 506), "UNPLUG takes the cable out.  DONE keeps it.", 24, DIM)
         return im.resize((W, H), Image.LANCZOS)
+    return pick_sockets(k)
+
+
+def pick_sockets(k):
+    """Steps 1-5: the patch panel with its sockets; from step 2 on the sockets that do not fit the waiting jack are dimmed
+    and the ones that do get an orange ring."""
+    base = view_panel("patch", "PATCH BAY").convert("RGBA")
+    if k == 1:
+        return base.convert("RGB")
+    ov = Image.new("RGBA", (W * SS, H * SS), (0, 0, 0, 0))
+    d = ImageDraw.Draw(ov)
     ins = {j[0]: j for j in spec.INS}
     outs = {o[0]: o for o in spec.OUTS}
     for key in spec.PICK_ORDER:
-        x, y, w, h = spec.pick_box(key)
+        x, y = spec.JACKS[key]
         is_out = key in outs
-        lab = outs[key][1] if is_out else ins[key][1]
         trig = (outs[key][2] if is_out else ins[key][2]) == "trig"
-        fit = {1: True, 2: (not is_out) and not trig, 3: (not is_out) and trig,
-               4: is_out and not trig, 5: is_out and trig}[k]
-        fill = (62, 62, 62) if is_out else (34, 58, 48)
-        ink = ORANGE if trig else INK
-        edge = ORANGE if (fit and k > 1) else (110, 110, 110)
-        if not fit:
-            fill = (40, 40, 40)
-            ink = (92, 92, 92)
-            edge = (62, 62, 62)
-        d.rounded_rectangle([x * SS, y * SS, (x + w) * SS, (y + h) * SS], radius=10 * SS, fill=fill, outline=edge,
-                            width=(3 if fit and k > 1 else 2) * SS)
-        text(d, (x + w // 2, y + h // 2 - 8), lab, 26, ink)
-        text(d, (x + w // 2, y + h - 17), "OUT" if is_out else "IN", 15, ink if fit else (92, 92, 92))
-    return im.resize((W, H), Image.LANCZOS)
+        fit = {2: (not is_out) and not trig, 3: (not is_out) and trig, 4: is_out and not trig, 5: is_out and trig}[k]
+        if fit:
+            r = 31
+            d.ellipse([(x - r) * SS, (y - r) * SS, (x + r) * SS, (y + r) * SS], outline=ORANGE + (255,), width=4 * SS)
+        else:
+            d.rounded_rectangle([(x - 46) * SS, (y - 60) * SS, (x + 46) * SS, (y + 38) * SS], radius=8 * SS,
+                                fill=(28, 28, 28, 190))
+    ov = ov.resize((W, H), Image.LANCZOS)
+    base.alpha_composite(ov)
+    return base.convert("RGB")
 
 
 def patch_sockets(d):
@@ -712,7 +718,9 @@ def main():
     rest = Image.new("RGBA", (90, 88), (0, 0, 0, 0))
     ImageDraw.Draw(rest).rounded_rectangle([1, 1, 88, 86], radius=10, outline=(120, 120, 120, 150), width=1)
     rest.save(os.path.join(folder, "ps_jack_rest.png"))
-    tile_highlight(spec.PICK_W, spec.PICK_H).save(os.path.join(folder, "ps_pick_on.png"))
+    pr = Image.new("RGBA", (spec.PICK_W, spec.PICK_H), (0, 0, 0, 0))
+    pr.paste(jack_press(), ((spec.PICK_W - 68) // 2, (spec.PICK_H - 68) // 2))
+    pr.save(os.path.join(folder, "ps_pick_on.png"))
     for j in spec.OUTS + spec.INS:
         bx, by, bw, bh = spec.pick_box(j[0])
         restyle_trigger("shTrig_tap_%s_" % j[0], bw, bh, "ps_blank.png", "ps_pick_on.png",
@@ -798,10 +806,29 @@ def main():
     comps.insert(1, image_instance("Panel", "ps_view_0.png", 0, 0, W, H,
                                    ["IndexedEnabling/0/%d/Parameter %d" % (nviews, vidx)]))
 
-    # 4) 0.1.5: no cable or ring pictures over the patch page any more -- the cable has its own page (pick_panel(6))
+    # 4) the patched cables, drawn on the patch panel (transparent pictures, one per output and reachable input, each switched
+    # by a small parameter: spec.cable_param, at most JACK_GROUP + 1 positions). 0.1.5 shows them on the patch steps 1-5; the
+    # connected page (6) has its own cable.
+    pos = dict(spec.JACKS)
+    cable_insts, pieces, total_px = [], 0, 0
+    for oi, o in enumerate(spec.OUTS):
+        ins = [j for j in spec.INS if j[2] == o[2]]
+        colour = spec.CABLE_COLOURS[oi % len(spec.CABLE_COLOURS)]
+        for t, j in enumerate(ins):
+            key, opt, nopt = spec.cable_param("cp", o, j)
+            im, x0, y0 = draw_cable(pos[o[0]], pos[j[0]], colour, 1.0, clip=(0, 72, W, H))
+            handle = ["IndexedEnabling/%d/%d/Parameter %d" % (opt, nopt, skin.index[key])]
+            for k, (piece, px, py) in enumerate(tile_pieces(im, x0, y0, spec.CABLE_TILE)):
+                name = "ps_cab_p_%s_%s_%d.png" % (o[0], j[0], k)
+                piece.save(os.path.join(folder, name), optimize=True)
+                total_px += piece.size[0] * piece.size[1]
+                pieces += 1
+                cable_insts.append(image_instance("Cable", name, px, py, piece.size[0], piece.size[1], handle))
+    at = 1 + len(injected) + 1
+    comps[at:at] = cable_insts
     skin.save()
 
-    print("post_skin: %d views, knob radii %s, %d components" % (nviews, radii, len(comps)))
+    print("post_skin: %d views, knob radii %s, %d cable pieces (%.1f MB decoded), %d components" % (nviews, radii, pieces, total_px * 4 / 1e6, len(comps)))
 
     if preview:
         os.makedirs(preview, exist_ok=True)

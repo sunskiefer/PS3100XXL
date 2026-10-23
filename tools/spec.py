@@ -305,17 +305,18 @@ def held_param(out):
 
 
 
-# 0.1.5: patching by pages, like the overview's tiles (which work on a Force). Every jack is a big named tile in one grid
-# (outputs first, then inputs); tapping one opens the step that asks for the other end; a tile of the wrong kind is dimmed
-# and ignored; the cable is shown on its own page. See engine.cc pick().
-PICK_COLS, PICK_W, PICK_H, PICK_GAP, PICK_X0, PICK_Y0 = 8, 152, 72, 6, 8, 82
-PICK_ORDER = [o[0] for o in OUTS] + [i[0] for i in INS]
+# 0.1.5: patching by steps. The sockets on the patch panel are the touch zones; tapping one opens the step that asks for the
+# other end (the wrong kinds dimmed and ignored); the cable is shown on its own page. See engine.cc pick().
+PICK_W, PICK_H = 90, 88      # a jack's touch zone: the sockets are 98 apart across and 95-105 down
 
 
 def pick_box(key):
-    """x, y, w, h of a jack's tile on the pick pages"""
-    i = PICK_ORDER.index(key)
-    return (PICK_X0 + (i % PICK_COLS) * (PICK_W + PICK_GAP), PICK_Y0 + (i // PICK_COLS) * (PICK_H + PICK_GAP), PICK_W, PICK_H)
+    """x, y, w, h of a jack's touch zone: centred on its socket on the patch panel"""
+    x, y = JACKS[key]
+    return (x - PICK_W // 2, y - PICK_H // 2, PICK_W, PICK_H)
+
+
+PICK_ORDER = [o[0] for o in OUTS] + [i[0] for i in INS]
 
 
 # the steps (the 'pk' parameter): 0 off the patch page, 1 choose any jack, 2/3 an output waits (voltage / trigger),

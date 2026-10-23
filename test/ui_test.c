@@ -82,6 +82,7 @@ int main(){ AEffect*a=VSTPluginMain(host); a->d(a,12,0,1,0,0); run(a,50);
   CK(fabsf(g(a,"pk")*6-6)<0.01f && g(a,"cab_mg1")>0.0f,"MG 1 tapped: connected, MG 1 -> LP FRQ");
   a->setP(a,fp("pk_done"),1); run(a,50);
   CK(fabsf(g(a,"pk")*6-1)<0.01f && g(a,"cab_mg1")>0.0f,"DONE: back to step 1, cable kept");
+  CK(fabsf(g(a,"cp_mg1_0")*9-3)<0.01f,"the cable MG 1 -> LP FRQ is drawn on the patch panel again (cp_mg1_0 at 3 of 10)");
   /* a tile's momentary 0 must not do anything, and a cancel works */
   a->setP(a,fp("tap_vp1"),1); run(a,20); a->setP(a,fp("tap_vp1"),0); run(a,20);
   CK(fabsf(g(a,"pk")*6-2)<0.01f,"the release (0) of a tap does nothing");

@@ -744,7 +744,7 @@ struct Synth {
       if (view != V_PATCH || held_in < 0 || held_in / JACK_GROUP != VIS_GROUP[k]) return 0;
       return 1 + held_in % JACK_GROUP;
     }
-    if (view != (VIS_KIND[k] == 0 ? V_PATCH : V_OVERVIEW)) return 0;
+    if (VIS_KIND[k] != 0 || view != V_PATCH || pk == 6) return 0;   // the patch panel's cables; the connected page has its own
     int o = VIS_OUT[k], d = dest[o];
     if (d < 0) return 0;
     int t = IN_TYPED[d];
