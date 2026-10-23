@@ -1,0 +1,66 @@
+# PS3100XXL: every push builds the plugin (armv7) and the skin, runs the offline tests, packages the release zip,
+# checks it (catalog_check + `sh -n` on install.sh/uninstall.sh, the L'Cronx apostrophe) and keeps it as a run
+# artifact. "Run workflow" with a version also makes a DRAFT GitHub release with that zip: install it on a device,
+# then publish the draft (that creates the tag; the mpc-vst-plugins catalog lists published releases).
+name: build
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Version for a draft release, e.g. 0.1.2 (empty = build only)
+        type: string
+        default: ''
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Tools (Pillow, numpy, Zig)
+        run: python3 -m pip install --quiet pillow numpy ziglang
+      - name: Build
+        run: ./build.sh
+      - name: Offline tests (engine under ASan/UBSan, host test)
+        run: bash test/run_tests.sh
+      - name: Package
+        run: |
+          V="${{ inputs.version }}"; V="${V:-0.0.${GITHUB_RUN_NUMBER}}"   # catalog versions are X.Y.Z; CI-only builds are 0.0.<run>
+          python3 third_party/mpc-vst-plugins/tools/release.py --so build/arm/ps3100xxl.so \
+            --skin "build/package/L'Cronx - VST - PS3100XXL" --entry build/pluginlist-entry.xml --version "$V" \
+            --about "Korg PS-3100-style semi-modular poly synth: 48 voices, resonators, ensemble, temperament, touch patch bay" \
+            --repo sunskiefer/PS3100XXL --license GPL-3.0-or-later --id ps3100xxl -o dist
+          python3 third_party/mpc-vst-plugins/tools/catalog_check.py dist/*.zip --catalog
+      - name: Installer syntax (sh -n) and the L'Cronx apostrophe
+        run: |
+          set -e
+          for z in dist/*.zip; do
+            d=$(mktemp -d); unzip -q "$z" -d "$d"
+            find "$d" \( -name install.sh -o -name uninstall.sh \) -print0 | while IFS= read -r -d '' s; do
+              sh -n "$s" && echo "sh -n OK: $s"
+            done
+            n=$(find "$d" \( -name install.sh -o -name uninstall.sh \) | wc -l); [ "$n" -ge 2 ] || { echo "installer missing in $z"; exit 1; }
+          done
+      - uses: actions/upload-artifact@v4
+        with:
+          name: PS3100XXL-${{ github.run_number }}
+          path: dist/*.zip
+          retention-days: 30
+      - name: Draft release
+        if: ${{ inputs.version != '' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          V="${{ inputs.version }}"
+          gh release create "v$V" dist/*.zip --draft --target "$GITHUB_SHA" --title "PS3100XXL $V" \
+            --notes "Korg PS-3100-style semi-modular poly synth for Force / MPC OS. Install: unzip, run install.sh (INSTALL.md inside)."
