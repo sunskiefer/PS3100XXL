@@ -3135,6 +3135,2216 @@
     "Open"
    ],
    "default": 0
+  },
+  {
+   "key": "cp_geg_0",
+   "name": "Cable Pat GEG 1",
+   "options": [
+    "-",
+    "SG FRQ",
+    "SG PWM",
+    "LP FRQ",
+    "EM ATK",
+    "RES FRQ",
+    "VCA 1",
+    "VCA 2",
+    "MG AMT",
+    "MG1 FRQ"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_geg_1",
+   "name": "Cable Pat GEG 2",
+   "options": [
+    "-",
+    "S/H IN",
+    "VP1 IN",
+    "VP2 IN",
+    "ADD 1",
+    "ADD 2",
+    "ADD 3",
+    "ADD 4",
+    "J1 IN",
+    "J2 IN"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_gep_0",
+   "name": "Cable Pat GE+ 1",
+   "options": [
+    "-",
+    "SG FRQ",
+    "SG PWM",
+    "LP FRQ",
+    "EM ATK",
+    "RES FRQ",
+    "VCA 1",
+    "VCA 2",
+    "MG AMT",
+    "MG1 FRQ"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_gep_1",
+   "name": "Cable Pat GE+ 2",
+   "options": [
+    "-",
+    "S/H IN",
+    "VP1 IN",
+    "VP2 IN",
+    "ADD 1",
+    "ADD 2",
+    "ADD 3",
+    "ADD 4",
+    "J1 IN",
+    "J2 IN"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_mg_0",
+   "name": "Cable Pat MG 1",
+   "options": [
+    "-",
+    "SG FRQ",
+    "SG PWM",
+    "LP FRQ",
+    "EM ATK",
+    "RES FRQ",
+    "VCA 1",
+    "VCA 2",
+    "MG AMT",
+    "MG1 FRQ"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_mg_1",
+   "name": "Cable Pat MG 2",
+   "options": [
+    "-",
+    "S/H IN",
+    "VP1 IN",
+    "VP2 IN",
+    "ADD 1",
+    "ADD 2",
+    "ADD 3",
+    "ADD 4",
+    "J1 IN",
+    "J2 IN"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_mg1_0",
+   "name": "Cable Pat MG 1 1",
+   "options": [
+    "-",
+    "SG FRQ",
+    "SG PWM",
+    "LP FRQ",
+    "EM ATK",
+    "RES FRQ",
+    "VCA 1",
+    "VCA 2",
+    "MG AMT",
+    "MG1 FRQ"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_mg1_1",
+   "name": "Cable Pat MG 1 2",
+   "options": [
+    "-",
+    "S/H IN",
+    "VP1 IN",
+    "VP2 IN",
+    "ADD 1",
+    "ADD 2",
+    "ADD 3",
+    "ADD 4",
+    "J1 IN",
+    "J2 IN"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_mg2_0",
+   "name": "Cable Pat MG 2 1",
+   "options": [
+    "-",
+    "SG FRQ",
+    "SG PWM",
+    "LP FRQ",
+    "EM ATK",
+    "RES FRQ",
+    "VCA 1",
+    "VCA 2",
+    "MG AMT",
+    "MG1 FRQ"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_mg2_1",
+   "name": "Cable Pat MG 2 2",
+   "options": [
+    "-",
+    "S/H IN",
+    "VP1 IN",
+    "VP2 IN",
+    "ADD 1",
+    "ADD 2",
+    "ADD 3",
+    "ADD 4",
+    "J1 IN",
+    "J2 IN"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_sh_0",
+   "name": "Cable Pat S/H 1",
+   "options": [
+    "-",
+    "SG FRQ",
+    "SG PWM",
+    "LP FRQ",
+    "EM ATK",
+    "RES FRQ",
+    "VCA 1",
+    "VCA 2",
+    "MG AMT",
+    "MG1 FRQ"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_sh_1",
+   "name": "Cable Pat S/H 2",
+   "options": [
+    "-",
+    "S/H IN",
+    "VP1 IN",
+    "VP2 IN",
+    "ADD 1",
+    "ADD 2",
+    "ADD 3",
+    "ADD 4",
+    "J1 IN",
+    "J2 IN"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_vp1_0",
+   "name": "Cable Pat VP 1 1",
+   "options": [
+    "-",
+    "SG FRQ",
+    "SG PWM",
+    "LP FRQ",
+    "EM ATK",
+    "RES FRQ",
+    "VCA 1",
+    "VCA 2",
+    "MG AMT",
+    "MG1 FRQ"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_vp1_1",
+   "name": "Cable Pat VP 1 2",
+   "options": [
+    "-",
+    "S/H IN",
+    "VP1 IN",
+    "VP2 IN",
+    "ADD 1",
+    "ADD 2",
+    "ADD 3",
+    "ADD 4",
+    "J1 IN",
+    "J2 IN"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_vp2_0",
+   "name": "Cable Pat VP 2 1",
+   "options": [
+    "-",
+    "SG FRQ",
+    "SG PWM",
+    "LP FRQ",
+    "EM ATK",
+    "RES FRQ",
+    "VCA 1",
+    "VCA 2",
+    "MG AMT",
+    "MG1 FRQ"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_vp2_1",
+   "name": "Cable Pat VP 2 2",
+   "options": [
+    "-",
+    "S/H IN",
+    "VP1 IN",
+    "VP2 IN",
+    "ADD 1",
+    "ADD 2",
+    "ADD 3",
+    "ADD 4",
+    "J1 IN",
+    "J2 IN"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_key_0",
+   "name": "Cable Pat KEY 1",
+   "options": [
+    "-",
+    "SG FRQ",
+    "SG PWM",
+    "LP FRQ",
+    "EM ATK",
+    "RES FRQ",
+    "VCA 1",
+    "VCA 2",
+    "MG AMT",
+    "MG1 FRQ"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_key_1",
+   "name": "Cable Pat KEY 2",
+   "options": [
+    "-",
+    "S/H IN",
+    "VP1 IN",
+    "VP2 IN",
+    "ADD 1",
+    "ADD 2",
+    "ADD 3",
+    "ADD 4",
+    "J1 IN",
+    "J2 IN"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_pb_0",
+   "name": "Cable Pat PB 1",
+   "options": [
+    "-",
+    "SG FRQ",
+    "SG PWM",
+    "LP FRQ",
+    "EM ATK",
+    "RES FRQ",
+    "VCA 1",
+    "VCA 2",
+    "MG AMT",
+    "MG1 FRQ"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_pb_1",
+   "name": "Cable Pat PB 2",
+   "options": [
+    "-",
+    "S/H IN",
+    "VP1 IN",
+    "VP2 IN",
+    "ADD 1",
+    "ADD 2",
+    "ADD 3",
+    "ADD 4",
+    "J1 IN",
+    "J2 IN"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_pbp_0",
+   "name": "Cable Pat PB+ 1",
+   "options": [
+    "-",
+    "SG FRQ",
+    "SG PWM",
+    "LP FRQ",
+    "EM ATK",
+    "RES FRQ",
+    "VCA 1",
+    "VCA 2",
+    "MG AMT",
+    "MG1 FRQ"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_pbp_1",
+   "name": "Cable Pat PB+ 2",
+   "options": [
+    "-",
+    "S/H IN",
+    "VP1 IN",
+    "VP2 IN",
+    "ADD 1",
+    "ADD 2",
+    "ADD 3",
+    "ADD 4",
+    "J1 IN",
+    "J2 IN"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_mw_0",
+   "name": "Cable Pat MW 1",
+   "options": [
+    "-",
+    "SG FRQ",
+    "SG PWM",
+    "LP FRQ",
+    "EM ATK",
+    "RES FRQ",
+    "VCA 1",
+    "VCA 2",
+    "MG AMT",
+    "MG1 FRQ"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_mw_1",
+   "name": "Cable Pat MW 2",
+   "options": [
+    "-",
+    "S/H IN",
+    "VP1 IN",
+    "VP2 IN",
+    "ADD 1",
+    "ADD 2",
+    "ADD 3",
+    "ADD 4",
+    "J1 IN",
+    "J2 IN"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_mwp_0",
+   "name": "Cable Pat MW+ 1",
+   "options": [
+    "-",
+    "SG FRQ",
+    "SG PWM",
+    "LP FRQ",
+    "EM ATK",
+    "RES FRQ",
+    "VCA 1",
+    "VCA 2",
+    "MG AMT",
+    "MG1 FRQ"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_mwp_1",
+   "name": "Cable Pat MW+ 2",
+   "options": [
+    "-",
+    "S/H IN",
+    "VP1 IN",
+    "VP2 IN",
+    "ADD 1",
+    "ADD 2",
+    "ADD 3",
+    "ADD 4",
+    "J1 IN",
+    "J2 IN"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_vc1_0",
+   "name": "Cable Pat VC 1 1",
+   "options": [
+    "-",
+    "SG FRQ",
+    "SG PWM",
+    "LP FRQ",
+    "EM ATK",
+    "RES FRQ",
+    "VCA 1",
+    "VCA 2",
+    "MG AMT",
+    "MG1 FRQ"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_vc1_1",
+   "name": "Cable Pat VC 1 2",
+   "options": [
+    "-",
+    "S/H IN",
+    "VP1 IN",
+    "VP2 IN",
+    "ADD 1",
+    "ADD 2",
+    "ADD 3",
+    "ADD 4",
+    "J1 IN",
+    "J2 IN"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_vc2_0",
+   "name": "Cable Pat VC 2 1",
+   "options": [
+    "-",
+    "SG FRQ",
+    "SG PWM",
+    "LP FRQ",
+    "EM ATK",
+    "RES FRQ",
+    "VCA 1",
+    "VCA 2",
+    "MG AMT",
+    "MG1 FRQ"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_vc2_1",
+   "name": "Cable Pat VC 2 2",
+   "options": [
+    "-",
+    "S/H IN",
+    "VP1 IN",
+    "VP2 IN",
+    "ADD 1",
+    "ADD 2",
+    "ADD 3",
+    "ADD 4",
+    "J1 IN",
+    "J2 IN"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_vc3_0",
+   "name": "Cable Pat VC 3 1",
+   "options": [
+    "-",
+    "SG FRQ",
+    "SG PWM",
+    "LP FRQ",
+    "EM ATK",
+    "RES FRQ",
+    "VCA 1",
+    "VCA 2",
+    "MG AMT",
+    "MG1 FRQ"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_vc3_1",
+   "name": "Cable Pat VC 3 2",
+   "options": [
+    "-",
+    "S/H IN",
+    "VP1 IN",
+    "VP2 IN",
+    "ADD 1",
+    "ADD 2",
+    "ADD 3",
+    "ADD 4",
+    "J1 IN",
+    "J2 IN"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_vc4_0",
+   "name": "Cable Pat VC 4 1",
+   "options": [
+    "-",
+    "SG FRQ",
+    "SG PWM",
+    "LP FRQ",
+    "EM ATK",
+    "RES FRQ",
+    "VCA 1",
+    "VCA 2",
+    "MG AMT",
+    "MG1 FRQ"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_vc4_1",
+   "name": "Cable Pat VC 4 2",
+   "options": [
+    "-",
+    "S/H IN",
+    "VP1 IN",
+    "VP2 IN",
+    "ADD 1",
+    "ADD 2",
+    "ADD 3",
+    "ADD 4",
+    "J1 IN",
+    "J2 IN"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_rnd_0",
+   "name": "Cable Pat NOISE 1",
+   "options": [
+    "-",
+    "SG FRQ",
+    "SG PWM",
+    "LP FRQ",
+    "EM ATK",
+    "RES FRQ",
+    "VCA 1",
+    "VCA 2",
+    "MG AMT",
+    "MG1 FRQ"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_rnd_1",
+   "name": "Cable Pat NOISE 2",
+   "options": [
+    "-",
+    "S/H IN",
+    "VP1 IN",
+    "VP2 IN",
+    "ADD 1",
+    "ADD 2",
+    "ADD 3",
+    "ADD 4",
+    "J1 IN",
+    "J2 IN"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_p5v_0",
+   "name": "Cable Pat +5 V 1",
+   "options": [
+    "-",
+    "SG FRQ",
+    "SG PWM",
+    "LP FRQ",
+    "EM ATK",
+    "RES FRQ",
+    "VCA 1",
+    "VCA 2",
+    "MG AMT",
+    "MG1 FRQ"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_p5v_1",
+   "name": "Cable Pat +5 V 2",
+   "options": [
+    "-",
+    "S/H IN",
+    "VP1 IN",
+    "VP2 IN",
+    "ADD 1",
+    "ADD 2",
+    "ADD 3",
+    "ADD 4",
+    "J1 IN",
+    "J2 IN"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_m5v_0",
+   "name": "Cable Pat -5 V 1",
+   "options": [
+    "-",
+    "SG FRQ",
+    "SG PWM",
+    "LP FRQ",
+    "EM ATK",
+    "RES FRQ",
+    "VCA 1",
+    "VCA 2",
+    "MG AMT",
+    "MG1 FRQ"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_m5v_1",
+   "name": "Cable Pat -5 V 2",
+   "options": [
+    "-",
+    "S/H IN",
+    "VP1 IN",
+    "VP2 IN",
+    "ADD 1",
+    "ADD 2",
+    "ADD 3",
+    "ADD 4",
+    "J1 IN",
+    "J2 IN"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_xyx_0",
+   "name": "Cable Pat X 1",
+   "options": [
+    "-",
+    "SG FRQ",
+    "SG PWM",
+    "LP FRQ",
+    "EM ATK",
+    "RES FRQ",
+    "VCA 1",
+    "VCA 2",
+    "MG AMT",
+    "MG1 FRQ"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_xyx_1",
+   "name": "Cable Pat X 2",
+   "options": [
+    "-",
+    "S/H IN",
+    "VP1 IN",
+    "VP2 IN",
+    "ADD 1",
+    "ADD 2",
+    "ADD 3",
+    "ADD 4",
+    "J1 IN",
+    "J2 IN"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_xyy_0",
+   "name": "Cable Pat Y 1",
+   "options": [
+    "-",
+    "SG FRQ",
+    "SG PWM",
+    "LP FRQ",
+    "EM ATK",
+    "RES FRQ",
+    "VCA 1",
+    "VCA 2",
+    "MG AMT",
+    "MG1 FRQ"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_xyy_1",
+   "name": "Cable Pat Y 2",
+   "options": [
+    "-",
+    "S/H IN",
+    "VP1 IN",
+    "VP2 IN",
+    "ADD 1",
+    "ADD 2",
+    "ADD 3",
+    "ADD 4",
+    "J1 IN",
+    "J2 IN"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_add_0",
+   "name": "Cable Pat ADD 1",
+   "options": [
+    "-",
+    "SG FRQ",
+    "SG PWM",
+    "LP FRQ",
+    "EM ATK",
+    "RES FRQ",
+    "VCA 1",
+    "VCA 2",
+    "MG AMT",
+    "MG1 FRQ"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_add_1",
+   "name": "Cable Pat ADD 2",
+   "options": [
+    "-",
+    "S/H IN",
+    "VP1 IN",
+    "VP2 IN",
+    "ADD 1",
+    "ADD 2",
+    "ADD 3",
+    "ADD 4",
+    "J1 IN",
+    "J2 IN"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_j1a_0",
+   "name": "Cable Pat J1 A 1",
+   "options": [
+    "-",
+    "SG FRQ",
+    "SG PWM",
+    "LP FRQ",
+    "EM ATK",
+    "RES FRQ",
+    "VCA 1",
+    "VCA 2",
+    "MG AMT",
+    "MG1 FRQ"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_j1a_1",
+   "name": "Cable Pat J1 A 2",
+   "options": [
+    "-",
+    "S/H IN",
+    "VP1 IN",
+    "VP2 IN",
+    "ADD 1",
+    "ADD 2",
+    "ADD 3",
+    "ADD 4",
+    "J1 IN",
+    "J2 IN"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_j1b_0",
+   "name": "Cable Pat J1 B 1",
+   "options": [
+    "-",
+    "SG FRQ",
+    "SG PWM",
+    "LP FRQ",
+    "EM ATK",
+    "RES FRQ",
+    "VCA 1",
+    "VCA 2",
+    "MG AMT",
+    "MG1 FRQ"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_j1b_1",
+   "name": "Cable Pat J1 B 2",
+   "options": [
+    "-",
+    "S/H IN",
+    "VP1 IN",
+    "VP2 IN",
+    "ADD 1",
+    "ADD 2",
+    "ADD 3",
+    "ADD 4",
+    "J1 IN",
+    "J2 IN"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_j2a_0",
+   "name": "Cable Pat J2 A 1",
+   "options": [
+    "-",
+    "SG FRQ",
+    "SG PWM",
+    "LP FRQ",
+    "EM ATK",
+    "RES FRQ",
+    "VCA 1",
+    "VCA 2",
+    "MG AMT",
+    "MG1 FRQ"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_j2a_1",
+   "name": "Cable Pat J2 A 2",
+   "options": [
+    "-",
+    "S/H IN",
+    "VP1 IN",
+    "VP2 IN",
+    "ADD 1",
+    "ADD 2",
+    "ADD 3",
+    "ADD 4",
+    "J1 IN",
+    "J2 IN"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_j2b_0",
+   "name": "Cable Pat J2 B 1",
+   "options": [
+    "-",
+    "SG FRQ",
+    "SG PWM",
+    "LP FRQ",
+    "EM ATK",
+    "RES FRQ",
+    "VCA 1",
+    "VCA 2",
+    "MG AMT",
+    "MG1 FRQ"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_j2b_1",
+   "name": "Cable Pat J2 B 2",
+   "options": [
+    "-",
+    "S/H IN",
+    "VP1 IN",
+    "VP2 IN",
+    "ADD 1",
+    "ADD 2",
+    "ADD 3",
+    "ADD 4",
+    "J1 IN",
+    "J2 IN"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_sng_0",
+   "name": "Cable Pat SNG 1",
+   "options": [
+    "-",
+    "EM REL",
+    "GEG TRG"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_mlt_0",
+   "name": "Cable Pat MLT 1",
+   "options": [
+    "-",
+    "EM REL",
+    "GEG TRG"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_mg1c_0",
+   "name": "Cable Pat MG1 CLK 1",
+   "options": [
+    "-",
+    "EM REL",
+    "GEG TRG"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_mg2c_0",
+   "name": "Cable Pat MG2 CLK 1",
+   "options": [
+    "-",
+    "EM REL",
+    "GEG TRG"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_shc_0",
+   "name": "Cable Pat S/H CLK 1",
+   "options": [
+    "-",
+    "EM REL",
+    "GEG TRG"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_clk1_0",
+   "name": "Cable Pat CLK 1 1",
+   "options": [
+    "-",
+    "EM REL",
+    "GEG TRG"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_clk2_0",
+   "name": "Cable Pat CLK 2 1",
+   "options": [
+    "-",
+    "EM REL",
+    "GEG TRG"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_trg1_0",
+   "name": "Cable Pat TRG 1 1",
+   "options": [
+    "-",
+    "EM REL",
+    "GEG TRG"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "cp_trg2_0",
+   "name": "Cable Pat TRG 2 1",
+   "options": [
+    "-",
+    "EM REL",
+    "GEG TRG"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_geg_0",
+   "name": "Cable Ove GEG 1",
+   "options": [
+    "-",
+    "SG FRQ",
+    "SG PWM",
+    "LP FRQ",
+    "EM ATK",
+    "RES FRQ",
+    "VCA 1",
+    "VCA 2",
+    "MG AMT",
+    "MG1 FRQ"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_geg_1",
+   "name": "Cable Ove GEG 2",
+   "options": [
+    "-",
+    "S/H IN",
+    "VP1 IN",
+    "VP2 IN",
+    "ADD 1",
+    "ADD 2",
+    "ADD 3",
+    "ADD 4",
+    "J1 IN",
+    "J2 IN"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_gep_0",
+   "name": "Cable Ove GE+ 1",
+   "options": [
+    "-",
+    "SG FRQ",
+    "SG PWM",
+    "LP FRQ",
+    "EM ATK",
+    "RES FRQ",
+    "VCA 1",
+    "VCA 2",
+    "MG AMT",
+    "MG1 FRQ"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_gep_1",
+   "name": "Cable Ove GE+ 2",
+   "options": [
+    "-",
+    "S/H IN",
+    "VP1 IN",
+    "VP2 IN",
+    "ADD 1",
+    "ADD 2",
+    "ADD 3",
+    "ADD 4",
+    "J1 IN",
+    "J2 IN"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_mg_0",
+   "name": "Cable Ove MG 1",
+   "options": [
+    "-",
+    "SG FRQ",
+    "SG PWM",
+    "LP FRQ",
+    "EM ATK",
+    "RES FRQ",
+    "VCA 1",
+    "VCA 2",
+    "MG AMT",
+    "MG1 FRQ"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_mg_1",
+   "name": "Cable Ove MG 2",
+   "options": [
+    "-",
+    "S/H IN",
+    "VP1 IN",
+    "VP2 IN",
+    "ADD 1",
+    "ADD 2",
+    "ADD 3",
+    "ADD 4",
+    "J1 IN",
+    "J2 IN"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_mg1_0",
+   "name": "Cable Ove MG 1 1",
+   "options": [
+    "-",
+    "SG FRQ",
+    "SG PWM",
+    "LP FRQ",
+    "EM ATK",
+    "RES FRQ",
+    "VCA 1",
+    "VCA 2",
+    "MG AMT",
+    "MG1 FRQ"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_mg1_1",
+   "name": "Cable Ove MG 1 2",
+   "options": [
+    "-",
+    "S/H IN",
+    "VP1 IN",
+    "VP2 IN",
+    "ADD 1",
+    "ADD 2",
+    "ADD 3",
+    "ADD 4",
+    "J1 IN",
+    "J2 IN"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_mg2_0",
+   "name": "Cable Ove MG 2 1",
+   "options": [
+    "-",
+    "SG FRQ",
+    "SG PWM",
+    "LP FRQ",
+    "EM ATK",
+    "RES FRQ",
+    "VCA 1",
+    "VCA 2",
+    "MG AMT",
+    "MG1 FRQ"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_mg2_1",
+   "name": "Cable Ove MG 2 2",
+   "options": [
+    "-",
+    "S/H IN",
+    "VP1 IN",
+    "VP2 IN",
+    "ADD 1",
+    "ADD 2",
+    "ADD 3",
+    "ADD 4",
+    "J1 IN",
+    "J2 IN"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_sh_0",
+   "name": "Cable Ove S/H 1",
+   "options": [
+    "-",
+    "SG FRQ",
+    "SG PWM",
+    "LP FRQ",
+    "EM ATK",
+    "RES FRQ",
+    "VCA 1",
+    "VCA 2",
+    "MG AMT",
+    "MG1 FRQ"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_sh_1",
+   "name": "Cable Ove S/H 2",
+   "options": [
+    "-",
+    "S/H IN",
+    "VP1 IN",
+    "VP2 IN",
+    "ADD 1",
+    "ADD 2",
+    "ADD 3",
+    "ADD 4",
+    "J1 IN",
+    "J2 IN"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_vp1_0",
+   "name": "Cable Ove VP 1 1",
+   "options": [
+    "-",
+    "SG FRQ",
+    "SG PWM",
+    "LP FRQ",
+    "EM ATK",
+    "RES FRQ",
+    "VCA 1",
+    "VCA 2",
+    "MG AMT",
+    "MG1 FRQ"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_vp1_1",
+   "name": "Cable Ove VP 1 2",
+   "options": [
+    "-",
+    "S/H IN",
+    "VP1 IN",
+    "VP2 IN",
+    "ADD 1",
+    "ADD 2",
+    "ADD 3",
+    "ADD 4",
+    "J1 IN",
+    "J2 IN"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_vp2_0",
+   "name": "Cable Ove VP 2 1",
+   "options": [
+    "-",
+    "SG FRQ",
+    "SG PWM",
+    "LP FRQ",
+    "EM ATK",
+    "RES FRQ",
+    "VCA 1",
+    "VCA 2",
+    "MG AMT",
+    "MG1 FRQ"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_vp2_1",
+   "name": "Cable Ove VP 2 2",
+   "options": [
+    "-",
+    "S/H IN",
+    "VP1 IN",
+    "VP2 IN",
+    "ADD 1",
+    "ADD 2",
+    "ADD 3",
+    "ADD 4",
+    "J1 IN",
+    "J2 IN"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_key_0",
+   "name": "Cable Ove KEY 1",
+   "options": [
+    "-",
+    "SG FRQ",
+    "SG PWM",
+    "LP FRQ",
+    "EM ATK",
+    "RES FRQ",
+    "VCA 1",
+    "VCA 2",
+    "MG AMT",
+    "MG1 FRQ"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_key_1",
+   "name": "Cable Ove KEY 2",
+   "options": [
+    "-",
+    "S/H IN",
+    "VP1 IN",
+    "VP2 IN",
+    "ADD 1",
+    "ADD 2",
+    "ADD 3",
+    "ADD 4",
+    "J1 IN",
+    "J2 IN"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_pb_0",
+   "name": "Cable Ove PB 1",
+   "options": [
+    "-",
+    "SG FRQ",
+    "SG PWM",
+    "LP FRQ",
+    "EM ATK",
+    "RES FRQ",
+    "VCA 1",
+    "VCA 2",
+    "MG AMT",
+    "MG1 FRQ"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_pb_1",
+   "name": "Cable Ove PB 2",
+   "options": [
+    "-",
+    "S/H IN",
+    "VP1 IN",
+    "VP2 IN",
+    "ADD 1",
+    "ADD 2",
+    "ADD 3",
+    "ADD 4",
+    "J1 IN",
+    "J2 IN"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_pbp_0",
+   "name": "Cable Ove PB+ 1",
+   "options": [
+    "-",
+    "SG FRQ",
+    "SG PWM",
+    "LP FRQ",
+    "EM ATK",
+    "RES FRQ",
+    "VCA 1",
+    "VCA 2",
+    "MG AMT",
+    "MG1 FRQ"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_pbp_1",
+   "name": "Cable Ove PB+ 2",
+   "options": [
+    "-",
+    "S/H IN",
+    "VP1 IN",
+    "VP2 IN",
+    "ADD 1",
+    "ADD 2",
+    "ADD 3",
+    "ADD 4",
+    "J1 IN",
+    "J2 IN"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_mw_0",
+   "name": "Cable Ove MW 1",
+   "options": [
+    "-",
+    "SG FRQ",
+    "SG PWM",
+    "LP FRQ",
+    "EM ATK",
+    "RES FRQ",
+    "VCA 1",
+    "VCA 2",
+    "MG AMT",
+    "MG1 FRQ"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_mw_1",
+   "name": "Cable Ove MW 2",
+   "options": [
+    "-",
+    "S/H IN",
+    "VP1 IN",
+    "VP2 IN",
+    "ADD 1",
+    "ADD 2",
+    "ADD 3",
+    "ADD 4",
+    "J1 IN",
+    "J2 IN"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_mwp_0",
+   "name": "Cable Ove MW+ 1",
+   "options": [
+    "-",
+    "SG FRQ",
+    "SG PWM",
+    "LP FRQ",
+    "EM ATK",
+    "RES FRQ",
+    "VCA 1",
+    "VCA 2",
+    "MG AMT",
+    "MG1 FRQ"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_mwp_1",
+   "name": "Cable Ove MW+ 2",
+   "options": [
+    "-",
+    "S/H IN",
+    "VP1 IN",
+    "VP2 IN",
+    "ADD 1",
+    "ADD 2",
+    "ADD 3",
+    "ADD 4",
+    "J1 IN",
+    "J2 IN"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_vc1_0",
+   "name": "Cable Ove VC 1 1",
+   "options": [
+    "-",
+    "SG FRQ",
+    "SG PWM",
+    "LP FRQ",
+    "EM ATK",
+    "RES FRQ",
+    "VCA 1",
+    "VCA 2",
+    "MG AMT",
+    "MG1 FRQ"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_vc1_1",
+   "name": "Cable Ove VC 1 2",
+   "options": [
+    "-",
+    "S/H IN",
+    "VP1 IN",
+    "VP2 IN",
+    "ADD 1",
+    "ADD 2",
+    "ADD 3",
+    "ADD 4",
+    "J1 IN",
+    "J2 IN"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_vc2_0",
+   "name": "Cable Ove VC 2 1",
+   "options": [
+    "-",
+    "SG FRQ",
+    "SG PWM",
+    "LP FRQ",
+    "EM ATK",
+    "RES FRQ",
+    "VCA 1",
+    "VCA 2",
+    "MG AMT",
+    "MG1 FRQ"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_vc2_1",
+   "name": "Cable Ove VC 2 2",
+   "options": [
+    "-",
+    "S/H IN",
+    "VP1 IN",
+    "VP2 IN",
+    "ADD 1",
+    "ADD 2",
+    "ADD 3",
+    "ADD 4",
+    "J1 IN",
+    "J2 IN"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_vc3_0",
+   "name": "Cable Ove VC 3 1",
+   "options": [
+    "-",
+    "SG FRQ",
+    "SG PWM",
+    "LP FRQ",
+    "EM ATK",
+    "RES FRQ",
+    "VCA 1",
+    "VCA 2",
+    "MG AMT",
+    "MG1 FRQ"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_vc3_1",
+   "name": "Cable Ove VC 3 2",
+   "options": [
+    "-",
+    "S/H IN",
+    "VP1 IN",
+    "VP2 IN",
+    "ADD 1",
+    "ADD 2",
+    "ADD 3",
+    "ADD 4",
+    "J1 IN",
+    "J2 IN"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_vc4_0",
+   "name": "Cable Ove VC 4 1",
+   "options": [
+    "-",
+    "SG FRQ",
+    "SG PWM",
+    "LP FRQ",
+    "EM ATK",
+    "RES FRQ",
+    "VCA 1",
+    "VCA 2",
+    "MG AMT",
+    "MG1 FRQ"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_vc4_1",
+   "name": "Cable Ove VC 4 2",
+   "options": [
+    "-",
+    "S/H IN",
+    "VP1 IN",
+    "VP2 IN",
+    "ADD 1",
+    "ADD 2",
+    "ADD 3",
+    "ADD 4",
+    "J1 IN",
+    "J2 IN"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_rnd_0",
+   "name": "Cable Ove NOISE 1",
+   "options": [
+    "-",
+    "SG FRQ",
+    "SG PWM",
+    "LP FRQ",
+    "EM ATK",
+    "RES FRQ",
+    "VCA 1",
+    "VCA 2",
+    "MG AMT",
+    "MG1 FRQ"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_rnd_1",
+   "name": "Cable Ove NOISE 2",
+   "options": [
+    "-",
+    "S/H IN",
+    "VP1 IN",
+    "VP2 IN",
+    "ADD 1",
+    "ADD 2",
+    "ADD 3",
+    "ADD 4",
+    "J1 IN",
+    "J2 IN"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_p5v_0",
+   "name": "Cable Ove +5 V 1",
+   "options": [
+    "-",
+    "SG FRQ",
+    "SG PWM",
+    "LP FRQ",
+    "EM ATK",
+    "RES FRQ",
+    "VCA 1",
+    "VCA 2",
+    "MG AMT",
+    "MG1 FRQ"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_p5v_1",
+   "name": "Cable Ove +5 V 2",
+   "options": [
+    "-",
+    "S/H IN",
+    "VP1 IN",
+    "VP2 IN",
+    "ADD 1",
+    "ADD 2",
+    "ADD 3",
+    "ADD 4",
+    "J1 IN",
+    "J2 IN"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_m5v_0",
+   "name": "Cable Ove -5 V 1",
+   "options": [
+    "-",
+    "SG FRQ",
+    "SG PWM",
+    "LP FRQ",
+    "EM ATK",
+    "RES FRQ",
+    "VCA 1",
+    "VCA 2",
+    "MG AMT",
+    "MG1 FRQ"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_m5v_1",
+   "name": "Cable Ove -5 V 2",
+   "options": [
+    "-",
+    "S/H IN",
+    "VP1 IN",
+    "VP2 IN",
+    "ADD 1",
+    "ADD 2",
+    "ADD 3",
+    "ADD 4",
+    "J1 IN",
+    "J2 IN"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_xyx_0",
+   "name": "Cable Ove X 1",
+   "options": [
+    "-",
+    "SG FRQ",
+    "SG PWM",
+    "LP FRQ",
+    "EM ATK",
+    "RES FRQ",
+    "VCA 1",
+    "VCA 2",
+    "MG AMT",
+    "MG1 FRQ"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_xyx_1",
+   "name": "Cable Ove X 2",
+   "options": [
+    "-",
+    "S/H IN",
+    "VP1 IN",
+    "VP2 IN",
+    "ADD 1",
+    "ADD 2",
+    "ADD 3",
+    "ADD 4",
+    "J1 IN",
+    "J2 IN"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_xyy_0",
+   "name": "Cable Ove Y 1",
+   "options": [
+    "-",
+    "SG FRQ",
+    "SG PWM",
+    "LP FRQ",
+    "EM ATK",
+    "RES FRQ",
+    "VCA 1",
+    "VCA 2",
+    "MG AMT",
+    "MG1 FRQ"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_xyy_1",
+   "name": "Cable Ove Y 2",
+   "options": [
+    "-",
+    "S/H IN",
+    "VP1 IN",
+    "VP2 IN",
+    "ADD 1",
+    "ADD 2",
+    "ADD 3",
+    "ADD 4",
+    "J1 IN",
+    "J2 IN"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_add_0",
+   "name": "Cable Ove ADD 1",
+   "options": [
+    "-",
+    "SG FRQ",
+    "SG PWM",
+    "LP FRQ",
+    "EM ATK",
+    "RES FRQ",
+    "VCA 1",
+    "VCA 2",
+    "MG AMT",
+    "MG1 FRQ"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_add_1",
+   "name": "Cable Ove ADD 2",
+   "options": [
+    "-",
+    "S/H IN",
+    "VP1 IN",
+    "VP2 IN",
+    "ADD 1",
+    "ADD 2",
+    "ADD 3",
+    "ADD 4",
+    "J1 IN",
+    "J2 IN"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_j1a_0",
+   "name": "Cable Ove J1 A 1",
+   "options": [
+    "-",
+    "SG FRQ",
+    "SG PWM",
+    "LP FRQ",
+    "EM ATK",
+    "RES FRQ",
+    "VCA 1",
+    "VCA 2",
+    "MG AMT",
+    "MG1 FRQ"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_j1a_1",
+   "name": "Cable Ove J1 A 2",
+   "options": [
+    "-",
+    "S/H IN",
+    "VP1 IN",
+    "VP2 IN",
+    "ADD 1",
+    "ADD 2",
+    "ADD 3",
+    "ADD 4",
+    "J1 IN",
+    "J2 IN"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_j1b_0",
+   "name": "Cable Ove J1 B 1",
+   "options": [
+    "-",
+    "SG FRQ",
+    "SG PWM",
+    "LP FRQ",
+    "EM ATK",
+    "RES FRQ",
+    "VCA 1",
+    "VCA 2",
+    "MG AMT",
+    "MG1 FRQ"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_j1b_1",
+   "name": "Cable Ove J1 B 2",
+   "options": [
+    "-",
+    "S/H IN",
+    "VP1 IN",
+    "VP2 IN",
+    "ADD 1",
+    "ADD 2",
+    "ADD 3",
+    "ADD 4",
+    "J1 IN",
+    "J2 IN"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_j2a_0",
+   "name": "Cable Ove J2 A 1",
+   "options": [
+    "-",
+    "SG FRQ",
+    "SG PWM",
+    "LP FRQ",
+    "EM ATK",
+    "RES FRQ",
+    "VCA 1",
+    "VCA 2",
+    "MG AMT",
+    "MG1 FRQ"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_j2a_1",
+   "name": "Cable Ove J2 A 2",
+   "options": [
+    "-",
+    "S/H IN",
+    "VP1 IN",
+    "VP2 IN",
+    "ADD 1",
+    "ADD 2",
+    "ADD 3",
+    "ADD 4",
+    "J1 IN",
+    "J2 IN"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_j2b_0",
+   "name": "Cable Ove J2 B 1",
+   "options": [
+    "-",
+    "SG FRQ",
+    "SG PWM",
+    "LP FRQ",
+    "EM ATK",
+    "RES FRQ",
+    "VCA 1",
+    "VCA 2",
+    "MG AMT",
+    "MG1 FRQ"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_j2b_1",
+   "name": "Cable Ove J2 B 2",
+   "options": [
+    "-",
+    "S/H IN",
+    "VP1 IN",
+    "VP2 IN",
+    "ADD 1",
+    "ADD 2",
+    "ADD 3",
+    "ADD 4",
+    "J1 IN",
+    "J2 IN"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_sng_0",
+   "name": "Cable Ove SNG 1",
+   "options": [
+    "-",
+    "EM REL",
+    "GEG TRG"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_mlt_0",
+   "name": "Cable Ove MLT 1",
+   "options": [
+    "-",
+    "EM REL",
+    "GEG TRG"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_mg1c_0",
+   "name": "Cable Ove MG1 CLK 1",
+   "options": [
+    "-",
+    "EM REL",
+    "GEG TRG"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_mg2c_0",
+   "name": "Cable Ove MG2 CLK 1",
+   "options": [
+    "-",
+    "EM REL",
+    "GEG TRG"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_shc_0",
+   "name": "Cable Ove S/H CLK 1",
+   "options": [
+    "-",
+    "EM REL",
+    "GEG TRG"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_clk1_0",
+   "name": "Cable Ove CLK 1 1",
+   "options": [
+    "-",
+    "EM REL",
+    "GEG TRG"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_clk2_0",
+   "name": "Cable Ove CLK 2 1",
+   "options": [
+    "-",
+    "EM REL",
+    "GEG TRG"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_trg1_0",
+   "name": "Cable Ove TRG 1 1",
+   "options": [
+    "-",
+    "EM REL",
+    "GEG TRG"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "co_trg2_0",
+   "name": "Cable Ove TRG 2 1",
+   "options": [
+    "-",
+    "EM REL",
+    "GEG TRG"
+   ],
+   "default": 0,
+   "poll": false
+  },
+  {
+   "key": "hd_0",
+   "name": "Held 1",
+   "options": [
+    "-",
+    "GEG",
+    "GE+",
+    "MG",
+    "MG 1",
+    "MG 2",
+    "S/H",
+    "VP 1",
+    "VP 2",
+    "KEY"
+   ],
+   "default": 0
+  },
+  {
+   "key": "hd_1",
+   "name": "Held 2",
+   "options": [
+    "-",
+    "PB",
+    "PB+",
+    "MW",
+    "MW+",
+    "VC 1",
+    "VC 2",
+    "VC 3",
+    "VC 4",
+    "NOISE"
+   ],
+   "default": 0
+  },
+  {
+   "key": "hd_2",
+   "name": "Held 3",
+   "options": [
+    "-",
+    "+5 V",
+    "-5 V",
+    "X",
+    "Y",
+    "ADD",
+    "J1 A",
+    "J1 B",
+    "J2 A",
+    "J2 B"
+   ],
+   "default": 0
+  },
+  {
+   "key": "hd_3",
+   "name": "Held 4",
+   "options": [
+    "-",
+    "SNG",
+    "MLT",
+    "MG1 CLK",
+    "MG2 CLK",
+    "S/H CLK",
+    "CLK 1",
+    "CLK 2",
+    "TRG 1",
+    "TRG 2"
+   ],
+   "default": 0
   }
  ],
  "sections": [

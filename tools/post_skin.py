@@ -10,9 +10,10 @@ the 'view' parameter is at them. This script then, in the built skin:
   - redraws the knob filmstrips as the PS-3100's black skirted knobs, the toggles as its orange slide switches, the
     navigation buttons, and makes the jack and overview-tile buttons transparent touch areas;
   - adds the cables: for every output and every input it can reach, one picture of that cable on the patch page and
-    a small one on the overview tile, each shown only while the output's 'cab_<out>' parameter says so (IndexedEnabling,
-    the same mechanism as the framework's popups and mode panels). The engine sets 'cab_<out>' from the patch and the
-    view. A ring for the output waiting for its input ('held') and the GEG LED work the same way.
+    a small one on the overview tile, each shown only while its switch parameter says so (IndexedEnabling, the same
+    mechanism as the framework's popups and mode panels): cp_/co_<out>_<group>, at most 10 positions each (spec.py).
+    The engine sets them from the patch and the view. A ring for the output waiting for its input (hd_<group>) and the
+    GEG LED work the same way.
 Everything injected goes right after the background, so every control stays on top and keeps its touches.
 """
 import json
@@ -261,7 +262,9 @@ def fix_popups(skin, folder):
         box on its right end opens and closes the list (a Toggle Switch on pop_<key>, the trigger buttons' action);
       - the list's options are redrawn in the panel's font at a readable size."""
     comps = skin.page["componentsData"]
-    trig = next(v for k, v in skin.defs.items() if k.startswith("shTrig_nav_zoom"))
+    # the arrow is built like the panel's on/off switches (Mouse Down > Q-Link, and the Button flips the value once):
+    # a Toggle Switch action plus the Button's own click flipped it twice per tap, so 0.1.3's lists opened and closed
+    tog = next(v for k, v in skin.defs.items() if k.startswith("shToggle"))
     pops = [c for c in spec.CONTROLS if c["kind"] == "enum" and c["widget"] == "popup"]
     remap = {"Parameter %d" % skin.index[c["key"] + "__open"]: "Parameter %d" % skin.index["pop_" + c["key"]] for c in pops}
     remap_ie = {}
@@ -285,7 +288,7 @@ def fix_popups(skin, folder):
         fkey = "psPopField_%dx%d" % (w, h)
         if fkey not in skin.defs:
             d = json.loads(json.dumps(skin.defs[t]))
-            d["actions"] = [a for a in skin.defs[t]["actions"] if a["onAction"] == "Mouse Down"]
+            d["actions"] = [a for a in d["actions"] if a["onAction"] == "Mouse Down"]
             d["actions"][0]["handler"] = "Q-Link"
             for sub in d["componentsData"]:
                 if sub["componentData"]["type"] == "Label":
@@ -296,7 +299,9 @@ def fix_popups(skin, folder):
         inst["handle remapping"]["map"] = [{"key": "Data", "value": mp["Text"]}, {"key": "Text", "value": mp["Text"]}]
         akey = "psPopArrow_%dx%d" % (POP_ARROW_W, h)
         if akey not in skin.defs:
-            d = json.loads(json.dumps(trig))
+            d = json.loads(json.dumps(tog))
+            d["actions"] = [a for a in d["actions"] if a["onAction"] == "Mouse Down"]
+            assert d["actions"] and d["actions"][0]["handler"] == "Q-Link", "switch template changed"
             for sub in d["componentsData"]:
                 sub["bounds"]["bounds"] = bstr(0, 0, POP_ARROW_W, h)
                 if sub["componentData"]["type"] == "Button":
@@ -730,23 +735,23 @@ def main():
     comps.insert(1, image_instance("Panel", "ps_view_0.png", 0, 0, W, H,
                                    ["IndexedEnabling/0/%d/Parameter %d" % (nviews, vidx)]))
 
-    # 4) cables: patch page and overview copies, one picture per output and reachable input; held rings
+    # 4) cables: patch page and overview copies, one picture per output and reachable input; held rings.
+    # Each is switched by a small parameter (spec.cable_param / held_param: at most JACK_GROUP + 1 positions, 0.1.4).
     pos = dict(spec.JACKS)
     px0, py0, ps = TH_MAP["patch"]
     cable_insts, total_px = [], 0
     pieces = 0
     for oi, o in enumerate(spec.OUTS):
         ins = [j for j in spec.INS if j[2] == o[2]]
-        nopt = 1 + 2 * len(ins)
-        cidx = skin.index["cab_" + o[0]]
         colour = spec.CABLE_COLOURS[oi % len(spec.CABLE_COLOURS)]
         for t, j in enumerate(ins):
             ov_map = lambda p: (px0 + p[0] * ps, py0 + (p[1] - 72) * ps)
-            for tag, opt, scale, mp, clip in (
-                    ("p", 1 + t, 1.0, lambda p: p, (0, 72, W, H)),
-                    ("o", 1 + len(ins) + t, ps, ov_map, (tx, ty, tx + tw, ty + th))):
+            for tag, prefix, scale, mp, clip in (
+                    ("p", "cp", 1.0, lambda p: p, (0, 72, W, H)),
+                    ("o", "co", ps, ov_map, (tx, ty, tx + tw, ty + th))):
+                key, opt, nopt = spec.cable_param(prefix, o, j)
                 im, x0, y0 = draw_cable(mp(pos[o[0]]), mp(pos[j[0]]), colour, scale, clip=clip)
-                handle = ["IndexedEnabling/%d/%d/Parameter %d" % (opt, nopt, cidx)]
+                handle = ["IndexedEnabling/%d/%d/Parameter %d" % (opt, nopt, skin.index[key])]
                 for k, (piece, px, py) in enumerate(tile_pieces(im, x0, y0, spec.CABLE_TILE)):
                     name = "ps_cab_%s_%s_%s_%d.png" % (tag, o[0], j[0], k)
                     piece.save(os.path.join(folder, name), optimize=True)
@@ -754,11 +759,11 @@ def main():
                     pieces += 1
                     cable_insts.append(image_instance("Cable", name, px, py, piece.size[0], piece.size[1], handle))
     ring_image().save(os.path.join(folder, "ps_held.png"))
-    hidx = skin.index["held"]
-    for oi, o in enumerate(spec.OUTS):
+    for o in spec.OUTS:
         x, y = pos[o[0]]
+        key, opt, nopt = spec.held_param(o)
         cable_insts.append(image_instance("Held", "ps_held.png", x - 33, y - 33, 66, 66,
-                                          ["IndexedEnabling/%d/%d/Parameter %d" % (oi + 1, len(spec.OUTS) + 1, hidx)]))
+                                          ["IndexedEnabling/%d/%d/Parameter %d" % (opt, nopt, skin.index[key])]))
     at = 1 + len(injected) + 1
     comps[at:at] = cable_insts
     skin.save()
@@ -772,12 +777,13 @@ def main():
         for i, v in enumerate(spec.VIEWS):
             st = {"view": i, "in_sec": 1 if i else 0}
             for oi, o in enumerate(spec.OUTS):
-                if o[0] in demo:
-                    ins = [j for j in spec.INS if j[2] == o[2]]
-                    t = [j[0] for j in ins].index(demo[o[0]])
-                    st["cab_" + o[0]] = (1 + t) if v[0] == "patch" else (1 + len(ins) + t) if i == 0 else 0
+                if o[0] in demo and (v[0] == "patch" or i == 0):
+                    j = next(x for x in spec.INS if x[0] == demo[o[0]])
+                    key, opt, _ = spec.cable_param("cp" if v[0] == "patch" else "co", o, j)
+                    st[key] = opt
             if v[0] == "patch":
-                st["held"] = 1 + [o[0] for o in spec.OUTS].index("sh")
+                key, opt, _ = spec.held_param(next(o for o in spec.OUTS if o[0] == "sh"))
+                st[key] = opt
             composer.compose(st).convert("RGB").save(os.path.join(preview, "view_%02d_%s.png" % (i, v[0])))
 
 

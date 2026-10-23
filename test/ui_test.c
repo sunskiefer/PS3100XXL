@@ -60,7 +60,25 @@ int main(){ AEffect*a=VSTPluginMain(host); a->d(a,12,0,1,0,0); run(a,50);
   CK(fabsf(g(a,"clk1_rate")*15-6)<0.05f,"six data wheel clicks on CLK 1 RATE step six (%.2f)", g(a,"clk1_rate")*15);
   /* patch bay through the host, unchanged */
   a->setP(a,fp("go_patch"),1); run(a,50);
-  a->setP(a,fp("tap_geg"),1); run(a,50); a->setP(a,fp("tap_sg_frq"),1); run(a,50);
-  CK(g(a,"cab_geg")>0.01f,"GEG -> SG FRQ draws its cable (cab_geg %.3f)", g(a,"cab_geg"));
+  a->setP(a,fp("tap_geg"),1); run(a,50);
+  /* the ring: GEG is output 0, group hd_0 option 1 of 10 */
+  CK(fabsf(g(a,"hd_0")*9-1)<0.01f,"tapping GEG shows its ring (hd_0 at 1 of 10)");
+  a->setP(a,fp("tap_sg_frq"),1); run(a,50);
+  /* SG FRQ is CV input 0: GEG's patch-page switch cp_geg_0 at option 1 of 10, the overview one off, the ring off */
+  CK(fabsf(g(a,"cp_geg_0")*9-1)<0.01f && g(a,"co_geg_0")<0.01f && g(a,"hd_0")<0.01f,
+     "GEG -> SG FRQ draws its cable on the patch page (cp_geg_0 %.3f), ring off", g(a,"cp_geg_0"));
+  a->setP(a,fp("nav_zoom"),1); run(a,50);
+  CK(g(a,"cp_geg_0")<0.01f && fabsf(g(a,"co_geg_0")*9-1)<0.01f,"on the overview the cable shows on the tile instead");
+  a->setP(a,fp("go_patch"),1); run(a,50);
+  a->setP(a,fp("tap_geg"),1); run(a,50);
+  CK(g(a,"cp_geg_0")<0.01f,"tapping the patched GEG unplugs it");
+  /* every picture switch has at most 11 positions (the most seen working on a Force) */
+  int big=0; for(int i=0;i<NPARAMS;i++){ const char*k=PARAMS[i].key; if((!strncmp(k,"cp_",3)||!strncmp(k,"co_",3)||!strncmp(k,"hd_",3)) && PARAMS[i].nopts>11) big++; }
+  CK(big==0,"no cable or ring switch over 11 positions");
+  /* a list stays open when MPC re-sends the value it already has (a focus, a redraw) */
+  a->setP(a,fp("go_setup"),1); run(a,50);
+  a->setP(a,fp("pop_clk1_rate"),1); run(a,50);
+  a->setP(a,fp("clk1_rate"),g(a,"clk1_rate")); run(a,50);
+  CK(g(a,"pop_clk1_rate")>0.5f,"a re-sent value keeps the list open");
   printf(fails?"FAILED\n":"PASSED\n"); return fails!=0; }
 

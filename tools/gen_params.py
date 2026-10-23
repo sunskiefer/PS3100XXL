@@ -9,6 +9,7 @@
   docs/INVENTORY.md  the full control and jack list, checked against the build
 """
 import json
+import re
 import math
 import os
 import sys
@@ -126,6 +127,14 @@ def build_params():
     P.append({"key": "in_sec", "name": "In Section", "options": ["Overview", "Section"], "default": 0})
     P += [{"key": "pop_" + c["key"], "name": c["name"] + " List", "options": ["Closed", "Open"], "default": 0}
           for c in spec.CONTROLS if c["kind"] == "enum" and c["widget"] == "popup"]
+    # 0.1.4, appended: the cable and ring pictures' switches, at most JACK_GROUP + 1 positions each (spec.py)
+    for prefix, where in (("cp", "Patch"), ("co", "Overview")):
+        for o in spec.OUTS:
+            for g, ins in spec.cable_groups(o):
+                P.append({"key": "%s_%s_%d" % (prefix, o[0], g), "name": "%s %s %s %d" % ("Cable", where[:3], o[1], g + 1),
+                          "options": ["-"] + [i[1] for i in ins], "default": 0, "poll": False})
+    for g, outs in enumerate(spec.groups(spec.OUTS)):
+        P.append({"key": "hd_%d" % g, "name": "Held %d" % (g + 1), "options": ["-"] + [o[1] for o in outs], "default": 0})
     keys = [p["key"] for p in P]
     assert len(keys) == len(set(keys)), "duplicate keys"
     return P
@@ -195,6 +204,27 @@ def write_header(P):
     # overview's small copy)
     L.append("static const unsigned char IN_TYPED[N_INS] = {%s};" % ", ".join(
         str([x for x in spec.INS if x[2] == j[2]].index(j)) for j in spec.INS))
+    # the cable / ring picture switches (0.1.4): for each, which kind (0 patch cable, 1 overview cable, 2 ring),
+    # which output (or group of outputs for a ring) and which group of inputs
+    vis = [p for p in P if re.match(r"(cp|co)_.*_\d+$|hd_\d+$", p["key"])]
+    first = P.index(vis[0])
+    assert [p["key"] for p in P[first:first + len(vis)]] == [p["key"] for p in vis], "picture switches contiguous"
+    okeys = [o[0] for o in spec.OUTS]
+    kinds, outs, grps = [], [], []
+    for p in vis:
+        k = p["key"]
+        if k.startswith("hd_"):
+            kinds.append(2); outs.append(-1); grps.append(int(k[3:]))
+        else:
+            m = re.match(r"(cp|co)_(.+)_(\d+)$", k)
+            kinds.append(0 if m.group(1) == "cp" else 1); outs.append(okeys.index(m.group(2))); grps.append(int(m.group(3)))
+    L.append("// cable / ring picture switches")
+    L.append("#define JACK_GROUP %d" % spec.JACK_GROUP)
+    L.append("#define P_VIS_FIRST %d" % first)
+    L.append("#define N_VIS %d" % len(vis))
+    L.append("static const unsigned char VIS_KIND[N_VIS] = {%s};" % ", ".join(map(str, kinds)))
+    L.append("static const signed char VIS_OUT[N_VIS] = {%s};" % ", ".join(map(str, outs)))
+    L.append("static const unsigned char VIS_GROUP[N_VIS] = {%s};" % ", ".join(map(str, grps)))
     pops = [c["key"] for c in spec.CONTROLS if c["kind"] == "enum" and c["widget"] == "popup"]
     L.append("// pop-up lists: the enum each pop_<key> opens")
     L.append("#define N_POPS %d" % len(pops))

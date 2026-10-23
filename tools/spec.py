@@ -263,3 +263,36 @@ CABLE_COLOURS = [(216, 90, 48), (29, 158, 117), (239, 159, 39), (55, 138, 221), 
 
 # Header on every zoomed page: back to the overview, previous / next section.
 NAV = [("nav_zoom", "OVERVIEW", 90, 38), ("nav_prev", "<", 240, 38), ("nav_next", ">", 350, 38)]
+
+
+# Cable and ring pictures are switched by parameters of at most JACK_GROUP + 1 positions (0.1.4). 0.1.2 and 0.1.3 used
+# one 37-position parameter per output; on the Force nothing ever appeared, and nothing above 11 positions (the view) has
+# been seen working there. So each output's cable is split over small parameters: inputs of its type in groups of
+# JACK_GROUP, one parameter per group ("-" or which input of the group), for the patch page (cp_) and the overview (co_);
+# the ring of the output waiting for an input likewise over hd_<g>.
+JACK_GROUP = 9
+
+
+def groups(items):
+    return [items[i:i + JACK_GROUP] for i in range(0, len(items), JACK_GROUP)]
+
+
+def cable_groups(out):
+    """[(group index, [inputs])] an output's cable can reach."""
+    return list(enumerate(groups([i for i in INS if i[2] == out[2]])))
+
+
+def cable_param(prefix, out, j):
+    """(param key, option index, option count) showing out's cable to input j (prefix cp = patch page, co = overview)."""
+    ins = [i for i in INS if i[2] == out[2]]
+    t = ins.index(j)
+    g = t // JACK_GROUP
+    n = len(groups(ins)[g])
+    return "%s_%s_%d" % (prefix, out[0], g), 1 + t % JACK_GROUP, n + 1
+
+
+def held_param(out):
+    oi = OUTS.index(out)
+    g = oi // JACK_GROUP
+    return "hd_%d" % g, 1 + oi % JACK_GROUP, len(groups(OUTS)[g]) + 1
+

@@ -2,7 +2,7 @@
   "name": "PS3100XXL",
   "vendor": "L'Cronx",
   "uid": "Ps31",
-  "version": 103,
+  "version": 104,
   "so": "ps3100xxl.so",
   "params": "params.json",
   "build": {

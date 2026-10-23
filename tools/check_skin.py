@@ -75,8 +75,13 @@ def main():
         pidx = skin.index["pop_" + c["key"]]
         if by_param.get(c["key"] + "__open"):
             problems.append("pop-up %s still bound to the wrapper's %s__open" % (c["key"], c["key"]))
-        if not by_param.get("pop_" + c["key"]):
+        arrows = by_param.get("pop_" + c["key"], [])
+        if not arrows:
             problems.append("pop-up %s has no arrow on pop_%s" % (c["key"], c["key"]))
+        for inst, _ in arrows:
+            acts = [a["onAction"] + ">" + a["handler"] for a in skin.defs[inst["componentData"]["type"]]["actions"]]
+            if any(a.endswith("Toggle Switch") for a in acts):
+                problems.append("pop-up %s arrow flips twice per tap (%s)" % (c["key"], acts))
         opened = "IndexedEnabling/1/2/Parameter %d" % pidx
         parts = [hs for (_, hs) in by_param.get(c["key"], []) if opened in hs]
         if len(parts) != len(c["options"]):
@@ -85,21 +90,25 @@ def main():
     for i in range(nv):
         if "ps_view_%d.png" % i not in images:
             problems.append("no panel picture for view %d" % i)
+    # cables and rings: every (output, input) picture on the patch page and the overview, each switched by a small
+    # parameter (at most 11 positions: nothing larger has been seen working on a Force; 0.1.4)
+    handles = set()
+    for inst in skin.page["componentsData"]:
+        for h in inst["bounds"]["additionalInvalidatingHandles"]:
+            m = re.match(r"IndexedEnabling/(\d+)/(\d+)/Parameter (\d+)$", h)
+            if m:
+                handles.add(h)
+                if int(m.group(2)) > 11:
+                    problems.append("%s: %s positions (more than the 11 seen working)" % (h, m.group(2)))
     for o in spec.OUTS:
-        ins = [j for j in spec.INS if j[2] == o[2]]
-        nopt = 1 + 2 * len(ins)
-        cidx = skin.index["cab_" + o[0]]
-        shown = set()
-        for inst in skin.page["componentsData"]:
-            for h in inst["bounds"]["additionalInvalidatingHandles"]:
-                m = re.match(r"IndexedEnabling/(\d+)/(\d+)/Parameter (\d+)$", h)
-                if m and int(m.group(3)) == cidx:
-                    if int(m.group(2)) != nopt:
-                        problems.append("cable %s: option count %s, parameter has %d" % (o[0], m.group(2), nopt))
-                    shown.add(int(m.group(1)))
-        missing = set(range(1, nopt)) - shown
-        if missing:
-            problems.append("cable %s: no picture for options %s" % (o[0], sorted(missing)))
+        for j in [x for x in spec.INS if x[2] == o[2]]:
+            for prefix in ("cp", "co"):
+                key, opt, nopt = spec.cable_param(prefix, o, j)
+                if "IndexedEnabling/%d/%d/Parameter %d" % (opt, nopt, skin.index[key]) not in handles:
+                    problems.append("cable %s -> %s: no %s picture" % (o[0], j[0], prefix))
+        key, opt, nopt = spec.held_param(o)
+        if "IndexedEnabling/%d/%d/Parameter %d" % (opt, nopt, skin.index[key]) not in handles:
+            problems.append("output %s: no ring" % o[0])
     for name in sorted(images):
         if not os.path.exists(os.path.join(folder, name)):
             problems.append("image %s is missing" % name)

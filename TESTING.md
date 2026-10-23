@@ -21,6 +21,18 @@ data wheel on a pop-up field moved its open flag, not the value; the header butt
 swapped under the finger on a press; a pop-up list left open stayed on every other page and took its touches (over the
 right half of the patch bay).
 
+## 0.1.4 (offline)
+
+Found on the Force with 0.1.3: still no ring or cable in the patch bay; every pop-up list closed as soon as it opened.
+- Cables and rings: each picture is now switched by a parameter of at most 10 positions (`cp_` / `co_<out>_<group>`,
+  `hd_<group>`, `tools/spec.py`), not one 37-position parameter per output; nothing over 11 positions (the view) has
+  been seen working on a Force. `check_skin.py` fails on any switch over 11 positions.
+- Pop-up arrows: built like the on/off switches (Mouse Down > Q-Link; the Button flips once). 0.1.3's had a Toggle
+  Switch action as well, so a tap flipped the list open and shut. `check_skin.py` fails on an arrow with Toggle Switch.
+- The engine closes a list on a pick only when the value really changes (a re-sent value keeps it open).
+- `test/ui_test.c`: ring on an output tap, the cable on the patch page and on the overview, unplugging, the 11-position
+  limit, a re-sent value.
+
 ## On the Force (to do)
 
 | # | Check | Result |

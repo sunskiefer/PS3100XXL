@@ -678,6 +678,19 @@ struct Synth {
     return 0;
   }
 
+  // the cable / ring picture switches (0.1.4): each at most JACK_GROUP + 1 positions (see tools/spec.py)
+  int vis_value(int k) const {
+    if (VIS_KIND[k] == 2) {                        // ring: the output waiting for its input, on the patch page
+      if (view != V_PATCH || held < 0 || held / JACK_GROUP != VIS_GROUP[k]) return 0;
+      return 1 + held % JACK_GROUP;
+    }
+    if (view != (VIS_KIND[k] == 0 ? V_PATCH : V_OVERVIEW)) return 0;
+    int o = VIS_OUT[k], d = dest[o];
+    if (d < 0) return 0;
+    int t = IN_TYPED[d];
+    return t / JACK_GROUP == VIS_GROUP[k] ? 1 + t % JACK_GROUP : 0;
+  }
+
   int ql_target(int i) const { return VIEW_QLINKS[view][i]; }
 
   // ---- value text ------------------------------------------------------------------------------------------------------
@@ -781,6 +794,7 @@ void load_state(Synth *s, const char *st) {
 void set_control(Synth *s, int p, float v) {
   v = clampf(v, P_MIN[p], P_MAX[p]);
   if (P_NOPTS[p] || P_INT[p]) v = roundf(v);
+  bool moved = s->pv[p] != v;
   s->pv[p] = v;
   if (p >= P_TUNE_C && p <= P_TUNE_B) s->apply_tuning();
   if (p == P_TEMPERAMENT) {                 // a template: write its offsets into the twelve tune knobs
@@ -791,7 +805,7 @@ void set_control(Synth *s, int p, float v) {
   if (p == P_EM_HOLD || p == P_PS_HOLD_MODE || p == P_EM_ATTACK) s->update_hold();
   if (p == P_MANUAL_TRG1 && v > 0.5f) { s->trg_pending[0] = true; s->pv[p] = 0; }
   for (int i = 0; i < N_POPS; i++)          // a pick from a pop-up list closes it
-    if (POP_ENUM[i] == p && s->pop_open[i]) { s->pop_open[i] = false; s->bump(); }
+    if (POP_ENUM[i] == p && moved && s->pop_open[i]) { s->pop_open[i] = false; s->bump(); }   // not on a re-send
 }
 
 // ---- mpc_engine glue ------------------------------------------------------------------------------------------------
@@ -890,6 +904,7 @@ int get_param(void *inst, const char *key, char *buf, int n) {
   }
   if (p == P_VIEW) return snprintf(buf, n, "%d", s->view);
   if (p == P_IN_SEC) return snprintf(buf, n, "%d", s->view > 0 ? 1 : 0);
+  if (p >= P_VIS_FIRST && p < P_VIS_FIRST + N_VIS) return snprintf(buf, n, "%d", s->vis_value(p - P_VIS_FIRST));
   if (p > P_IN_SEC && p <= P_IN_SEC + N_POPS) return snprintf(buf, n, "%d", s->pop_open[p - P_IN_SEC - 1] ? 1 : 0);
   if (p >= P_CAB_GEG && p < P_CAB_GEG + N_OUTS) return snprintf(buf, n, "%d", s->cable_value(p - P_CAB_GEG));
   if (p == P_HELD) return snprintf(buf, n, "%d", s->view == V_PATCH && s->held >= 0 ? s->held + 1 : 0);

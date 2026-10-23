@@ -1,4 +1,4 @@
-# PS3100XXL v0.1.3
+# PS3100XXL v0.1.4
 
 **A Korg PS-3100-style semi-modular polyphonic synthesizer for MPC OS on the Akai Force, with the whole panel on one
 zoomable page and a patch bay you patch by touch.**
@@ -10,10 +10,12 @@ the patch panel. The sound engine is its own, written from the PS-3100's publish
 FB-3100 manual's description of it; no code from either.
 
 > [!NOTE]
-> **Status: 0.1.3.** 0.1.2 was tried on a Force: pop-up lists unreadable, the data wheel not reaching pop-up values,
-> page arrows glitching, and patch bay taps doing nothing. 0.1.3 fixes the causes found offline (below); it passes its
-> engine tests, the mpc-vst-plugins host test and its own UI test through the wrapper, on x86 under ASan and UBSan, and
-> is not yet re-checked on the Force.
+> **Status: 0.1.4.** On the Force, 0.1.2 and 0.1.3 drew no ring and no cable in the patch bay, and 0.1.3's pop-up
+> lists closed as soon as they opened. 0.1.4 switches every cable and ring picture with small parameters (at most 10
+> positions, the size that is seen working on the Force; before it was one 37-position switch per output) and builds
+> the list arrows like the panel's on/off switches (0.1.3's flipped twice per tap). It passes its engine tests, the
+> mpc-vst-plugins host test and its own UI test through the wrapper on x86 under ASan and UBSan; not yet re-checked on
+> the Force.
 
 ![Overview](docs/img/overview.png)
 

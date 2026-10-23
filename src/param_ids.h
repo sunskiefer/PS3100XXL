@@ -222,14 +222,144 @@
 #define P_POP_TEMPERAMENT 218
 #define P_POP_CLK1_RATE 219
 #define P_POP_CLK2_RATE 220
-#define P_COUNT 221
-static const char *const P_KEY[P_COUNT] = {"final_vol", "sg_wave", "sg_pwm_int", "sg_fine", "sg_coarse", "sg_octave", "sg_fm_on", "sg_fm_rev", "sg_fm_mg1", "sg_fm_geg", "lp_cutoff", "lp_peak", "lp_balance", "lp_expand", "lp_fm_on", "lp_fm_mg1", "lp_fm_geg", "em_attack", "em_decay", "em_sustain", "em_release", "em_hold", "ps_hold_mode", "rel_override", "rel_time", "velocity", "res_int", "res_f1", "res_f2", "res_f3", "res_mg2", "res_ext", "amp_mod", "am_mg1", "ensemble", "vca1_geg", "vca2_vp1", "kbd_balance", "final_pan", "direct_vol", "direct_pan", "mg1_wave", "mg1_freq", "mg1_sync", "mg_select", "mg2_freq", "mg2_sync", "sh_clock", "sh_sync", "sh_host", "geg_trigger", "geg_delay", "geg_attack", "geg_release", "geg_auto", "geg_polarity", "vp1_a", "vp1_b", "vp2_a", "vp2_b", "vp2_src", "xy_x", "xy_y", "add_level", "manual_trg1", "tune_c", "tune_cs", "tune_d", "tune_ds", "tune_e", "tune_f", "tune_fs", "tune_g", "tune_gs", "tune_a", "tune_as", "tune_b", "temperament", "master_tune", "voices", "pb_range", "clk1_rate", "clk2_rate", "trg1_cc", "trg2_cc", "vc1_cc", "vc2_cc", "vc3_cc", "vc4_cc", "view", "nav_zoom", "nav_prev", "nav_next", "go_sg", "go_lp", "go_em", "go_res", "go_tm", "go_mod", "go_geg", "go_tun", "go_patch", "go_setup", "tap_geg", "tap_gep", "tap_mg", "tap_mg1", "tap_mg2", "tap_sh", "tap_vp1", "tap_vp2", "tap_key", "tap_pb", "tap_pbp", "tap_mw", "tap_mwp", "tap_vc1", "tap_vc2", "tap_vc3", "tap_vc4", "tap_rnd", "tap_p5v", "tap_m5v", "tap_xyx", "tap_xyy", "tap_add", "tap_j1a", "tap_j1b", "tap_j2a", "tap_j2b", "tap_sng", "tap_mlt", "tap_mg1c", "tap_mg2c", "tap_shc", "tap_clk1", "tap_clk2", "tap_trg1", "tap_trg2", "tap_sg_frq", "tap_sg_pwm", "tap_lp_frq", "tap_em_atk", "tap_res_frq", "tap_vca1", "tap_vca2", "tap_mg_amt", "tap_mg1_frq", "tap_sh_in", "tap_vp1_in", "tap_vp2_in", "tap_add1", "tap_add2", "tap_add3", "tap_add4", "tap_j1_in", "tap_j2_in", "tap_em_rel", "tap_geg_trg", "cab_geg", "cab_gep", "cab_mg", "cab_mg1", "cab_mg2", "cab_sh", "cab_vp1", "cab_vp2", "cab_key", "cab_pb", "cab_pbp", "cab_mw", "cab_mwp", "cab_vc1", "cab_vc2", "cab_vc3", "cab_vc4", "cab_rnd", "cab_p5v", "cab_m5v", "cab_xyx", "cab_xyy", "cab_add", "cab_j1a", "cab_j1b", "cab_j2a", "cab_j2b", "cab_sng", "cab_mlt", "cab_mg1c", "cab_mg2c", "cab_shc", "cab_clk1", "cab_clk2", "cab_trg1", "cab_trg2", "held", "geg_led", "patch_info", "ql1", "ql2", "ql3", "ql4", "ql5", "ql6", "ql7", "ql8", "ql9", "ql10", "ql11", "ql12", "ql13", "ql14", "ql15", "ql16", "in_sec", "pop_mg1_sync", "pop_mg2_sync", "pop_sh_host", "pop_temperament", "pop_clk1_rate", "pop_clk2_rate"};
-static const char *const P_NAME[P_COUNT] = {"Final", "Waveform", "PWM Intensity", "Fine", "Coarse", "Scale", "Freq Mod", "Reverse", "MG 1 Intensity", "GEG / Ext Intensity", "Cutoff", "Peak", "Kbd Balance", "Expand", "Freq Mod", "MG 1 Intensity", "GEG / Ext Intensity", "Attack", "Decay", "Sustain", "Release", "Hold", "PS-3100 Hold", "Release Override", "Release Time", "Velocity", "Intensity", "Freq 1", "Freq 2", "Freq 3", "MG 2 Mod", "Ext Mod", "Amp Mod", "AM by MG 1", "Ensemble", "VCA 1 by GEG", "VCA 2 by VP 1", "Kbd Balance", "Final Pan", "Direct", "Direct Pan", "MG 1 Wave", "MG 1 Freq", "MG 1 Sync", "MG Signal", "MG 2 Freq", "MG 2 Sync", "S/H Clock", "S/H Synchro", "S/H Host Sync", "GEG Trigger", "Delay", "Attack", "Release", "Auto", "Polarity", "VP 1 Limiter A", "VP 1 Limiter B", "VP 2 Limiter A", "VP 2 Limiter B", "VP 2 Input", "X", "Y", "Add Amp", "Manual TRG 1", "Tune C", "Tune C#", "Tune D", "Tune D#", "Tune E", "Tune F", "Tune F#", "Tune G", "Tune G#", "Tune A", "Tune A#", "Tune B", "Temperament", "Master Tune", "Voices", "PB Range", "CLK 1 Rate", "CLK 2 Rate", "TRG 1 CC", "TRG 2 CC", "VC 1 CC", "VC 2 CC", "VC 3 CC", "VC 4 CC", "View", "OVERVIEW", "<", ">", "Go Signal Gen", "Go Lowpass", "Go Envelope", "Go Resonators", "Go Total Modifiers", "Go Mg / S&H", "Go Gen Env / Vp", "Go Temperament", "Go Patch Bay", "Go Setup", "Jack GEG", "Jack GE+", "Jack MG", "Jack MG 1", "Jack MG 2", "Jack S/H", "Jack VP 1", "Jack VP 2", "Jack KEY", "Jack PB", "Jack PB+", "Jack MW", "Jack MW+", "Jack VC 1", "Jack VC 2", "Jack VC 3", "Jack VC 4", "Jack NOISE", "Jack +5 V", "Jack -5 V", "Jack X", "Jack Y", "Jack ADD", "Jack J1 A", "Jack J1 B", "Jack J2 A", "Jack J2 B", "Jack SNG", "Jack MLT", "Jack MG1 CLK", "Jack MG2 CLK", "Jack S/H CLK", "Jack CLK 1", "Jack CLK 2", "Jack TRG 1", "Jack TRG 2", "Jack SG FRQ", "Jack SG PWM", "Jack LP FRQ", "Jack EM ATK", "Jack RES FRQ", "Jack VCA 1", "Jack VCA 2", "Jack MG AMT", "Jack MG1 FRQ", "Jack S/H IN", "Jack VP1 IN", "Jack VP2 IN", "Jack ADD 1", "Jack ADD 2", "Jack ADD 3", "Jack ADD 4", "Jack J1 IN", "Jack J2 IN", "Jack EM REL", "Jack GEG TRG", "Cable GEG", "Cable GE+", "Cable MG", "Cable MG 1", "Cable MG 2", "Cable S/H", "Cable VP 1", "Cable VP 2", "Cable KEY", "Cable PB", "Cable PB+", "Cable MW", "Cable MW+", "Cable VC 1", "Cable VC 2", "Cable VC 3", "Cable VC 4", "Cable NOISE", "Cable +5 V", "Cable -5 V", "Cable X", "Cable Y", "Cable ADD", "Cable J1 A", "Cable J1 B", "Cable J2 A", "Cable J2 B", "Cable SNG", "Cable MLT", "Cable MG1 CLK", "Cable MG2 CLK", "Cable S/H CLK", "Cable CLK 1", "Cable CLK 2", "Cable TRG 1", "Cable TRG 2", "Held Output", "GEG LED", "Patch Info", "Q-Link 1", "Q-Link 2", "Q-Link 3", "Q-Link 4", "Q-Link 5", "Q-Link 6", "Q-Link 7", "Q-Link 8", "Q-Link 9", "Q-Link 10", "Q-Link 11", "Q-Link 12", "Q-Link 13", "Q-Link 14", "Q-Link 15", "Q-Link 16", "In Section", "MG 1 Sync List", "MG 2 Sync List", "S/H Host Sync List", "Temperament List", "CLK 1 Rate List", "CLK 2 Rate List"};
-static const char *const P_UNIT[P_COUNT] = {"", "", "", "ct", "st", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "ct", "ct", "ct", "ct", "ct", "ct", "ct", "ct", "ct", "ct", "ct", "ct", "", "ct", "", "st", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""};
-static const float P_MIN[P_COUNT] = {0.0f, 0.0f, 0.0f, -50.0f, -12.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, -5.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, -5.0f, -5.0f, 0.0f, -5.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, -5.0f, -5.0f, -5.0f, -5.0f, 0.0f, -5.0f, -5.0f, 0.0f, 0.0f, -50.0f, -50.0f, -50.0f, -50.0f, -50.0f, -50.0f, -50.0f, -50.0f, -50.0f, -50.0f, -50.0f, -50.0f, 0.0f, -50.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f};
-static const float P_MAX[P_COUNT] = {10.0f, 5.0f, 10.0f, 50.0f, 12.0f, 3.0f, 1.0f, 1.0f, 10.0f, 10.0f, 10.0f, 10.0f, 5.0f, 10.0f, 1.0f, 10.0f, 10.0f, 10.0f, 10.0f, 10.0f, 2.0f, 1.0f, 1.0f, 1.0f, 10.0f, 10.0f, 10.0f, 10.0f, 10.0f, 10.0f, 1.0f, 10.0f, 10.0f, 1.0f, 1.0f, 1.0f, 1.0f, 5.0f, 5.0f, 10.0f, 5.0f, 5.0f, 10.0f, 16.0f, 1.0f, 10.0f, 16.0f, 10.0f, 1.0f, 16.0f, 5.0f, 10.0f, 10.0f, 10.0f, 1.0f, 1.0f, 5.0f, 5.0f, 5.0f, 5.0f, 1.0f, 5.0f, 5.0f, 10.0f, 1.0f, 50.0f, 50.0f, 50.0f, 50.0f, 50.0f, 50.0f, 50.0f, 50.0f, 50.0f, 50.0f, 50.0f, 50.0f, 13.0f, 50.0f, 5.0f, 12.0f, 15.0f, 15.0f, 127.0f, 127.0f, 127.0f, 127.0f, 127.0f, 127.0f, 10.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 36.0f, 36.0f, 36.0f, 36.0f, 36.0f, 36.0f, 36.0f, 36.0f, 36.0f, 36.0f, 36.0f, 36.0f, 36.0f, 36.0f, 36.0f, 36.0f, 36.0f, 36.0f, 36.0f, 36.0f, 36.0f, 36.0f, 36.0f, 36.0f, 36.0f, 36.0f, 36.0f, 4.0f, 4.0f, 4.0f, 4.0f, 4.0f, 4.0f, 4.0f, 4.0f, 4.0f, 36.0f, 1.0f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f};
-static const float P_DEF[P_COUNT] = {7.0f, 1.0f, 5.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 6.0f, 2.0f, 0.0f, 5.0f, 1.0f, 0.0f, 0.0f, 0.5f, 5.0f, 7.0f, 2.0f, 0.0f, 0.0f, 0.0f, 5.0f, 0.0f, 0.0f, 3.0f, 5.0f, 7.0f, 0.0f, 0.0f, 5.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 4.0f, 0.0f, 1.0f, 3.0f, 0.0f, 5.0f, 0.0f, 0.0f, 1.0f, 0.0f, 2.0f, 4.0f, 0.0f, 0.0f, 5.0f, -5.0f, 5.0f, -5.0f, 0.0f, 0.0f, 0.0f, 10.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 2.0f, 2.0f, 7.0f, 5.0f, 80.0f, 81.0f, 16.0f, 17.0f, 18.0f, 19.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f};
-static const unsigned char P_NOPTS[P_COUNT] = {0, 6, 0, 0, 0, 4, 2, 2, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 3, 2, 2, 2, 0, 0, 0, 0, 0, 0, 2, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0, 6, 0, 17, 2, 0, 17, 0, 2, 17, 6, 0, 0, 0, 2, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 14, 0, 6, 0, 16, 16, 0, 0, 0, 0, 0, 0, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 5, 5, 5, 5, 5, 5, 5, 5, 5, 37, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2};
+#define P_CP_GEG_0 221
+#define P_CP_GEG_1 222
+#define P_CP_GEP_0 223
+#define P_CP_GEP_1 224
+#define P_CP_MG_0 225
+#define P_CP_MG_1 226
+#define P_CP_MG1_0 227
+#define P_CP_MG1_1 228
+#define P_CP_MG2_0 229
+#define P_CP_MG2_1 230
+#define P_CP_SH_0 231
+#define P_CP_SH_1 232
+#define P_CP_VP1_0 233
+#define P_CP_VP1_1 234
+#define P_CP_VP2_0 235
+#define P_CP_VP2_1 236
+#define P_CP_KEY_0 237
+#define P_CP_KEY_1 238
+#define P_CP_PB_0 239
+#define P_CP_PB_1 240
+#define P_CP_PBP_0 241
+#define P_CP_PBP_1 242
+#define P_CP_MW_0 243
+#define P_CP_MW_1 244
+#define P_CP_MWP_0 245
+#define P_CP_MWP_1 246
+#define P_CP_VC1_0 247
+#define P_CP_VC1_1 248
+#define P_CP_VC2_0 249
+#define P_CP_VC2_1 250
+#define P_CP_VC3_0 251
+#define P_CP_VC3_1 252
+#define P_CP_VC4_0 253
+#define P_CP_VC4_1 254
+#define P_CP_RND_0 255
+#define P_CP_RND_1 256
+#define P_CP_P5V_0 257
+#define P_CP_P5V_1 258
+#define P_CP_M5V_0 259
+#define P_CP_M5V_1 260
+#define P_CP_XYX_0 261
+#define P_CP_XYX_1 262
+#define P_CP_XYY_0 263
+#define P_CP_XYY_1 264
+#define P_CP_ADD_0 265
+#define P_CP_ADD_1 266
+#define P_CP_J1A_0 267
+#define P_CP_J1A_1 268
+#define P_CP_J1B_0 269
+#define P_CP_J1B_1 270
+#define P_CP_J2A_0 271
+#define P_CP_J2A_1 272
+#define P_CP_J2B_0 273
+#define P_CP_J2B_1 274
+#define P_CP_SNG_0 275
+#define P_CP_MLT_0 276
+#define P_CP_MG1C_0 277
+#define P_CP_MG2C_0 278
+#define P_CP_SHC_0 279
+#define P_CP_CLK1_0 280
+#define P_CP_CLK2_0 281
+#define P_CP_TRG1_0 282
+#define P_CP_TRG2_0 283
+#define P_CO_GEG_0 284
+#define P_CO_GEG_1 285
+#define P_CO_GEP_0 286
+#define P_CO_GEP_1 287
+#define P_CO_MG_0 288
+#define P_CO_MG_1 289
+#define P_CO_MG1_0 290
+#define P_CO_MG1_1 291
+#define P_CO_MG2_0 292
+#define P_CO_MG2_1 293
+#define P_CO_SH_0 294
+#define P_CO_SH_1 295
+#define P_CO_VP1_0 296
+#define P_CO_VP1_1 297
+#define P_CO_VP2_0 298
+#define P_CO_VP2_1 299
+#define P_CO_KEY_0 300
+#define P_CO_KEY_1 301
+#define P_CO_PB_0 302
+#define P_CO_PB_1 303
+#define P_CO_PBP_0 304
+#define P_CO_PBP_1 305
+#define P_CO_MW_0 306
+#define P_CO_MW_1 307
+#define P_CO_MWP_0 308
+#define P_CO_MWP_1 309
+#define P_CO_VC1_0 310
+#define P_CO_VC1_1 311
+#define P_CO_VC2_0 312
+#define P_CO_VC2_1 313
+#define P_CO_VC3_0 314
+#define P_CO_VC3_1 315
+#define P_CO_VC4_0 316
+#define P_CO_VC4_1 317
+#define P_CO_RND_0 318
+#define P_CO_RND_1 319
+#define P_CO_P5V_0 320
+#define P_CO_P5V_1 321
+#define P_CO_M5V_0 322
+#define P_CO_M5V_1 323
+#define P_CO_XYX_0 324
+#define P_CO_XYX_1 325
+#define P_CO_XYY_0 326
+#define P_CO_XYY_1 327
+#define P_CO_ADD_0 328
+#define P_CO_ADD_1 329
+#define P_CO_J1A_0 330
+#define P_CO_J1A_1 331
+#define P_CO_J1B_0 332
+#define P_CO_J1B_1 333
+#define P_CO_J2A_0 334
+#define P_CO_J2A_1 335
+#define P_CO_J2B_0 336
+#define P_CO_J2B_1 337
+#define P_CO_SNG_0 338
+#define P_CO_MLT_0 339
+#define P_CO_MG1C_0 340
+#define P_CO_MG2C_0 341
+#define P_CO_SHC_0 342
+#define P_CO_CLK1_0 343
+#define P_CO_CLK2_0 344
+#define P_CO_TRG1_0 345
+#define P_CO_TRG2_0 346
+#define P_HD_0 347
+#define P_HD_1 348
+#define P_HD_2 349
+#define P_HD_3 350
+#define P_COUNT 351
+static const char *const P_KEY[P_COUNT] = {"final_vol", "sg_wave", "sg_pwm_int", "sg_fine", "sg_coarse", "sg_octave", "sg_fm_on", "sg_fm_rev", "sg_fm_mg1", "sg_fm_geg", "lp_cutoff", "lp_peak", "lp_balance", "lp_expand", "lp_fm_on", "lp_fm_mg1", "lp_fm_geg", "em_attack", "em_decay", "em_sustain", "em_release", "em_hold", "ps_hold_mode", "rel_override", "rel_time", "velocity", "res_int", "res_f1", "res_f2", "res_f3", "res_mg2", "res_ext", "amp_mod", "am_mg1", "ensemble", "vca1_geg", "vca2_vp1", "kbd_balance", "final_pan", "direct_vol", "direct_pan", "mg1_wave", "mg1_freq", "mg1_sync", "mg_select", "mg2_freq", "mg2_sync", "sh_clock", "sh_sync", "sh_host", "geg_trigger", "geg_delay", "geg_attack", "geg_release", "geg_auto", "geg_polarity", "vp1_a", "vp1_b", "vp2_a", "vp2_b", "vp2_src", "xy_x", "xy_y", "add_level", "manual_trg1", "tune_c", "tune_cs", "tune_d", "tune_ds", "tune_e", "tune_f", "tune_fs", "tune_g", "tune_gs", "tune_a", "tune_as", "tune_b", "temperament", "master_tune", "voices", "pb_range", "clk1_rate", "clk2_rate", "trg1_cc", "trg2_cc", "vc1_cc", "vc2_cc", "vc3_cc", "vc4_cc", "view", "nav_zoom", "nav_prev", "nav_next", "go_sg", "go_lp", "go_em", "go_res", "go_tm", "go_mod", "go_geg", "go_tun", "go_patch", "go_setup", "tap_geg", "tap_gep", "tap_mg", "tap_mg1", "tap_mg2", "tap_sh", "tap_vp1", "tap_vp2", "tap_key", "tap_pb", "tap_pbp", "tap_mw", "tap_mwp", "tap_vc1", "tap_vc2", "tap_vc3", "tap_vc4", "tap_rnd", "tap_p5v", "tap_m5v", "tap_xyx", "tap_xyy", "tap_add", "tap_j1a", "tap_j1b", "tap_j2a", "tap_j2b", "tap_sng", "tap_mlt", "tap_mg1c", "tap_mg2c", "tap_shc", "tap_clk1", "tap_clk2", "tap_trg1", "tap_trg2", "tap_sg_frq", "tap_sg_pwm", "tap_lp_frq", "tap_em_atk", "tap_res_frq", "tap_vca1", "tap_vca2", "tap_mg_amt", "tap_mg1_frq", "tap_sh_in", "tap_vp1_in", "tap_vp2_in", "tap_add1", "tap_add2", "tap_add3", "tap_add4", "tap_j1_in", "tap_j2_in", "tap_em_rel", "tap_geg_trg", "cab_geg", "cab_gep", "cab_mg", "cab_mg1", "cab_mg2", "cab_sh", "cab_vp1", "cab_vp2", "cab_key", "cab_pb", "cab_pbp", "cab_mw", "cab_mwp", "cab_vc1", "cab_vc2", "cab_vc3", "cab_vc4", "cab_rnd", "cab_p5v", "cab_m5v", "cab_xyx", "cab_xyy", "cab_add", "cab_j1a", "cab_j1b", "cab_j2a", "cab_j2b", "cab_sng", "cab_mlt", "cab_mg1c", "cab_mg2c", "cab_shc", "cab_clk1", "cab_clk2", "cab_trg1", "cab_trg2", "held", "geg_led", "patch_info", "ql1", "ql2", "ql3", "ql4", "ql5", "ql6", "ql7", "ql8", "ql9", "ql10", "ql11", "ql12", "ql13", "ql14", "ql15", "ql16", "in_sec", "pop_mg1_sync", "pop_mg2_sync", "pop_sh_host", "pop_temperament", "pop_clk1_rate", "pop_clk2_rate", "cp_geg_0", "cp_geg_1", "cp_gep_0", "cp_gep_1", "cp_mg_0", "cp_mg_1", "cp_mg1_0", "cp_mg1_1", "cp_mg2_0", "cp_mg2_1", "cp_sh_0", "cp_sh_1", "cp_vp1_0", "cp_vp1_1", "cp_vp2_0", "cp_vp2_1", "cp_key_0", "cp_key_1", "cp_pb_0", "cp_pb_1", "cp_pbp_0", "cp_pbp_1", "cp_mw_0", "cp_mw_1", "cp_mwp_0", "cp_mwp_1", "cp_vc1_0", "cp_vc1_1", "cp_vc2_0", "cp_vc2_1", "cp_vc3_0", "cp_vc3_1", "cp_vc4_0", "cp_vc4_1", "cp_rnd_0", "cp_rnd_1", "cp_p5v_0", "cp_p5v_1", "cp_m5v_0", "cp_m5v_1", "cp_xyx_0", "cp_xyx_1", "cp_xyy_0", "cp_xyy_1", "cp_add_0", "cp_add_1", "cp_j1a_0", "cp_j1a_1", "cp_j1b_0", "cp_j1b_1", "cp_j2a_0", "cp_j2a_1", "cp_j2b_0", "cp_j2b_1", "cp_sng_0", "cp_mlt_0", "cp_mg1c_0", "cp_mg2c_0", "cp_shc_0", "cp_clk1_0", "cp_clk2_0", "cp_trg1_0", "cp_trg2_0", "co_geg_0", "co_geg_1", "co_gep_0", "co_gep_1", "co_mg_0", "co_mg_1", "co_mg1_0", "co_mg1_1", "co_mg2_0", "co_mg2_1", "co_sh_0", "co_sh_1", "co_vp1_0", "co_vp1_1", "co_vp2_0", "co_vp2_1", "co_key_0", "co_key_1", "co_pb_0", "co_pb_1", "co_pbp_0", "co_pbp_1", "co_mw_0", "co_mw_1", "co_mwp_0", "co_mwp_1", "co_vc1_0", "co_vc1_1", "co_vc2_0", "co_vc2_1", "co_vc3_0", "co_vc3_1", "co_vc4_0", "co_vc4_1", "co_rnd_0", "co_rnd_1", "co_p5v_0", "co_p5v_1", "co_m5v_0", "co_m5v_1", "co_xyx_0", "co_xyx_1", "co_xyy_0", "co_xyy_1", "co_add_0", "co_add_1", "co_j1a_0", "co_j1a_1", "co_j1b_0", "co_j1b_1", "co_j2a_0", "co_j2a_1", "co_j2b_0", "co_j2b_1", "co_sng_0", "co_mlt_0", "co_mg1c_0", "co_mg2c_0", "co_shc_0", "co_clk1_0", "co_clk2_0", "co_trg1_0", "co_trg2_0", "hd_0", "hd_1", "hd_2", "hd_3"};
+static const char *const P_NAME[P_COUNT] = {"Final", "Waveform", "PWM Intensity", "Fine", "Coarse", "Scale", "Freq Mod", "Reverse", "MG 1 Intensity", "GEG / Ext Intensity", "Cutoff", "Peak", "Kbd Balance", "Expand", "Freq Mod", "MG 1 Intensity", "GEG / Ext Intensity", "Attack", "Decay", "Sustain", "Release", "Hold", "PS-3100 Hold", "Release Override", "Release Time", "Velocity", "Intensity", "Freq 1", "Freq 2", "Freq 3", "MG 2 Mod", "Ext Mod", "Amp Mod", "AM by MG 1", "Ensemble", "VCA 1 by GEG", "VCA 2 by VP 1", "Kbd Balance", "Final Pan", "Direct", "Direct Pan", "MG 1 Wave", "MG 1 Freq", "MG 1 Sync", "MG Signal", "MG 2 Freq", "MG 2 Sync", "S/H Clock", "S/H Synchro", "S/H Host Sync", "GEG Trigger", "Delay", "Attack", "Release", "Auto", "Polarity", "VP 1 Limiter A", "VP 1 Limiter B", "VP 2 Limiter A", "VP 2 Limiter B", "VP 2 Input", "X", "Y", "Add Amp", "Manual TRG 1", "Tune C", "Tune C#", "Tune D", "Tune D#", "Tune E", "Tune F", "Tune F#", "Tune G", "Tune G#", "Tune A", "Tune A#", "Tune B", "Temperament", "Master Tune", "Voices", "PB Range", "CLK 1 Rate", "CLK 2 Rate", "TRG 1 CC", "TRG 2 CC", "VC 1 CC", "VC 2 CC", "VC 3 CC", "VC 4 CC", "View", "OVERVIEW", "<", ">", "Go Signal Gen", "Go Lowpass", "Go Envelope", "Go Resonators", "Go Total Modifiers", "Go Mg / S&H", "Go Gen Env / Vp", "Go Temperament", "Go Patch Bay", "Go Setup", "Jack GEG", "Jack GE+", "Jack MG", "Jack MG 1", "Jack MG 2", "Jack S/H", "Jack VP 1", "Jack VP 2", "Jack KEY", "Jack PB", "Jack PB+", "Jack MW", "Jack MW+", "Jack VC 1", "Jack VC 2", "Jack VC 3", "Jack VC 4", "Jack NOISE", "Jack +5 V", "Jack -5 V", "Jack X", "Jack Y", "Jack ADD", "Jack J1 A", "Jack J1 B", "Jack J2 A", "Jack J2 B", "Jack SNG", "Jack MLT", "Jack MG1 CLK", "Jack MG2 CLK", "Jack S/H CLK", "Jack CLK 1", "Jack CLK 2", "Jack TRG 1", "Jack TRG 2", "Jack SG FRQ", "Jack SG PWM", "Jack LP FRQ", "Jack EM ATK", "Jack RES FRQ", "Jack VCA 1", "Jack VCA 2", "Jack MG AMT", "Jack MG1 FRQ", "Jack S/H IN", "Jack VP1 IN", "Jack VP2 IN", "Jack ADD 1", "Jack ADD 2", "Jack ADD 3", "Jack ADD 4", "Jack J1 IN", "Jack J2 IN", "Jack EM REL", "Jack GEG TRG", "Cable GEG", "Cable GE+", "Cable MG", "Cable MG 1", "Cable MG 2", "Cable S/H", "Cable VP 1", "Cable VP 2", "Cable KEY", "Cable PB", "Cable PB+", "Cable MW", "Cable MW+", "Cable VC 1", "Cable VC 2", "Cable VC 3", "Cable VC 4", "Cable NOISE", "Cable +5 V", "Cable -5 V", "Cable X", "Cable Y", "Cable ADD", "Cable J1 A", "Cable J1 B", "Cable J2 A", "Cable J2 B", "Cable SNG", "Cable MLT", "Cable MG1 CLK", "Cable MG2 CLK", "Cable S/H CLK", "Cable CLK 1", "Cable CLK 2", "Cable TRG 1", "Cable TRG 2", "Held Output", "GEG LED", "Patch Info", "Q-Link 1", "Q-Link 2", "Q-Link 3", "Q-Link 4", "Q-Link 5", "Q-Link 6", "Q-Link 7", "Q-Link 8", "Q-Link 9", "Q-Link 10", "Q-Link 11", "Q-Link 12", "Q-Link 13", "Q-Link 14", "Q-Link 15", "Q-Link 16", "In Section", "MG 1 Sync List", "MG 2 Sync List", "S/H Host Sync List", "Temperament List", "CLK 1 Rate List", "CLK 2 Rate List", "Cable Pat GEG 1", "Cable Pat GEG 2", "Cable Pat GE+ 1", "Cable Pat GE+ 2", "Cable Pat MG 1", "Cable Pat MG 2", "Cable Pat MG 1 1", "Cable Pat MG 1 2", "Cable Pat MG 2 1", "Cable Pat MG 2 2", "Cable Pat S/H 1", "Cable Pat S/H 2", "Cable Pat VP 1 1", "Cable Pat VP 1 2", "Cable Pat VP 2 1", "Cable Pat VP 2 2", "Cable Pat KEY 1", "Cable Pat KEY 2", "Cable Pat PB 1", "Cable Pat PB 2", "Cable Pat PB+ 1", "Cable Pat PB+ 2", "Cable Pat MW 1", "Cable Pat MW 2", "Cable Pat MW+ 1", "Cable Pat MW+ 2", "Cable Pat VC 1 1", "Cable Pat VC 1 2", "Cable Pat VC 2 1", "Cable Pat VC 2 2", "Cable Pat VC 3 1", "Cable Pat VC 3 2", "Cable Pat VC 4 1", "Cable Pat VC 4 2", "Cable Pat NOISE 1", "Cable Pat NOISE 2", "Cable Pat +5 V 1", "Cable Pat +5 V 2", "Cable Pat -5 V 1", "Cable Pat -5 V 2", "Cable Pat X 1", "Cable Pat X 2", "Cable Pat Y 1", "Cable Pat Y 2", "Cable Pat ADD 1", "Cable Pat ADD 2", "Cable Pat J1 A 1", "Cable Pat J1 A 2", "Cable Pat J1 B 1", "Cable Pat J1 B 2", "Cable Pat J2 A 1", "Cable Pat J2 A 2", "Cable Pat J2 B 1", "Cable Pat J2 B 2", "Cable Pat SNG 1", "Cable Pat MLT 1", "Cable Pat MG1 CLK 1", "Cable Pat MG2 CLK 1", "Cable Pat S/H CLK 1", "Cable Pat CLK 1 1", "Cable Pat CLK 2 1", "Cable Pat TRG 1 1", "Cable Pat TRG 2 1", "Cable Ove GEG 1", "Cable Ove GEG 2", "Cable Ove GE+ 1", "Cable Ove GE+ 2", "Cable Ove MG 1", "Cable Ove MG 2", "Cable Ove MG 1 1", "Cable Ove MG 1 2", "Cable Ove MG 2 1", "Cable Ove MG 2 2", "Cable Ove S/H 1", "Cable Ove S/H 2", "Cable Ove VP 1 1", "Cable Ove VP 1 2", "Cable Ove VP 2 1", "Cable Ove VP 2 2", "Cable Ove KEY 1", "Cable Ove KEY 2", "Cable Ove PB 1", "Cable Ove PB 2", "Cable Ove PB+ 1", "Cable Ove PB+ 2", "Cable Ove MW 1", "Cable Ove MW 2", "Cable Ove MW+ 1", "Cable Ove MW+ 2", "Cable Ove VC 1 1", "Cable Ove VC 1 2", "Cable Ove VC 2 1", "Cable Ove VC 2 2", "Cable Ove VC 3 1", "Cable Ove VC 3 2", "Cable Ove VC 4 1", "Cable Ove VC 4 2", "Cable Ove NOISE 1", "Cable Ove NOISE 2", "Cable Ove +5 V 1", "Cable Ove +5 V 2", "Cable Ove -5 V 1", "Cable Ove -5 V 2", "Cable Ove X 1", "Cable Ove X 2", "Cable Ove Y 1", "Cable Ove Y 2", "Cable Ove ADD 1", "Cable Ove ADD 2", "Cable Ove J1 A 1", "Cable Ove J1 A 2", "Cable Ove J1 B 1", "Cable Ove J1 B 2", "Cable Ove J2 A 1", "Cable Ove J2 A 2", "Cable Ove J2 B 1", "Cable Ove J2 B 2", "Cable Ove SNG 1", "Cable Ove MLT 1", "Cable Ove MG1 CLK 1", "Cable Ove MG2 CLK 1", "Cable Ove S/H CLK 1", "Cable Ove CLK 1 1", "Cable Ove CLK 2 1", "Cable Ove TRG 1 1", "Cable Ove TRG 2 1", "Held 1", "Held 2", "Held 3", "Held 4"};
+static const char *const P_UNIT[P_COUNT] = {"", "", "", "ct", "st", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "ct", "ct", "ct", "ct", "ct", "ct", "ct", "ct", "ct", "ct", "ct", "ct", "", "ct", "", "st", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""};
+static const float P_MIN[P_COUNT] = {0.0f, 0.0f, 0.0f, -50.0f, -12.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, -5.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, -5.0f, -5.0f, 0.0f, -5.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, -5.0f, -5.0f, -5.0f, -5.0f, 0.0f, -5.0f, -5.0f, 0.0f, 0.0f, -50.0f, -50.0f, -50.0f, -50.0f, -50.0f, -50.0f, -50.0f, -50.0f, -50.0f, -50.0f, -50.0f, -50.0f, 0.0f, -50.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f};
+static const float P_MAX[P_COUNT] = {10.0f, 5.0f, 10.0f, 50.0f, 12.0f, 3.0f, 1.0f, 1.0f, 10.0f, 10.0f, 10.0f, 10.0f, 5.0f, 10.0f, 1.0f, 10.0f, 10.0f, 10.0f, 10.0f, 10.0f, 2.0f, 1.0f, 1.0f, 1.0f, 10.0f, 10.0f, 10.0f, 10.0f, 10.0f, 10.0f, 1.0f, 10.0f, 10.0f, 1.0f, 1.0f, 1.0f, 1.0f, 5.0f, 5.0f, 10.0f, 5.0f, 5.0f, 10.0f, 16.0f, 1.0f, 10.0f, 16.0f, 10.0f, 1.0f, 16.0f, 5.0f, 10.0f, 10.0f, 10.0f, 1.0f, 1.0f, 5.0f, 5.0f, 5.0f, 5.0f, 1.0f, 5.0f, 5.0f, 10.0f, 1.0f, 50.0f, 50.0f, 50.0f, 50.0f, 50.0f, 50.0f, 50.0f, 50.0f, 50.0f, 50.0f, 50.0f, 50.0f, 13.0f, 50.0f, 5.0f, 12.0f, 15.0f, 15.0f, 127.0f, 127.0f, 127.0f, 127.0f, 127.0f, 127.0f, 10.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 36.0f, 36.0f, 36.0f, 36.0f, 36.0f, 36.0f, 36.0f, 36.0f, 36.0f, 36.0f, 36.0f, 36.0f, 36.0f, 36.0f, 36.0f, 36.0f, 36.0f, 36.0f, 36.0f, 36.0f, 36.0f, 36.0f, 36.0f, 36.0f, 36.0f, 36.0f, 36.0f, 4.0f, 4.0f, 4.0f, 4.0f, 4.0f, 4.0f, 4.0f, 4.0f, 4.0f, 36.0f, 1.0f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 9.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 9.0f, 9.0f, 9.0f, 9.0f};
+static const float P_DEF[P_COUNT] = {7.0f, 1.0f, 5.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 6.0f, 2.0f, 0.0f, 5.0f, 1.0f, 0.0f, 0.0f, 0.5f, 5.0f, 7.0f, 2.0f, 0.0f, 0.0f, 0.0f, 5.0f, 0.0f, 0.0f, 3.0f, 5.0f, 7.0f, 0.0f, 0.0f, 5.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 4.0f, 0.0f, 1.0f, 3.0f, 0.0f, 5.0f, 0.0f, 0.0f, 1.0f, 0.0f, 2.0f, 4.0f, 0.0f, 0.0f, 5.0f, -5.0f, 5.0f, -5.0f, 0.0f, 0.0f, 0.0f, 10.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 2.0f, 2.0f, 7.0f, 5.0f, 80.0f, 81.0f, 16.0f, 17.0f, 18.0f, 19.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f};
+static const unsigned char P_NOPTS[P_COUNT] = {0, 6, 0, 0, 0, 4, 2, 2, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 3, 2, 2, 2, 0, 0, 0, 0, 0, 0, 2, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0, 6, 0, 17, 2, 0, 17, 0, 2, 17, 6, 0, 0, 0, 2, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 14, 0, 6, 0, 16, 16, 0, 0, 0, 0, 0, 0, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 5, 5, 5, 5, 5, 5, 5, 5, 5, 37, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 3, 3, 3, 3, 3, 3, 3, 3, 3, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 3, 3, 3, 3, 3, 3, 3, 3, 3, 10, 10, 10, 10};
 static const char *const OPTS_1[] = {"Triangle", "Sawtooth", "Square", "Rectangle", "Pulse", "PWM"};
 static const char *const OPTS_5[] = {"16'", "8'", "4'", "2'"};
 static const char *const OPTS_6[] = {"Off", "On"};
@@ -304,8 +434,138 @@ static const char *const OPTS_217[] = {"Closed", "Open"};
 static const char *const OPTS_218[] = {"Closed", "Open"};
 static const char *const OPTS_219[] = {"Closed", "Open"};
 static const char *const OPTS_220[] = {"Closed", "Open"};
-static const char *const *const P_OPT[P_COUNT] = {0, OPTS_1, 0, 0, 0, OPTS_5, OPTS_6, OPTS_7, 0, 0, 0, 0, 0, 0, OPTS_14, 0, 0, 0, 0, 0, OPTS_20, OPTS_21, OPTS_22, OPTS_23, 0, 0, 0, 0, 0, 0, OPTS_30, 0, 0, OPTS_33, OPTS_34, OPTS_35, OPTS_36, 0, 0, 0, 0, OPTS_41, 0, OPTS_43, OPTS_44, 0, OPTS_46, 0, OPTS_48, OPTS_49, OPTS_50, 0, 0, 0, OPTS_54, OPTS_55, 0, 0, 0, 0, OPTS_60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, OPTS_77, 0, OPTS_79, 0, OPTS_81, OPTS_82, 0, 0, 0, 0, 0, 0, OPTS_89, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, OPTS_159, OPTS_160, OPTS_161, OPTS_162, OPTS_163, OPTS_164, OPTS_165, OPTS_166, OPTS_167, OPTS_168, OPTS_169, OPTS_170, OPTS_171, OPTS_172, OPTS_173, OPTS_174, OPTS_175, OPTS_176, OPTS_177, OPTS_178, OPTS_179, OPTS_180, OPTS_181, OPTS_182, OPTS_183, OPTS_184, OPTS_185, OPTS_186, OPTS_187, OPTS_188, OPTS_189, OPTS_190, OPTS_191, OPTS_192, OPTS_193, OPTS_194, OPTS_195, OPTS_196, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, OPTS_214, OPTS_215, OPTS_216, OPTS_217, OPTS_218, OPTS_219, OPTS_220};
-static const unsigned char P_INT[P_COUNT] = {0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+static const char *const OPTS_221[] = {"-", "SG FRQ", "SG PWM", "LP FRQ", "EM ATK", "RES FRQ", "VCA 1", "VCA 2", "MG AMT", "MG1 FRQ"};
+static const char *const OPTS_222[] = {"-", "S/H IN", "VP1 IN", "VP2 IN", "ADD 1", "ADD 2", "ADD 3", "ADD 4", "J1 IN", "J2 IN"};
+static const char *const OPTS_223[] = {"-", "SG FRQ", "SG PWM", "LP FRQ", "EM ATK", "RES FRQ", "VCA 1", "VCA 2", "MG AMT", "MG1 FRQ"};
+static const char *const OPTS_224[] = {"-", "S/H IN", "VP1 IN", "VP2 IN", "ADD 1", "ADD 2", "ADD 3", "ADD 4", "J1 IN", "J2 IN"};
+static const char *const OPTS_225[] = {"-", "SG FRQ", "SG PWM", "LP FRQ", "EM ATK", "RES FRQ", "VCA 1", "VCA 2", "MG AMT", "MG1 FRQ"};
+static const char *const OPTS_226[] = {"-", "S/H IN", "VP1 IN", "VP2 IN", "ADD 1", "ADD 2", "ADD 3", "ADD 4", "J1 IN", "J2 IN"};
+static const char *const OPTS_227[] = {"-", "SG FRQ", "SG PWM", "LP FRQ", "EM ATK", "RES FRQ", "VCA 1", "VCA 2", "MG AMT", "MG1 FRQ"};
+static const char *const OPTS_228[] = {"-", "S/H IN", "VP1 IN", "VP2 IN", "ADD 1", "ADD 2", "ADD 3", "ADD 4", "J1 IN", "J2 IN"};
+static const char *const OPTS_229[] = {"-", "SG FRQ", "SG PWM", "LP FRQ", "EM ATK", "RES FRQ", "VCA 1", "VCA 2", "MG AMT", "MG1 FRQ"};
+static const char *const OPTS_230[] = {"-", "S/H IN", "VP1 IN", "VP2 IN", "ADD 1", "ADD 2", "ADD 3", "ADD 4", "J1 IN", "J2 IN"};
+static const char *const OPTS_231[] = {"-", "SG FRQ", "SG PWM", "LP FRQ", "EM ATK", "RES FRQ", "VCA 1", "VCA 2", "MG AMT", "MG1 FRQ"};
+static const char *const OPTS_232[] = {"-", "S/H IN", "VP1 IN", "VP2 IN", "ADD 1", "ADD 2", "ADD 3", "ADD 4", "J1 IN", "J2 IN"};
+static const char *const OPTS_233[] = {"-", "SG FRQ", "SG PWM", "LP FRQ", "EM ATK", "RES FRQ", "VCA 1", "VCA 2", "MG AMT", "MG1 FRQ"};
+static const char *const OPTS_234[] = {"-", "S/H IN", "VP1 IN", "VP2 IN", "ADD 1", "ADD 2", "ADD 3", "ADD 4", "J1 IN", "J2 IN"};
+static const char *const OPTS_235[] = {"-", "SG FRQ", "SG PWM", "LP FRQ", "EM ATK", "RES FRQ", "VCA 1", "VCA 2", "MG AMT", "MG1 FRQ"};
+static const char *const OPTS_236[] = {"-", "S/H IN", "VP1 IN", "VP2 IN", "ADD 1", "ADD 2", "ADD 3", "ADD 4", "J1 IN", "J2 IN"};
+static const char *const OPTS_237[] = {"-", "SG FRQ", "SG PWM", "LP FRQ", "EM ATK", "RES FRQ", "VCA 1", "VCA 2", "MG AMT", "MG1 FRQ"};
+static const char *const OPTS_238[] = {"-", "S/H IN", "VP1 IN", "VP2 IN", "ADD 1", "ADD 2", "ADD 3", "ADD 4", "J1 IN", "J2 IN"};
+static const char *const OPTS_239[] = {"-", "SG FRQ", "SG PWM", "LP FRQ", "EM ATK", "RES FRQ", "VCA 1", "VCA 2", "MG AMT", "MG1 FRQ"};
+static const char *const OPTS_240[] = {"-", "S/H IN", "VP1 IN", "VP2 IN", "ADD 1", "ADD 2", "ADD 3", "ADD 4", "J1 IN", "J2 IN"};
+static const char *const OPTS_241[] = {"-", "SG FRQ", "SG PWM", "LP FRQ", "EM ATK", "RES FRQ", "VCA 1", "VCA 2", "MG AMT", "MG1 FRQ"};
+static const char *const OPTS_242[] = {"-", "S/H IN", "VP1 IN", "VP2 IN", "ADD 1", "ADD 2", "ADD 3", "ADD 4", "J1 IN", "J2 IN"};
+static const char *const OPTS_243[] = {"-", "SG FRQ", "SG PWM", "LP FRQ", "EM ATK", "RES FRQ", "VCA 1", "VCA 2", "MG AMT", "MG1 FRQ"};
+static const char *const OPTS_244[] = {"-", "S/H IN", "VP1 IN", "VP2 IN", "ADD 1", "ADD 2", "ADD 3", "ADD 4", "J1 IN", "J2 IN"};
+static const char *const OPTS_245[] = {"-", "SG FRQ", "SG PWM", "LP FRQ", "EM ATK", "RES FRQ", "VCA 1", "VCA 2", "MG AMT", "MG1 FRQ"};
+static const char *const OPTS_246[] = {"-", "S/H IN", "VP1 IN", "VP2 IN", "ADD 1", "ADD 2", "ADD 3", "ADD 4", "J1 IN", "J2 IN"};
+static const char *const OPTS_247[] = {"-", "SG FRQ", "SG PWM", "LP FRQ", "EM ATK", "RES FRQ", "VCA 1", "VCA 2", "MG AMT", "MG1 FRQ"};
+static const char *const OPTS_248[] = {"-", "S/H IN", "VP1 IN", "VP2 IN", "ADD 1", "ADD 2", "ADD 3", "ADD 4", "J1 IN", "J2 IN"};
+static const char *const OPTS_249[] = {"-", "SG FRQ", "SG PWM", "LP FRQ", "EM ATK", "RES FRQ", "VCA 1", "VCA 2", "MG AMT", "MG1 FRQ"};
+static const char *const OPTS_250[] = {"-", "S/H IN", "VP1 IN", "VP2 IN", "ADD 1", "ADD 2", "ADD 3", "ADD 4", "J1 IN", "J2 IN"};
+static const char *const OPTS_251[] = {"-", "SG FRQ", "SG PWM", "LP FRQ", "EM ATK", "RES FRQ", "VCA 1", "VCA 2", "MG AMT", "MG1 FRQ"};
+static const char *const OPTS_252[] = {"-", "S/H IN", "VP1 IN", "VP2 IN", "ADD 1", "ADD 2", "ADD 3", "ADD 4", "J1 IN", "J2 IN"};
+static const char *const OPTS_253[] = {"-", "SG FRQ", "SG PWM", "LP FRQ", "EM ATK", "RES FRQ", "VCA 1", "VCA 2", "MG AMT", "MG1 FRQ"};
+static const char *const OPTS_254[] = {"-", "S/H IN", "VP1 IN", "VP2 IN", "ADD 1", "ADD 2", "ADD 3", "ADD 4", "J1 IN", "J2 IN"};
+static const char *const OPTS_255[] = {"-", "SG FRQ", "SG PWM", "LP FRQ", "EM ATK", "RES FRQ", "VCA 1", "VCA 2", "MG AMT", "MG1 FRQ"};
+static const char *const OPTS_256[] = {"-", "S/H IN", "VP1 IN", "VP2 IN", "ADD 1", "ADD 2", "ADD 3", "ADD 4", "J1 IN", "J2 IN"};
+static const char *const OPTS_257[] = {"-", "SG FRQ", "SG PWM", "LP FRQ", "EM ATK", "RES FRQ", "VCA 1", "VCA 2", "MG AMT", "MG1 FRQ"};
+static const char *const OPTS_258[] = {"-", "S/H IN", "VP1 IN", "VP2 IN", "ADD 1", "ADD 2", "ADD 3", "ADD 4", "J1 IN", "J2 IN"};
+static const char *const OPTS_259[] = {"-", "SG FRQ", "SG PWM", "LP FRQ", "EM ATK", "RES FRQ", "VCA 1", "VCA 2", "MG AMT", "MG1 FRQ"};
+static const char *const OPTS_260[] = {"-", "S/H IN", "VP1 IN", "VP2 IN", "ADD 1", "ADD 2", "ADD 3", "ADD 4", "J1 IN", "J2 IN"};
+static const char *const OPTS_261[] = {"-", "SG FRQ", "SG PWM", "LP FRQ", "EM ATK", "RES FRQ", "VCA 1", "VCA 2", "MG AMT", "MG1 FRQ"};
+static const char *const OPTS_262[] = {"-", "S/H IN", "VP1 IN", "VP2 IN", "ADD 1", "ADD 2", "ADD 3", "ADD 4", "J1 IN", "J2 IN"};
+static const char *const OPTS_263[] = {"-", "SG FRQ", "SG PWM", "LP FRQ", "EM ATK", "RES FRQ", "VCA 1", "VCA 2", "MG AMT", "MG1 FRQ"};
+static const char *const OPTS_264[] = {"-", "S/H IN", "VP1 IN", "VP2 IN", "ADD 1", "ADD 2", "ADD 3", "ADD 4", "J1 IN", "J2 IN"};
+static const char *const OPTS_265[] = {"-", "SG FRQ", "SG PWM", "LP FRQ", "EM ATK", "RES FRQ", "VCA 1", "VCA 2", "MG AMT", "MG1 FRQ"};
+static const char *const OPTS_266[] = {"-", "S/H IN", "VP1 IN", "VP2 IN", "ADD 1", "ADD 2", "ADD 3", "ADD 4", "J1 IN", "J2 IN"};
+static const char *const OPTS_267[] = {"-", "SG FRQ", "SG PWM", "LP FRQ", "EM ATK", "RES FRQ", "VCA 1", "VCA 2", "MG AMT", "MG1 FRQ"};
+static const char *const OPTS_268[] = {"-", "S/H IN", "VP1 IN", "VP2 IN", "ADD 1", "ADD 2", "ADD 3", "ADD 4", "J1 IN", "J2 IN"};
+static const char *const OPTS_269[] = {"-", "SG FRQ", "SG PWM", "LP FRQ", "EM ATK", "RES FRQ", "VCA 1", "VCA 2", "MG AMT", "MG1 FRQ"};
+static const char *const OPTS_270[] = {"-", "S/H IN", "VP1 IN", "VP2 IN", "ADD 1", "ADD 2", "ADD 3", "ADD 4", "J1 IN", "J2 IN"};
+static const char *const OPTS_271[] = {"-", "SG FRQ", "SG PWM", "LP FRQ", "EM ATK", "RES FRQ", "VCA 1", "VCA 2", "MG AMT", "MG1 FRQ"};
+static const char *const OPTS_272[] = {"-", "S/H IN", "VP1 IN", "VP2 IN", "ADD 1", "ADD 2", "ADD 3", "ADD 4", "J1 IN", "J2 IN"};
+static const char *const OPTS_273[] = {"-", "SG FRQ", "SG PWM", "LP FRQ", "EM ATK", "RES FRQ", "VCA 1", "VCA 2", "MG AMT", "MG1 FRQ"};
+static const char *const OPTS_274[] = {"-", "S/H IN", "VP1 IN", "VP2 IN", "ADD 1", "ADD 2", "ADD 3", "ADD 4", "J1 IN", "J2 IN"};
+static const char *const OPTS_275[] = {"-", "EM REL", "GEG TRG"};
+static const char *const OPTS_276[] = {"-", "EM REL", "GEG TRG"};
+static const char *const OPTS_277[] = {"-", "EM REL", "GEG TRG"};
+static const char *const OPTS_278[] = {"-", "EM REL", "GEG TRG"};
+static const char *const OPTS_279[] = {"-", "EM REL", "GEG TRG"};
+static const char *const OPTS_280[] = {"-", "EM REL", "GEG TRG"};
+static const char *const OPTS_281[] = {"-", "EM REL", "GEG TRG"};
+static const char *const OPTS_282[] = {"-", "EM REL", "GEG TRG"};
+static const char *const OPTS_283[] = {"-", "EM REL", "GEG TRG"};
+static const char *const OPTS_284[] = {"-", "SG FRQ", "SG PWM", "LP FRQ", "EM ATK", "RES FRQ", "VCA 1", "VCA 2", "MG AMT", "MG1 FRQ"};
+static const char *const OPTS_285[] = {"-", "S/H IN", "VP1 IN", "VP2 IN", "ADD 1", "ADD 2", "ADD 3", "ADD 4", "J1 IN", "J2 IN"};
+static const char *const OPTS_286[] = {"-", "SG FRQ", "SG PWM", "LP FRQ", "EM ATK", "RES FRQ", "VCA 1", "VCA 2", "MG AMT", "MG1 FRQ"};
+static const char *const OPTS_287[] = {"-", "S/H IN", "VP1 IN", "VP2 IN", "ADD 1", "ADD 2", "ADD 3", "ADD 4", "J1 IN", "J2 IN"};
+static const char *const OPTS_288[] = {"-", "SG FRQ", "SG PWM", "LP FRQ", "EM ATK", "RES FRQ", "VCA 1", "VCA 2", "MG AMT", "MG1 FRQ"};
+static const char *const OPTS_289[] = {"-", "S/H IN", "VP1 IN", "VP2 IN", "ADD 1", "ADD 2", "ADD 3", "ADD 4", "J1 IN", "J2 IN"};
+static const char *const OPTS_290[] = {"-", "SG FRQ", "SG PWM", "LP FRQ", "EM ATK", "RES FRQ", "VCA 1", "VCA 2", "MG AMT", "MG1 FRQ"};
+static const char *const OPTS_291[] = {"-", "S/H IN", "VP1 IN", "VP2 IN", "ADD 1", "ADD 2", "ADD 3", "ADD 4", "J1 IN", "J2 IN"};
+static const char *const OPTS_292[] = {"-", "SG FRQ", "SG PWM", "LP FRQ", "EM ATK", "RES FRQ", "VCA 1", "VCA 2", "MG AMT", "MG1 FRQ"};
+static const char *const OPTS_293[] = {"-", "S/H IN", "VP1 IN", "VP2 IN", "ADD 1", "ADD 2", "ADD 3", "ADD 4", "J1 IN", "J2 IN"};
+static const char *const OPTS_294[] = {"-", "SG FRQ", "SG PWM", "LP FRQ", "EM ATK", "RES FRQ", "VCA 1", "VCA 2", "MG AMT", "MG1 FRQ"};
+static const char *const OPTS_295[] = {"-", "S/H IN", "VP1 IN", "VP2 IN", "ADD 1", "ADD 2", "ADD 3", "ADD 4", "J1 IN", "J2 IN"};
+static const char *const OPTS_296[] = {"-", "SG FRQ", "SG PWM", "LP FRQ", "EM ATK", "RES FRQ", "VCA 1", "VCA 2", "MG AMT", "MG1 FRQ"};
+static const char *const OPTS_297[] = {"-", "S/H IN", "VP1 IN", "VP2 IN", "ADD 1", "ADD 2", "ADD 3", "ADD 4", "J1 IN", "J2 IN"};
+static const char *const OPTS_298[] = {"-", "SG FRQ", "SG PWM", "LP FRQ", "EM ATK", "RES FRQ", "VCA 1", "VCA 2", "MG AMT", "MG1 FRQ"};
+static const char *const OPTS_299[] = {"-", "S/H IN", "VP1 IN", "VP2 IN", "ADD 1", "ADD 2", "ADD 3", "ADD 4", "J1 IN", "J2 IN"};
+static const char *const OPTS_300[] = {"-", "SG FRQ", "SG PWM", "LP FRQ", "EM ATK", "RES FRQ", "VCA 1", "VCA 2", "MG AMT", "MG1 FRQ"};
+static const char *const OPTS_301[] = {"-", "S/H IN", "VP1 IN", "VP2 IN", "ADD 1", "ADD 2", "ADD 3", "ADD 4", "J1 IN", "J2 IN"};
+static const char *const OPTS_302[] = {"-", "SG FRQ", "SG PWM", "LP FRQ", "EM ATK", "RES FRQ", "VCA 1", "VCA 2", "MG AMT", "MG1 FRQ"};
+static const char *const OPTS_303[] = {"-", "S/H IN", "VP1 IN", "VP2 IN", "ADD 1", "ADD 2", "ADD 3", "ADD 4", "J1 IN", "J2 IN"};
+static const char *const OPTS_304[] = {"-", "SG FRQ", "SG PWM", "LP FRQ", "EM ATK", "RES FRQ", "VCA 1", "VCA 2", "MG AMT", "MG1 FRQ"};
+static const char *const OPTS_305[] = {"-", "S/H IN", "VP1 IN", "VP2 IN", "ADD 1", "ADD 2", "ADD 3", "ADD 4", "J1 IN", "J2 IN"};
+static const char *const OPTS_306[] = {"-", "SG FRQ", "SG PWM", "LP FRQ", "EM ATK", "RES FRQ", "VCA 1", "VCA 2", "MG AMT", "MG1 FRQ"};
+static const char *const OPTS_307[] = {"-", "S/H IN", "VP1 IN", "VP2 IN", "ADD 1", "ADD 2", "ADD 3", "ADD 4", "J1 IN", "J2 IN"};
+static const char *const OPTS_308[] = {"-", "SG FRQ", "SG PWM", "LP FRQ", "EM ATK", "RES FRQ", "VCA 1", "VCA 2", "MG AMT", "MG1 FRQ"};
+static const char *const OPTS_309[] = {"-", "S/H IN", "VP1 IN", "VP2 IN", "ADD 1", "ADD 2", "ADD 3", "ADD 4", "J1 IN", "J2 IN"};
+static const char *const OPTS_310[] = {"-", "SG FRQ", "SG PWM", "LP FRQ", "EM ATK", "RES FRQ", "VCA 1", "VCA 2", "MG AMT", "MG1 FRQ"};
+static const char *const OPTS_311[] = {"-", "S/H IN", "VP1 IN", "VP2 IN", "ADD 1", "ADD 2", "ADD 3", "ADD 4", "J1 IN", "J2 IN"};
+static const char *const OPTS_312[] = {"-", "SG FRQ", "SG PWM", "LP FRQ", "EM ATK", "RES FRQ", "VCA 1", "VCA 2", "MG AMT", "MG1 FRQ"};
+static const char *const OPTS_313[] = {"-", "S/H IN", "VP1 IN", "VP2 IN", "ADD 1", "ADD 2", "ADD 3", "ADD 4", "J1 IN", "J2 IN"};
+static const char *const OPTS_314[] = {"-", "SG FRQ", "SG PWM", "LP FRQ", "EM ATK", "RES FRQ", "VCA 1", "VCA 2", "MG AMT", "MG1 FRQ"};
+static const char *const OPTS_315[] = {"-", "S/H IN", "VP1 IN", "VP2 IN", "ADD 1", "ADD 2", "ADD 3", "ADD 4", "J1 IN", "J2 IN"};
+static const char *const OPTS_316[] = {"-", "SG FRQ", "SG PWM", "LP FRQ", "EM ATK", "RES FRQ", "VCA 1", "VCA 2", "MG AMT", "MG1 FRQ"};
+static const char *const OPTS_317[] = {"-", "S/H IN", "VP1 IN", "VP2 IN", "ADD 1", "ADD 2", "ADD 3", "ADD 4", "J1 IN", "J2 IN"};
+static const char *const OPTS_318[] = {"-", "SG FRQ", "SG PWM", "LP FRQ", "EM ATK", "RES FRQ", "VCA 1", "VCA 2", "MG AMT", "MG1 FRQ"};
+static const char *const OPTS_319[] = {"-", "S/H IN", "VP1 IN", "VP2 IN", "ADD 1", "ADD 2", "ADD 3", "ADD 4", "J1 IN", "J2 IN"};
+static const char *const OPTS_320[] = {"-", "SG FRQ", "SG PWM", "LP FRQ", "EM ATK", "RES FRQ", "VCA 1", "VCA 2", "MG AMT", "MG1 FRQ"};
+static const char *const OPTS_321[] = {"-", "S/H IN", "VP1 IN", "VP2 IN", "ADD 1", "ADD 2", "ADD 3", "ADD 4", "J1 IN", "J2 IN"};
+static const char *const OPTS_322[] = {"-", "SG FRQ", "SG PWM", "LP FRQ", "EM ATK", "RES FRQ", "VCA 1", "VCA 2", "MG AMT", "MG1 FRQ"};
+static const char *const OPTS_323[] = {"-", "S/H IN", "VP1 IN", "VP2 IN", "ADD 1", "ADD 2", "ADD 3", "ADD 4", "J1 IN", "J2 IN"};
+static const char *const OPTS_324[] = {"-", "SG FRQ", "SG PWM", "LP FRQ", "EM ATK", "RES FRQ", "VCA 1", "VCA 2", "MG AMT", "MG1 FRQ"};
+static const char *const OPTS_325[] = {"-", "S/H IN", "VP1 IN", "VP2 IN", "ADD 1", "ADD 2", "ADD 3", "ADD 4", "J1 IN", "J2 IN"};
+static const char *const OPTS_326[] = {"-", "SG FRQ", "SG PWM", "LP FRQ", "EM ATK", "RES FRQ", "VCA 1", "VCA 2", "MG AMT", "MG1 FRQ"};
+static const char *const OPTS_327[] = {"-", "S/H IN", "VP1 IN", "VP2 IN", "ADD 1", "ADD 2", "ADD 3", "ADD 4", "J1 IN", "J2 IN"};
+static const char *const OPTS_328[] = {"-", "SG FRQ", "SG PWM", "LP FRQ", "EM ATK", "RES FRQ", "VCA 1", "VCA 2", "MG AMT", "MG1 FRQ"};
+static const char *const OPTS_329[] = {"-", "S/H IN", "VP1 IN", "VP2 IN", "ADD 1", "ADD 2", "ADD 3", "ADD 4", "J1 IN", "J2 IN"};
+static const char *const OPTS_330[] = {"-", "SG FRQ", "SG PWM", "LP FRQ", "EM ATK", "RES FRQ", "VCA 1", "VCA 2", "MG AMT", "MG1 FRQ"};
+static const char *const OPTS_331[] = {"-", "S/H IN", "VP1 IN", "VP2 IN", "ADD 1", "ADD 2", "ADD 3", "ADD 4", "J1 IN", "J2 IN"};
+static const char *const OPTS_332[] = {"-", "SG FRQ", "SG PWM", "LP FRQ", "EM ATK", "RES FRQ", "VCA 1", "VCA 2", "MG AMT", "MG1 FRQ"};
+static const char *const OPTS_333[] = {"-", "S/H IN", "VP1 IN", "VP2 IN", "ADD 1", "ADD 2", "ADD 3", "ADD 4", "J1 IN", "J2 IN"};
+static const char *const OPTS_334[] = {"-", "SG FRQ", "SG PWM", "LP FRQ", "EM ATK", "RES FRQ", "VCA 1", "VCA 2", "MG AMT", "MG1 FRQ"};
+static const char *const OPTS_335[] = {"-", "S/H IN", "VP1 IN", "VP2 IN", "ADD 1", "ADD 2", "ADD 3", "ADD 4", "J1 IN", "J2 IN"};
+static const char *const OPTS_336[] = {"-", "SG FRQ", "SG PWM", "LP FRQ", "EM ATK", "RES FRQ", "VCA 1", "VCA 2", "MG AMT", "MG1 FRQ"};
+static const char *const OPTS_337[] = {"-", "S/H IN", "VP1 IN", "VP2 IN", "ADD 1", "ADD 2", "ADD 3", "ADD 4", "J1 IN", "J2 IN"};
+static const char *const OPTS_338[] = {"-", "EM REL", "GEG TRG"};
+static const char *const OPTS_339[] = {"-", "EM REL", "GEG TRG"};
+static const char *const OPTS_340[] = {"-", "EM REL", "GEG TRG"};
+static const char *const OPTS_341[] = {"-", "EM REL", "GEG TRG"};
+static const char *const OPTS_342[] = {"-", "EM REL", "GEG TRG"};
+static const char *const OPTS_343[] = {"-", "EM REL", "GEG TRG"};
+static const char *const OPTS_344[] = {"-", "EM REL", "GEG TRG"};
+static const char *const OPTS_345[] = {"-", "EM REL", "GEG TRG"};
+static const char *const OPTS_346[] = {"-", "EM REL", "GEG TRG"};
+static const char *const OPTS_347[] = {"-", "GEG", "GE+", "MG", "MG 1", "MG 2", "S/H", "VP 1", "VP 2", "KEY"};
+static const char *const OPTS_348[] = {"-", "PB", "PB+", "MW", "MW+", "VC 1", "VC 2", "VC 3", "VC 4", "NOISE"};
+static const char *const OPTS_349[] = {"-", "+5 V", "-5 V", "X", "Y", "ADD", "J1 A", "J1 B", "J2 A", "J2 B"};
+static const char *const OPTS_350[] = {"-", "SNG", "MLT", "MG1 CLK", "MG2 CLK", "S/H CLK", "CLK 1", "CLK 2", "TRG 1", "TRG 2"};
+static const char *const *const P_OPT[P_COUNT] = {0, OPTS_1, 0, 0, 0, OPTS_5, OPTS_6, OPTS_7, 0, 0, 0, 0, 0, 0, OPTS_14, 0, 0, 0, 0, 0, OPTS_20, OPTS_21, OPTS_22, OPTS_23, 0, 0, 0, 0, 0, 0, OPTS_30, 0, 0, OPTS_33, OPTS_34, OPTS_35, OPTS_36, 0, 0, 0, 0, OPTS_41, 0, OPTS_43, OPTS_44, 0, OPTS_46, 0, OPTS_48, OPTS_49, OPTS_50, 0, 0, 0, OPTS_54, OPTS_55, 0, 0, 0, 0, OPTS_60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, OPTS_77, 0, OPTS_79, 0, OPTS_81, OPTS_82, 0, 0, 0, 0, 0, 0, OPTS_89, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, OPTS_159, OPTS_160, OPTS_161, OPTS_162, OPTS_163, OPTS_164, OPTS_165, OPTS_166, OPTS_167, OPTS_168, OPTS_169, OPTS_170, OPTS_171, OPTS_172, OPTS_173, OPTS_174, OPTS_175, OPTS_176, OPTS_177, OPTS_178, OPTS_179, OPTS_180, OPTS_181, OPTS_182, OPTS_183, OPTS_184, OPTS_185, OPTS_186, OPTS_187, OPTS_188, OPTS_189, OPTS_190, OPTS_191, OPTS_192, OPTS_193, OPTS_194, OPTS_195, OPTS_196, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, OPTS_214, OPTS_215, OPTS_216, OPTS_217, OPTS_218, OPTS_219, OPTS_220, OPTS_221, OPTS_222, OPTS_223, OPTS_224, OPTS_225, OPTS_226, OPTS_227, OPTS_228, OPTS_229, OPTS_230, OPTS_231, OPTS_232, OPTS_233, OPTS_234, OPTS_235, OPTS_236, OPTS_237, OPTS_238, OPTS_239, OPTS_240, OPTS_241, OPTS_242, OPTS_243, OPTS_244, OPTS_245, OPTS_246, OPTS_247, OPTS_248, OPTS_249, OPTS_250, OPTS_251, OPTS_252, OPTS_253, OPTS_254, OPTS_255, OPTS_256, OPTS_257, OPTS_258, OPTS_259, OPTS_260, OPTS_261, OPTS_262, OPTS_263, OPTS_264, OPTS_265, OPTS_266, OPTS_267, OPTS_268, OPTS_269, OPTS_270, OPTS_271, OPTS_272, OPTS_273, OPTS_274, OPTS_275, OPTS_276, OPTS_277, OPTS_278, OPTS_279, OPTS_280, OPTS_281, OPTS_282, OPTS_283, OPTS_284, OPTS_285, OPTS_286, OPTS_287, OPTS_288, OPTS_289, OPTS_290, OPTS_291, OPTS_292, OPTS_293, OPTS_294, OPTS_295, OPTS_296, OPTS_297, OPTS_298, OPTS_299, OPTS_300, OPTS_301, OPTS_302, OPTS_303, OPTS_304, OPTS_305, OPTS_306, OPTS_307, OPTS_308, OPTS_309, OPTS_310, OPTS_311, OPTS_312, OPTS_313, OPTS_314, OPTS_315, OPTS_316, OPTS_317, OPTS_318, OPTS_319, OPTS_320, OPTS_321, OPTS_322, OPTS_323, OPTS_324, OPTS_325, OPTS_326, OPTS_327, OPTS_328, OPTS_329, OPTS_330, OPTS_331, OPTS_332, OPTS_333, OPTS_334, OPTS_335, OPTS_336, OPTS_337, OPTS_338, OPTS_339, OPTS_340, OPTS_341, OPTS_342, OPTS_343, OPTS_344, OPTS_345, OPTS_346, OPTS_347, OPTS_348, OPTS_349, OPTS_350};
+static const unsigned char P_INT[P_COUNT] = {0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 #define N_CONTROLS 89   // the sound parameters come first: indices 0..N_CONTROLS-1
 
 // views (the 'view' parameter's options)
@@ -390,6 +650,13 @@ static const char *const IN_LABEL[N_INS] = {"SG FRQ", "SG PWM", "LP FRQ", "EM AT
 static const char *const IN_INFO[N_INS] = {"Signal generator pitch mod (GEG / Ext intensity)", "Pulse width mod (PWM wave)", "Lowpass cutoff mod (GEG / Ext intensity)", "Envelope modifier attack time", "Resonator peak frequencies (Ext Mod)", "VCA 1 amplitude (when VCA 1 by GEG is on)", "VCA 2 amplitude (when VCA 2 by VP 1 is on)", "MG VCA: amount of the MG signal", "MG 1 frequency", "Sample & hold input", "Voltage processor 1 input", "Voltage processor 2 input", "Add amp input 1", "Add amp input 2", "Add amp input 3", "Add amp input 4", "Junction 1 input", "Junction 2 input", "Envelope modifier: release every voice", "General envelope trigger (default: the keyboard)"};
 static const unsigned char IN_TRIG[N_INS] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1};
 static const unsigned char IN_TYPED[N_INS] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 0, 1};
+// cable / ring picture switches
+#define JACK_GROUP 9
+#define P_VIS_FIRST 221
+#define N_VIS 130
+static const unsigned char VIS_KIND[N_VIS] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2};
+static const signed char VIS_OUT[N_VIS] = {0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10, 11, 11, 12, 12, 13, 13, 14, 14, 15, 15, 16, 16, 17, 17, 18, 18, 19, 19, 20, 20, 21, 21, 22, 22, 23, 23, 24, 24, 25, 25, 26, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10, 11, 11, 12, 12, 13, 13, 14, 14, 15, 15, 16, 16, 17, 17, 18, 18, 19, 19, 20, 20, 21, 21, 22, 22, 23, 23, 24, 24, 25, 25, 26, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, -1, -1, -1, -1};
+static const unsigned char VIS_GROUP[N_VIS] = {0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3};
 // pop-up lists: the enum each pop_<key> opens
 #define N_POPS 6
 static const short POP_ENUM[N_POPS] = {P_MG1_SYNC, P_MG2_SYNC, P_SH_HOST, P_TEMPERAMENT, P_CLK1_RATE, P_CLK2_RATE};
