@@ -5,7 +5,7 @@
 
 - every control is on its section's page (a component bound to its parameter, shown only on that view);
 - every jack has its touch area on the patch page, at its place;
-- every output has a cable picture for every input it can reach, on the patch page and on the overview;
+- every jack is one tile in the patch grid (no overlaps); every patch step has its picture and buttons;
 - every section has its overview tile and its panel picture; navigation is on every zoomed page;
 - every image the skin names exists.
 Exit status 1 with a list of what is missing.
@@ -49,15 +49,33 @@ def main():
     for c in spec.CONTROLS:
         if not on_view(c["key"], c["view"]):
             problems.append("control %s (%s) is not on the %s page" % (c["key"], c["name"], c["view"]))
+    tiles = "IndexedEnabling/1/2/Parameter %d" % skin.index["pk_t"]
     for j in spec.OUTS + spec.INS:
         k = "tap_" + j[0]
-        if not on_view(k, "patch"):
-            problems.append("jack %s has no touch area on the patch page" % j[1])
+        insts = by_param.get(k, [])
+        if len(insts) != 1 or tiles not in insts[0][1]:
+            problems.append("jack %s: %d tile(s), want one shown on the patch steps (pk_t)" % (j[1], len(insts)))
         else:
-            x, y = spec.JACKS[j[0]]
-            bx, by, bw, bh = P.bounds(by_param[k][0][0]["bounds"]["bounds"])
-            if not (bx < x < bx + bw and by < y < by + bh):
-                problems.append("jack %s's touch area is not on its socket" % j[1])
+            if tuple(P.bounds(insts[0][0]["bounds"]["bounds"])) != spec.pick_box(j[0]):
+                problems.append("jack %s: its tile is not at its place in the grid" % j[1])
+            if skin.defs[insts[0][0]["componentData"]["type"]]["actions"][0]["handler"] != "Toggle Switch":
+                problems.append("jack %s: not a trigger button like the page tiles" % j[1])
+    # no tile overlaps another, and all stay inside the page below the header
+    boxes = [spec.pick_box(k) for k in spec.PICK_ORDER]
+    for a in range(len(boxes)):
+        ax, ay, aw, ah = boxes[a]
+        if ay < 72 or ay + ah > spec.PICK_Y0 + 7 * (spec.PICK_H + spec.PICK_GAP) or ax + aw > P.W:
+            problems.append("tile %s is off the page" % spec.PICK_ORDER[a])
+        for b in range(a + 1, len(boxes)):
+            bx, by, bw, bh = boxes[b]
+            if ax < bx + bw and bx < ax + aw and ay < by + bh and by < ay + ah:
+                problems.append("tiles %s and %s overlap" % (spec.PICK_ORDER[a], spec.PICK_ORDER[b]))
+    for key, shown in (("pk_cancel", "IndexedEnabling/1/2/Parameter %d" % skin.index["pk_c"]),
+                       ("pk_unplug", "IndexedEnabling/6/%d/Parameter %d" % (len(spec.PK_STEPS), skin.index["pk"])),
+                       ("pk_done", "IndexedEnabling/6/%d/Parameter %d" % (len(spec.PK_STEPS), skin.index["pk"]))):
+        insts = by_param.get(key, [])
+        if len(insts) != 1 or shown not in insts[0][1]:
+            problems.append("%s: want one button shown by %s" % (key, shown))
     for v in spec.VIEWS[1:]:
         if not on_view("go_" + v[0], "overview"):
             problems.append("no overview tile for %s" % v[0])
@@ -100,19 +118,11 @@ def main():
                 handles.add(h)
                 if int(m.group(2)) > 11:
                     problems.append("%s: %s positions (more than the 11 seen working)" % (h, m.group(2)))
-    for o in spec.OUTS:
-        for j in [x for x in spec.INS if x[2] == o[2]]:
-            for prefix in ("cp", "co"):
-                key, opt, nopt = spec.cable_param(prefix, o, j)
-                if "IndexedEnabling/%d/%d/Parameter %d" % (opt, nopt, skin.index[key]) not in handles:
-                    problems.append("cable %s -> %s: no %s picture" % (o[0], j[0], prefix))
-        key, opt, nopt = spec.held_param(o)
-        if "IndexedEnabling/%d/%d/Parameter %d" % (opt, nopt, skin.index[key]) not in handles:
-            problems.append("output %s: no ring" % o[0])
-    for j in spec.INS:
-        key, opt, nopt = spec.held_in_param(j)
-        if "IndexedEnabling/%d/%d/Parameter %d" % (opt, nopt, skin.index[key]) not in handles:
-            problems.append("input %s: no ring" % j[0])
+    for k in range(1, len(spec.PK_STEPS)):
+        if "ps_pick_%d.png" % k not in images:
+            problems.append("no picture for patch step %d" % k)
+        if "IndexedEnabling/%d/%d/Parameter %d" % (k, len(spec.PK_STEPS), skin.index["pk"]) not in handles:
+            problems.append("patch step %d's picture is not switched by pk" % k)
     for name in sorted(images):
         if not os.path.exists(os.path.join(folder, name)):
             problems.append("image %s is missing" % name)
@@ -121,7 +131,7 @@ def main():
         for p in problems:
             print("  " + p)
         sys.exit(1)
-    print("check_skin: OK -- %d controls, %d jacks, %d sections, every cable drawn, %d images" % (
+    print("check_skin: OK -- %d controls, %d jacks, %d sections, every patch step drawn, %d images" % (
         len(spec.CONTROLS), len(spec.JACKS), nv - 1, len(images)))
 
 

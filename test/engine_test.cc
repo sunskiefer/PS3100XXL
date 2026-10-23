@@ -93,42 +93,70 @@ int main() {
       CHECK(t < N_CONTROLS, "Q-Link targets are sound controls");
     }
 
-  // ---- patching
+  // ---- patching, by pages (0.1.5): tap a jack, tap the other end, the cable has its own page
   unsigned rev0 = (unsigned)geti(s, "display_rev");
+  CHECK(geti(s, "pk") == 1 && geti(s, "pk_t") == 1 && geti(s, "pk_c") == 0, "the patch page opens on the choose step");
   tap(s, "geg");
-  CHECK(geti(s, "held") == 1 + out_index("geg"), "tapping an output holds it");
+  CHECK(geti(s, "pk") == 2 && geti(s, "pk_c") == 1 && geti(s, "pk_t") == 1, "an output opens 'pick a voltage input'");
   CHECK((unsigned)geti(s, "display_rev") != rev0, "a tap bumps display_rev");
+  CHECK(get(s, "patch_info").find("GEG") != std::string::npos, "the line names the waiting jack");
   tap(s, "sg_frq");
-  CHECK(geti(s, "held") == 0, "an input tap completes the cable");
-  CHECK(geti(s, "cab_geg") == 1 + IN_TYPED[in_index("sg_frq")], "cab_geg shows the patch-page cable (%d)", geti(s, "cab_geg"));
+  CHECK(geti(s, "pk") == 6 && geti(s, "pk_t") == 0, "the input completes the cable and opens its page");
+  CHECK(get(s, "patch_info").find("GEG") != std::string::npos && get(s, "patch_info").find("SG FRQ") != std::string::npos,
+        "the line names both ends (%s)", get(s, "patch_info").c_str());
+  CHECK(geti(s, "cab_geg") == 1 + IN_TYPED[in_index("sg_frq")], "GEG is patched to SG FRQ");
   set(s, "nav_zoom", "1");
-  CHECK(geti(s, "cab_geg") == 1 + N_CV_INS + IN_TYPED[in_index("sg_frq")], "and the overview copy on the overview");
-  set(s, "go_lp", "1");
-  CHECK(geti(s, "cab_geg") == 0, "no cable pictures on other pages");
-  CHECK(geti(s, "held") == 0, "no held ring off the patch page");
+  CHECK(geti(s, "pk") == 0 && geti(s, "pk_t") == 0, "no patch step on the overview");
   set(s, "go_patch", "1");
-  tap(s, "mg1"); tap(s, "sg_frq");
-  CHECK(geti(s, "cab_geg") == 0 && geti(s, "cab_mg1") == 1 + IN_TYPED[in_index("sg_frq")], "one cable per input: MG1 replaces GEG");
+  CHECK(geti(s, "pk") == 1, "coming back opens the choose step");
+  tap(s, "geg");
+  CHECK(geti(s, "pk") == 6, "a patched output opens its cable page");
+  set(s, "pk_unplug", "1");
+  CHECK(geti(s, "cab_geg") == 0 && geti(s, "pk") == 1, "UNPLUG takes the cable out and goes back");
+  // either order: an input first
+  tap(s, "lp_frq");
+  CHECK(geti(s, "pk") == 4, "an input opens 'pick a voltage output'");
+  tap(s, "sng");
+  CHECK(geti(s, "pk") == 4, "a trigger output is ignored while a voltage input waits");
   tap(s, "mg1");
-  CHECK(geti(s, "cab_mg1") == 0 && geti(s, "held") == 0, "tapping a patched output unplugs it");
-  tap(s, "trg1"); tap(s, "sg_frq");
-  CHECK(geti(s, "cab_trg1") == 0, "a trigger can't go into a voltage input");
-  CHECK(get(s, "patch_info").find("trigger") != std::string::npos, "and the info line says why");
+  CHECK(geti(s, "pk") == 6 && geti(s, "cab_mg1") == 1 + IN_TYPED[in_index("lp_frq")], "input then output: MG 1 -> LP FRQ");
+  set(s, "pk_done", "1");
+  CHECK(geti(s, "pk") == 1 && geti(s, "cab_mg1") != 0, "DONE keeps the cable and goes back");
+  tap(s, "lp_frq");
+  CHECK(geti(s, "pk") == 6 && get(s, "patch_info").find("MG 1") != std::string::npos, "a patched input opens its cable page too");
+  set(s, "pk_done", "1");
+  // one cable per input, one per output
+  tap(s, "mg2"); tap(s, "lp_frq");
+  CHECK(geti(s, "cab_mg1") == 0 && geti(s, "cab_mg2") == 1 + IN_TYPED[in_index("lp_frq")], "one cable per input: MG 2 replaces MG 1");
+  set(s, "pk_done", "1");
+  // kinds
+  tap(s, "trg1");
+  CHECK(geti(s, "pk") == 3, "a trigger output opens 'pick a trigger input'");
+  tap(s, "sg_frq");
+  CHECK(geti(s, "pk") == 3 && geti(s, "cab_trg1") == 0, "a voltage input is ignored while a trigger waits");
   tap(s, "geg_trg");
-  CHECK(geti(s, "cab_trg1") == 1 + IN_TYPED[in_index("geg_trg")], "trigger to trigger works");
+  CHECK(geti(s, "pk") == 6 && geti(s, "cab_trg1") == 1 + IN_TYPED[in_index("geg_trg")], "trigger to trigger works");
+  set(s, "pk_done", "1");
+  tap(s, "sh_in");
+  CHECK(geti(s, "pk") == 4, "S/H IN takes voltages");
+  set(s, "pk_cancel", "1");
+  CHECK(geti(s, "pk") == 1 && geti(s, "pk_c") == 0, "CANCEL lets the waiting jack go");
   tap(s, "vp1"); tap(s, "vp1");
-  CHECK(geti(s, "held") == 0, "tapping the held output again lets it go");
+  CHECK(geti(s, "pk") == 1, "tapping the waiting jack again lets it go");
+  set(s, "go_lp", "1");
+  CHECK(geti(s, "pk") == 0, "other pages: no patch step");
+  set(s, "go_patch", "1");   // (from the overview: go_ buttons live there; the engine accepts them anywhere)
+  CHECK(geti(s, "pk") == 1 && geti(s, "cab_mg2") != 0, "back on the patch page the cables are still patched");
 
   // ---- state
   setf(s, "lp_peak", 7.5f);
   set(s, "sg_wave", "4");
-  tap(s, "mw"); tap(s, "mg_amt");
+  tap(s, "mw"); tap(s, "mg_amt"); set(s, "pk_done", "1");
   std::string st = get(s, "state");
   CHECK(st.size() > 100 && st.size() < 8000, "state fits the wrapper's chunk (%d bytes)", (int)st.size());
   void *s2 = E->create(nullptr);
   set(s2, "state", st.c_str());
   CHECK(fabsf(getf(s2, "lp_peak") - 7.5f) < 1e-4f && geti(s2, "sg_wave") == 4, "controls restore");
-  set(s2, "go_patch", "1");
   CHECK(geti(s2, "cab_mw") == 1 + IN_TYPED[in_index("mg_amt")] && geti(s2, "cab_trg1") == 1 + IN_TYPED[in_index("geg_trg")],
         "cables restore");
   E->destroy(s2);

@@ -5445,6 +5445,68 @@
     "GEG TRG"
    ],
    "default": 0
+  },
+  {
+   "key": "pk",
+   "name": "Patch Step",
+   "options": [
+    "Off",
+    "Choose",
+    "Pick voltage input",
+    "Pick trigger input",
+    "Pick voltage output",
+    "Pick trigger output",
+    "Connected"
+   ],
+   "default": 0
+  },
+  {
+   "key": "pk_t",
+   "name": "Patch Tiles",
+   "options": [
+    "Off",
+    "On"
+   ],
+   "default": 0
+  },
+  {
+   "key": "pk_c",
+   "name": "Patch Cancel Shown",
+   "options": [
+    "Off",
+    "On"
+   ],
+   "default": 0
+  },
+  {
+   "key": "pk_cancel",
+   "name": "Patch Cancel",
+   "min": 0.0,
+   "max": 1.0,
+   "default": 0.0,
+   "momentary": true,
+   "type": "trigger",
+   "refresh_display": true
+  },
+  {
+   "key": "pk_done",
+   "name": "Patch Done",
+   "min": 0.0,
+   "max": 1.0,
+   "default": 0.0,
+   "momentary": true,
+   "type": "trigger",
+   "refresh_display": true
+  },
+  {
+   "key": "pk_unplug",
+   "name": "Patch Unplug",
+   "min": 0.0,
+   "max": 1.0,
+   "default": 0.0,
+   "momentary": true,
+   "type": "trigger",
+   "refresh_display": true
   }
  ],
  "sections": [

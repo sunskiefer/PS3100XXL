@@ -137,6 +137,13 @@ def build_params():
         P.append({"key": "hd_%d" % g, "name": "Held %d" % (g + 1), "options": ["-"] + [o[1] for o in outs], "default": 0})
     for g, ins in enumerate(spec.groups(spec.INS)):   # an input tapped first waits for its output (either order)
         P.append({"key": "hi_%d" % g, "name": "Held In %d" % (g + 1), "options": ["-"] + [i[1] for i in ins], "default": 0})
+    # 0.1.5, appended: patching by pages. pk is the step, pk_t / pk_c show the jack tiles / the cancel button (engine-owned,
+    # like in_sec); the three triggers ask MPC to redraw after a tap, as the page tiles do
+    P.append({"key": "pk", "name": "Patch Step", "options": spec.PK_STEPS, "default": 0})
+    P.append({"key": "pk_t", "name": "Patch Tiles", "options": ["Off", "On"], "default": 0})
+    P.append({"key": "pk_c", "name": "Patch Cancel Shown", "options": ["Off", "On"], "default": 0})
+    P += [dict(trigger(k, n), refresh_display=True) for k, n in (
+        ("pk_cancel", "Patch Cancel"), ("pk_done", "Patch Done"), ("pk_unplug", "Patch Unplug"))]
     keys = [p["key"] for p in P]
     assert len(keys) == len(set(keys)), "duplicate keys"
     return P
@@ -318,9 +325,14 @@ def write_layout():
         x, y, w, h = spec.TILES[v[0]]
         L.append('button cx=%d cy=%d label="" key=go_%s when=view:0' % (x + w // 2, y + h // 2 + Y0, v[0]))
     for j in spec.OUTS + spec.INS:
-        x, y = spec.JACKS[j[0]]
-        L.append('button cx=%d cy=%d label="" key=tap_%s when=view:%d' % (x, y + Y0, j[0], spec.VIEW_KEYS.index('patch')))
-    L.append('readout cx=930 cy=%d w=640 h=50 label="" key=patch_info when=view:%d' % (38 + Y0, spec.VIEW_KEYS.index('patch')))
+        x, y, w, h = spec.pick_box(j[0])
+        L.append('button cx=%d cy=%d label="" key=tap_%s when=pk_t:1' % (x + w // 2, y + h // 2 + Y0, j[0]))
+    L.append('button cx=%d cy=%d label="CANCEL" key=pk_cancel when=pk_c:1' % (spec.PK_CANCEL[0], spec.PK_CANCEL[1] + Y0))
+    L.append('button cx=%d cy=%d label="UNPLUG" key=pk_unplug when=pk:6' % (
+        spec.PK_UNPLUG[0] + spec.PK_UNPLUG[2] // 2, spec.PK_UNPLUG[1] + spec.PK_UNPLUG[3] // 2 + Y0))
+    L.append('button cx=%d cy=%d label="DONE" key=pk_done when=pk:6' % (
+        spec.PK_DONE[0] + spec.PK_DONE[2] // 2, spec.PK_DONE[1] + spec.PK_DONE[3] // 2 + Y0))
+    L.append('readout cx=850 cy=%d w=500 h=50 label="" key=patch_info when=view:%d' % (38 + Y0, spec.VIEW_KEYS.index('patch')))
     L.append('readout cx=930 cy=%d w=640 h=50 label="" key=patch_info when=view:0' % (38 + Y0))   # diagnostics line on the overview too
     for c in spec.CONTROLS:
         L.append(layout_line(c))

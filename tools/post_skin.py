@@ -411,6 +411,54 @@ def view_panel(vkey, title):
     return im.resize((W, H), Image.LANCZOS)
 
 
+def pick_panel(k):
+    """The patch page's steps. 1: every jack a tile; 2-5: the kinds that fit the waiting jack bright, the rest dimmed;
+    6: the cable between its two sockets (a ready-made picture; the names are the readout's text)."""
+    im = Image.new("RGB", (W * SS, H * SS), PANEL)
+    d = ImageDraw.Draw(im)
+    d.rectangle([0, 0, W * SS, 70 * SS], fill=HEADER)
+    d.line([0, 70 * SS, W * SS, 70 * SS], fill=LINE, width=2 * SS)
+    text(d, (420, 36), "PATCH BAY", 30, INK, "lm")
+    if k == 6:
+        text(d, (W // 2, 140), "CONNECTED", 44, ORANGE)
+        x1, x2, y = 330, W - 330, 340
+        colour = spec.CABLE_COLOURS[0]
+        cab, cx0, cy0 = draw_cable((x1, y), (x2, y), colour, 2.4, clip=(0, 72, W, H))
+        base = im.resize((W, H), Image.LANCZOS).convert("RGBA")
+        base.alpha_composite(cab, (cx0, cy0))
+        im = base.convert("RGB").resize((W * SS, H * SS), Image.LANCZOS)
+        d = ImageDraw.Draw(im)
+        for x, lab in ((x1, "OUTPUT"), (x2, "INPUT")):
+            r = 40
+            d.ellipse([(x - r) * SS, (y - r) * SS, (x + r) * SS, (y + r) * SS], fill=(150, 150, 150))
+            d.ellipse([(x - r + 6) * SS, (y - r + 6) * SS, (x + r - 6) * SS, (y + r - 6) * SS], fill=(95, 95, 95))
+            d.ellipse([(x - 14) * SS, (y - 14) * SS, (x + 14) * SS, (y + 14) * SS], fill=(5, 5, 5))
+            text(d, (x, y + 84), lab, 26, DIM)
+        text(d, (W // 2, 506), "UNPLUG takes the cable out.  DONE keeps it.", 24, DIM)
+        return im.resize((W, H), Image.LANCZOS)
+    ins = {j[0]: j for j in spec.INS}
+    outs = {o[0]: o for o in spec.OUTS}
+    for key in spec.PICK_ORDER:
+        x, y, w, h = spec.pick_box(key)
+        is_out = key in outs
+        lab = outs[key][1] if is_out else ins[key][1]
+        trig = (outs[key][2] if is_out else ins[key][2]) == "trig"
+        fit = {1: True, 2: (not is_out) and not trig, 3: (not is_out) and trig,
+               4: is_out and not trig, 5: is_out and trig}[k]
+        fill = (62, 62, 62) if is_out else (34, 58, 48)
+        ink = ORANGE if trig else INK
+        edge = ORANGE if (fit and k > 1) else (110, 110, 110)
+        if not fit:
+            fill = (40, 40, 40)
+            ink = (92, 92, 92)
+            edge = (62, 62, 62)
+        d.rounded_rectangle([x * SS, y * SS, (x + w) * SS, (y + h) * SS], radius=10 * SS, fill=fill, outline=edge,
+                            width=(3 if fit and k > 1 else 2) * SS)
+        text(d, (x + w // 2, y + h // 2 - 8), lab, 26, ink)
+        text(d, (x + w // 2, y + h - 17), "OUT" if is_out else "IN", 15, ink if fit else (92, 92, 92))
+    return im.resize((W, H), Image.LANCZOS)
+
+
 def patch_sockets(d):
     ins = {j[0]: j for j in spec.INS}
     outs = {o[0]: o for o in spec.OUTS}
@@ -664,12 +712,17 @@ def main():
     rest = Image.new("RGBA", (90, 88), (0, 0, 0, 0))
     ImageDraw.Draw(rest).rounded_rectangle([1, 1, 88, 86], radius=10, outline=(120, 120, 120, 150), width=1)
     rest.save(os.path.join(folder, "ps_jack_rest.png"))
+    tile_highlight(spec.PICK_W, spec.PICK_H).save(os.path.join(folder, "ps_pick_on.png"))
     for j in spec.OUTS + spec.INS:
-        x, y = spec.JACKS[j[0]]
-        # 0.1.5 test: a larger touch zone (the jack columns are 98 apart, the rows 95) with a faint visible frame as its
-        # resting picture, like the page tiles' size, instead of a small zone drawn as nothing
-        restyle_trigger("shTrig_tap_%s_" % j[0], 90, 88, "ps_jack_rest.png", "ps_jack_press.png",
-                        lambda inst, x=x, y=y: (x - 45, y - 44, 90, 88))
+        bx, by, bw, bh = spec.pick_box(j[0])
+        restyle_trigger("shTrig_tap_%s_" % j[0], bw, bh, "ps_blank.png", "ps_pick_on.png",
+                        lambda inst, bx=bx, by=by, bw=bw, bh=bh: (bx, by, bw, bh))
+    for key, label, box in (("pk_cancel", "CANCEL", (spec.PK_CANCEL[0] - 80, spec.PK_CANCEL[1] - 26, 160, 52)),
+                            ("pk_unplug", "UNPLUG", spec.PK_UNPLUG), ("pk_done", "DONE", spec.PK_DONE)):
+        nav_image(label, False, box[2], box[3]).save(os.path.join(folder, "ps_%s_off.png" % key))
+        nav_image(label, True, box[2], box[3]).save(os.path.join(folder, "ps_%s_on.png" % key))
+        restyle_trigger("shTrig_%s_" % key, box[2], box[3], "ps_%s_off.png" % key, "ps_%s_on.png" % key,
+                        lambda inst, box=box: box)
     for v in spec.VIEWS[1:]:
         tx, ty, tw, th = spec.TILES[v[0]]
         tile_highlight(tw, th).save(os.path.join(folder, "ps_tile_on_%s.png" % v[0]))
@@ -686,6 +739,11 @@ def main():
         view_panel(v[0], v[1]).save(os.path.join(folder, "ps_view_%d.png" % i))
         injected.append(image_instance("Panel", "ps_view_%d.png" % i, 0, 0, W, H,
                                        ["IndexedEnabling/%d/%d/Parameter %d" % (i, nviews, vidx)]))
+    pk_idx = skin.index["pk"]
+    for k in range(1, len(spec.PK_STEPS)):
+        pick_panel(k).save(os.path.join(folder, "ps_pick_%d.png" % k))
+        injected.append(image_instance("Panel", "ps_pick_%d.png" % k, 0, 0, W, H,
+                                       ["IndexedEnabling/%d/%d/Parameter %d" % (k, len(spec.PK_STEPS), pk_idx)]))
     gt = spec.CTRL["geg_trigger"]
     led_xy = (gt["cx"] + 100, gt["cy"] - gt["rows"] * gt["sh"] // 2 - 22)
     led_image(False).save(os.path.join(folder, "ps_led_off.png"))
@@ -732,7 +790,7 @@ def main():
     tx, ty, tw, th = spec.TILES["patch"]
     hx = tx + tw + 30
     lines = ["Tap a section to work on it.", "OVERVIEW comes back here,", "< > step through the sections.", "",
-             "PATCH BAY: tap an output,", "then an input, to patch.", "Tap a patched output to unplug it.",
+             "PATCH BAY: tap a jack, then", "the other end, to patch.", "A patched jack shows its cable.",
              "Q-Links follow the section", "on screen."]
     for k, ln in enumerate(lines):
         dd.text((hx, ty + 20 + k * 30), ln, font=font(22), fill=DIM if ln else DIM, anchor="lm")
@@ -740,61 +798,19 @@ def main():
     comps.insert(1, image_instance("Panel", "ps_view_0.png", 0, 0, W, H,
                                    ["IndexedEnabling/0/%d/Parameter %d" % (nviews, vidx)]))
 
-    # 4) cables: patch page and overview copies, one picture per output and reachable input; held rings.
-    # Each is switched by a small parameter (spec.cable_param / held_param: at most JACK_GROUP + 1 positions, 0.1.4).
-    pos = dict(spec.JACKS)
-    px0, py0, ps = TH_MAP["patch"]
-    cable_insts, total_px = [], 0
-    pieces = 0
-    for oi, o in enumerate(spec.OUTS):
-        ins = [j for j in spec.INS if j[2] == o[2]]
-        colour = spec.CABLE_COLOURS[oi % len(spec.CABLE_COLOURS)]
-        for t, j in enumerate(ins):
-            ov_map = lambda p: (px0 + p[0] * ps, py0 + (p[1] - 72) * ps)
-            for tag, prefix, scale, mp, clip in (
-                    ("p", "cp", 1.0, lambda p: p, (0, 72, W, H)),
-                    ("o", "co", ps, ov_map, (tx, ty, tx + tw, ty + th))):
-                key, opt, nopt = spec.cable_param(prefix, o, j)
-                im, x0, y0 = draw_cable(mp(pos[o[0]]), mp(pos[j[0]]), colour, scale, clip=clip)
-                handle = ["IndexedEnabling/%d/%d/Parameter %d" % (opt, nopt, skin.index[key])]
-                for k, (piece, px, py) in enumerate(tile_pieces(im, x0, y0, spec.CABLE_TILE)):
-                    name = "ps_cab_%s_%s_%s_%d.png" % (tag, o[0], j[0], k)
-                    piece.save(os.path.join(folder, name), optimize=True)
-                    total_px += piece.size[0] * piece.size[1]
-                    pieces += 1
-                    cable_insts.append(image_instance("Cable", name, px, py, piece.size[0], piece.size[1], handle))
-    ring_image().save(os.path.join(folder, "ps_held.png"))
-    for j in spec.INS:   # an input tapped first waits for its output
-        x, y = pos[j[0]]
-        key, opt, nopt = spec.held_in_param(j)
-        cable_insts.append(image_instance("Held", "ps_held.png", x - 33, y - 33, 66, 66,
-                                          ["IndexedEnabling/%d/%d/Parameter %d" % (opt, nopt, skin.index[key])]))
-    for o in spec.OUTS:
-        x, y = pos[o[0]]
-        key, opt, nopt = spec.held_param(o)
-        cable_insts.append(image_instance("Held", "ps_held.png", x - 33, y - 33, 66, 66,
-                                          ["IndexedEnabling/%d/%d/Parameter %d" % (opt, nopt, skin.index[key])]))
-    at = 1 + len(injected) + 1
-    comps[at:at] = cable_insts
+    # 4) 0.1.5: no cable or ring pictures over the patch page any more -- the cable has its own page (pick_panel(6))
     skin.save()
 
-    print("post_skin: %d views, knob radii %s, %d cable pieces (%.1f MB decoded), %d components" % (
-        nviews, radii, pieces, total_px * 4 / 1e6, len(comps)))
+    print("post_skin: %d views, knob radii %s, %d components" % (nviews, radii, len(comps)))
 
     if preview:
         os.makedirs(preview, exist_ok=True)
-        demo = {"geg": "sg_frq", "mg1": "lp_frq", "vp1": "vca2", "trg1": "geg_trg", "mw": "mg_amt", "add": "j1_in"}
         for i, v in enumerate(spec.VIEWS):
             st = {"view": i, "in_sec": 1 if i else 0}
-            for oi, o in enumerate(spec.OUTS):
-                if o[0] in demo and (v[0] == "patch" or i == 0):
-                    j = next(x for x in spec.INS if x[0] == demo[o[0]])
-                    key, opt, _ = spec.cable_param("cp" if v[0] == "patch" else "co", o, j)
-                    st[key] = opt
-            if v[0] == "patch":
-                key, opt, _ = spec.held_param(next(o for o in spec.OUTS if o[0] == "sh"))
-                st[key] = opt
             composer.compose(st).convert("RGB").save(os.path.join(preview, "view_%02d_%s.png" % (i, v[0])))
+        for k in range(1, len(spec.PK_STEPS)):
+            composer.compose({"view": spec.VIEW_KEYS.index("patch"), "in_sec": 1, "pk": k, "pk_t": 1 if k < 6 else 0,
+                              "pk_c": 1 if 1 < k < 6 else 0}).convert("RGB").save(os.path.join(preview, "pick_%d.png" % k))
 
 
 if __name__ == "__main__":

@@ -121,6 +121,8 @@ struct Synth {
   float pv[P_COUNT];                // parameter values (native units; options = index)
   int view = 0, held = -1;
   int held_in = -1;                 // an input tapped first, waiting for its output (patching works in either order)
+  int pk = 0;                       // the patch step (spec.PK_STEPS): 0 off the page, 1 choose, 2-5 the other end, 6 connected
+  int pair_o = -1, pair_j = -1;     // the cable the connected page shows
   int dest[N_OUTS];                 // output -> input it is patched to, -1 = none
   int src[N_INS];                   // input -> output feeding it, -1 = none (derived from dest)
   unsigned rev = 1;                 // display_rev
@@ -619,6 +621,9 @@ struct Synth {
     if (v < 0 || v >= N_VIEWS || v == view) return;
     view = v;
     close_pops();   // a list left open would stay on screen over the next page and take its touches
+    held = held_in = -1;
+    pk = v == V_PATCH ? 1 : 0;
+    if (pk) snprintf(info, sizeof info, "Tap a jack. Then tap the other end of the cable.");
     bump();
   }
 
@@ -663,27 +668,61 @@ struct Synth {
     return true;
   }
 
-  void tap_out(int o) {
-    if (held_in >= 0) {                               // an input is waiting: join them (a wrong kind keeps it waiting)
-      if (connect(o, held_in)) { held_in = -1; held = -1; describe_jack(o); }
-      bump();
-      return;
-    }
-    if (held == o) held = -1;                         // tapped again: let go
-    else if (held < 0 && dest[o] >= 0) { dest[o] = -1; recompute_src(); }   // patched, nothing waiting: unplug
-    else held = o;                                    // wait for an input (or move the selection to this output)
-    describe_jack(o);
+  // Patching by pages (0.1.5): every jack is a big tile. Tap one; the page then asks for the other end, with the wrong
+  // kinds dimmed (a voltage output only joins a voltage input, a trigger only a trigger) and ignored; connecting opens the
+  // page that shows the cable. A tapped jack that is already patched opens that cable's page instead (UNPLUG is there).
+  void show_pair(int o, int j) {
+    pair_o = o; pair_j = j; pk = 6; held = held_in = -1;
+    snprintf(info, sizeof info, "%s  ->  %s", OUT_LABEL[o], IN_LABEL[j]);
     bump();
   }
 
-  void tap_in(int j) {
-    if (held >= 0) {                                  // an output is waiting: join them (a wrong kind keeps it waiting)
-      if (connect(held, j)) { held = -1; held_in = -1; describe_jack(N_OUTS + j); }
-      bump();
+  void cancel_pick() {
+    held = held_in = -1; pk = view == V_PATCH ? 1 : 0;
+    snprintf(info, sizeof info, "Tap a jack. Then tap the other end of the cable.");
+    bump();
+  }
+
+  void unplug_pair() {
+    if (pk == 6 && pair_o >= 0 && dest[pair_o] == pair_j) {
+      dest[pair_o] = -1; recompute_src();
+      snprintf(info, sizeof info, "%s unplugged", OUT_LABEL[pair_o]);
+      pair_o = pair_j = -1; held = held_in = -1; pk = 1; bump();
+    } else cancel_pick();
+  }
+
+  void done_pick() { cancel_pick(); }
+
+  void pick(int jack) {
+    if (view != V_PATCH || pk < 1 || pk > 5) return;
+    bool is_out = jack < N_OUTS;
+    int o = is_out ? jack : -1, j = is_out ? -1 : jack - N_OUTS;
+    if (pk == 1) {
+      if (is_out) {
+        if (dest[o] >= 0) { show_pair(o, dest[o]); return; }
+        held = o; pk = OUT_TRIG[o] ? 3 : 2;
+        snprintf(info, sizeof info, "%s: now tap an input (%s)", OUT_LABEL[o], OUT_TRIG[o] ? "triggers" : "voltages");
+      } else {
+        if (src[j] >= 0) { show_pair(src[j], j); return; }
+        held_in = j; pk = IN_TRIG[j] ? 5 : 4;
+        snprintf(info, sizeof info, "%s: now tap an output (%s)", IN_LABEL[j], IN_TRIG[j] ? "triggers" : "voltages");
+      }
+    } else if (pk == 2 || pk == 3) {                // an output waits for an input of its kind
+      if (is_out) { if (o == held) cancel_pick(); return; }
+      if (IN_TRIG[j] != OUT_TRIG[held]) return;
+      int oo = held;
+      connect(oo, j);
+      show_pair(oo, j);
+      return;
+    } else {                                        // an input waits for an output of its kind
+      if (!is_out) { if (j == held_in) cancel_pick(); return; }
+      if (OUT_TRIG[o] != IN_TRIG[held_in]) return;
+      int jj = held_in;
+      connect(o, jj);
+      show_pair(o, jj);
       return;
     }
-    held_in = held_in == j ? -1 : j;                  // wait for an output (tapped again: let go)
-    describe_jack(N_OUTS + j);
+    last_jack = jack;
     bump();
   }
 
@@ -864,6 +903,7 @@ void set_param(void *inst, const char *key, const char *val) {
   }
   if (p == P_VIEW) { s->set_view((int)lroundf(v)); return; }
   if (p == P_IN_SEC) return;                // follows the view
+  if (p == P_PK || p == P_PK_T || p == P_PK_C) return;   // follow the patch step
   if (p > P_IN_SEC && p <= P_IN_SEC + N_POPS) { s->set_pop(p - P_IN_SEC - 1, v > 0.5f); return; }
   if (v < 0.5f && p != P_VIEW) {
     if (p >= P_QL1 && p <= P_QL16) {} else return;   // triggers fire on 1 only
@@ -879,10 +919,12 @@ void set_param(void *inst, const char *key, const char *val) {
   if (p >= P_GO_SG && p < P_GO_SG + (N_VIEWS - 1)) { s->set_view(1 + p - P_GO_SG); return; }
   if (p >= P_TAP_GEG && p < P_TAP_GEG + N_OUTS + N_INS) {
     int jack = p - P_TAP_GEG;
-    if (jack < N_OUTS) s->tap_out(jack);
-    else s->tap_in(jack - N_OUTS);
+    s->pick(jack);
     return;
   }
+  if (p == P_PK_CANCEL) { s->cancel_pick(); return; }
+  if (p == P_PK_UNPLUG) { s->unplug_pair(); return; }
+  if (p == P_PK_DONE) { s->done_pick(); return; }
   if (p >= P_QL1 && p <= P_QL16) {
     int t = s->ql_target(p - P_QL1);
     if (t < 0) return;
@@ -928,6 +970,9 @@ int get_param(void *inst, const char *key, char *buf, int n) {
   }
   if (p == P_VIEW) return snprintf(buf, n, "%d", s->view);
   if (p == P_IN_SEC) return snprintf(buf, n, "%d", s->view > 0 ? 1 : 0);
+  if (p == P_PK) return snprintf(buf, n, "%d", s->view == V_PATCH ? s->pk : 0);
+  if (p == P_PK_T) return snprintf(buf, n, "%d", s->view == V_PATCH && s->pk >= 1 && s->pk <= 5 ? 1 : 0);
+  if (p == P_PK_C) return snprintf(buf, n, "%d", s->view == V_PATCH && s->pk >= 2 && s->pk <= 5 ? 1 : 0);
   if (p >= P_VIS_FIRST && p < P_VIS_FIRST + N_VIS) return snprintf(buf, n, "%d", s->vis_value(p - P_VIS_FIRST));
   if (p > P_IN_SEC && p <= P_IN_SEC + N_POPS) return snprintf(buf, n, "%d", s->pop_open[p - P_IN_SEC - 1] ? 1 : 0);
   if (p >= P_CAB_GEG && p < P_CAB_GEG + N_OUTS) return snprintf(buf, n, "%d", s->cable_value(p - P_CAB_GEG));
