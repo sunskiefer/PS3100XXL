@@ -1,16 +1,16 @@
 # PS3100XXL: every push builds the plugin (armv7) and the skin, runs the offline tests, packages the release zip,
 # checks it (catalog_check + `sh -n` on install.sh/uninstall.sh, the L'Cronx apostrophe) and keeps it as a run
-# artifact. "Run workflow" with a version also makes a DRAFT GitHub release with that zip: install it on a device,
-# then publish the draft (that creates the tag; the mpc-vst-plugins catalog lists published releases).
+# artifact. "Run workflow" with a version also publishes the GitHub release with that zip: pushing a v* tag does the same.
 name: build
 
 on:
   push:
     branches: [main]
+    tags: ["v*"]
   workflow_dispatch:
     inputs:
       version:
-        description: Version for a draft release, e.g. 0.1.2 (empty = build only)
+        description: Version to publish, e.g. 0.1.2 (empty = build only)
         type: string
         default: ''
 
@@ -35,7 +35,7 @@ jobs:
         run: bash test/run_tests.sh
       - name: Package
         run: |
-          V="${{ inputs.version }}"; V="${V:-0.0.${GITHUB_RUN_NUMBER}}"   # catalog versions are X.Y.Z; CI-only builds are 0.0.<run>
+          V="${{ inputs.version }}"; [ "$GITHUB_REF_TYPE" = tag ] && V="${GITHUB_REF_NAME#v}"; V="${V:-0.0.${GITHUB_RUN_NUMBER}}"; echo "VERSION=$V" >> "$GITHUB_ENV"   # catalog versions are X.Y.Z; CI-only builds are 0.0.<run>
           python3 third_party/mpc-vst-plugins/tools/release.py --so build/arm/ps3100xxl.so \
             --skin "build/package/L'Cronx - VST - PS3100XXL" --entry build/pluginlist-entry.xml --version "$V" \
             --about "Korg PS-3100-style semi-modular poly synth: 48 voices, resonators, ensemble, temperament, touch patch bay" \
@@ -56,11 +56,15 @@ jobs:
           name: PS3100XXL-${{ github.run_number }}
           path: dist/*.zip
           retention-days: 30
-      - name: Draft release
-        if: ${{ inputs.version != '' }}
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          V="${{ inputs.version }}"
-          gh release create "v$V" dist/*.zip --draft --target "$GITHUB_SHA" --title "PS3100XXL $V" \
-            --notes "Korg PS-3100-style semi-modular poly synth for Force / MPC OS. Install: unzip, run install.sh (INSTALL.md inside)."
+      - name: Publish release (tag push v*, or Run workflow with a version)
+        if: ${{ github.ref_type == 'tag' || inputs.version != '' }}
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ env.VERSION }}
+          target_commitish: ${{ github.sha }}
+          name: PS3100XXL ${{ env.VERSION }}
+          make_latest: true
+          prerelease: false
+          draft: false
+          files: dist/*-mpc-armv7.zip
+          body: "PS3100XXL for Force / MPC OS by L'Cronx. Install: unzip, run install.sh (INSTALL.md inside), or use the MPC plugin installer."
