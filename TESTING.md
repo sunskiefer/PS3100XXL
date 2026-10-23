@@ -21,6 +21,22 @@ data wheel on a pop-up field moved its open flag, not the value; the header butt
 swapped under the finger on a press; a pop-up list left open stayed on every other page and took its touches (over the
 right half of the patch bay).
 
+## 0.1.5 (checked on a Force, 2026-10-23)
+
+Found on the Force with 0.1.4: taps seemed to do nothing, no ring, no cable, no sound change.
+- Device finding (a test counter in the patch_info line, read live from the screen): jack taps DO reach the plugin
+  (taps counted on the Force); what failed was showing the result. A tap that only moved engine state never redrew
+  the pictures.
+- Patching is now a step (`pk`, 7 positions) switched like the overview's page tiles: 1 choose, 2/3 an output waits
+  (voltage/trigger), 4/5 an input waits, 6 connected. The jack taps (and CANCEL / UNPLUG / DONE) ask the host to redraw
+  (`refresh_display`), as the tiles do. `pk_t` / `pk_c` show the sockets' touch zones and CANCEL.
+- The drawn cables stay on the patch panel on steps 1-5 (`cp_`); the overview no longer carries cable copies (`co_`
+  and the rings `hd_` / `hi_` stay in params.lock, unused).
+- Skin: 4,300 components (it was 6,300 with the overview copies).
+- On the Force: tap, tap, CONNECTED page, then the cables on the panel after DONE: works (user, 2026-10-23, 0.1.5 test
+  build). Sound check of a patched cable: still to confirm in the table below.
+- `test/ui_test.c` and `engine_test`: steps, kinds, either order, one cable per input, unplug, done, cancel.
+
 ## 0.1.4 (offline)
 
 Found on the Force with 0.1.3: still no ring or cable in the patch bay; every pop-up list closed as soon as it opened.
@@ -42,9 +58,9 @@ Found on the Force with 0.1.3: still no ring or cable in the patch bay; every po
 | 1 | The plugin loads on a track; how long the screen takes to open | |
 | 2 | Overview: every tile opens its section; OVERVIEW and < > work | |
 | 3 | Every knob, switch and selector on every section turns and sounds | |
-| 4 | Patch bay: output tap shows the ring, input tap draws the cable (0.1.2: nothing happened) | |
+| 4 | Patch bay: tap, tap, CONNECTED page; DONE keeps the cable on the panel | works (2026-10-23) |
 | 5 | Tapping a patched output unplugs it; the cable goes | |
-| 6 | Cables also show on the overview's patch bay tile | |
+| 6 | (dropped in 0.1.5: no cables on the overview tile) | n/a |
 | 7 | Q-Links follow the section on screen, names change with it | |
 | 8 | PRESET menu lists 16 sounds; a pick changes the sound and keeps the cables | |
 | 9 | Save the project, reload: sound, cables and section come back | |

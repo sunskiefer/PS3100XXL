@@ -128,8 +128,6 @@ struct Synth {
   unsigned rev = 1;                 // display_rev
   int last_jack = -1;               // patch_info: the jack tapped last (outputs, then inputs)
   char info[128];
-  unsigned n_tap = 0, n_lo = 0, n_set = 0;   // diagnostics: jack taps that arrived (value >= .5 / below), any set
-  int last_set = -1;
   bool hold_active = false;
   bool pop_open[N_POPS] = {};       // pop_<key>: which pop-up list is open (at most one; closed on a pick or a page change)
 
@@ -894,8 +892,6 @@ void set_param(void *inst, const char *key, const char *val) {
   if (!strcmp(key, "transport")) { if (v > 0.5f) s->clk_phase[0] = s->clk_phase[1] = 0; return; }
   int p = find_key(key);
   if (p < 0) return;
-  s->n_set++; s->last_set = p;
-  if (p >= P_TAP_GEG && p < P_TAP_GEG + N_OUTS + N_INS) { if (v >= 0.5f) s->n_tap++; else s->n_lo++; }
   if (p < N_CONTROLS) {
     set_control(s, p, v);
     s->bump();                              // the Q-Link knob mirroring it moves too
@@ -978,7 +974,7 @@ int get_param(void *inst, const char *key, char *buf, int n) {
   if (p >= P_CAB_GEG && p < P_CAB_GEG + N_OUTS) return snprintf(buf, n, "%d", s->cable_value(p - P_CAB_GEG));
   if (p == P_HELD) return snprintf(buf, n, "%d", s->view == V_PATCH && s->held >= 0 ? s->held + 1 : 0);
   if (p == P_GEG_LED) return snprintf(buf, n, "%d", s->geg_led && s->view == V_GEG ? 1 : 0);
-  if (p == P_PATCH_INFO) return snprintf(buf, n, "[taps %u low %u sets %u last %d] %s", s->n_tap, s->n_lo, s->n_set, s->last_set, s->info);
+  if (p == P_PATCH_INFO) return snprintf(buf, n, "%s", s->info);
   return snprintf(buf, n, "0");   // triggers and navigation read back as 0
 }
 
