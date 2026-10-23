@@ -110,7 +110,7 @@ def build_params():
     # the section switches: the 16 Q-Links' names follow the section, so these ask MPC to redraw (mpc-vst-plugins #486)
     P += [dict(trigger(k, lbl), refresh_display=True) for k, lbl, _, _ in spec.NAV]
     P += [dict(trigger("go_" + v[0], "Go " + v[2].title()), refresh_display=True) for v in spec.VIEWS[1:]]
-    P += [trigger("tap_" + j[0], "Jack " + j[1]) for j in spec.OUTS + spec.INS]
+    P += [dict(trigger("tap_" + j[0], "Jack " + j[1]), refresh_display=True) for j in spec.OUTS + spec.INS]   # like the page tiles: MPC redraws after a tap, so the ring and cable pictures switch
     P += [{"key": "cab_" + o[0], "name": "Cable " + o[1], "options": cable_opts(o[2]), "default": 0, "poll": False}
           for o in spec.OUTS]
     P.append({"key": "held", "name": "Held Output", "options": ["-"] + [o[1] for o in spec.OUTS], "default": 0})
