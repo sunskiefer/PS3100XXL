@@ -321,6 +321,7 @@ def write_layout():
         x, y = spec.JACKS[j[0]]
         L.append('button cx=%d cy=%d label="" key=tap_%s when=view:%d' % (x, y + Y0, j[0], spec.VIEW_KEYS.index('patch')))
     L.append('readout cx=930 cy=%d w=640 h=50 label="" key=patch_info when=view:%d' % (38 + Y0, spec.VIEW_KEYS.index('patch')))
+    L.append('readout cx=930 cy=%d w=640 h=50 label="" key=patch_info when=view:0' % (38 + Y0))   # diagnostics line on the overview too
     for c in spec.CONTROLS:
         L.append(layout_line(c))
     L.append('qlinks "PS3100XXL" = ' + ",".join("ql%d" % (i + 1) for i in range(16)))
